@@ -1,6 +1,20 @@
 
 $(function(){
 
+    // 3번: 스크롤 페이드인 (Intersection Observer)
+    const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(function(el){
+        observer.observe(el);
+    });
+
     // 헤더 스크롤 감지
     $(window).on('scroll', function(){
         if($(this).scrollTop() > 50){
