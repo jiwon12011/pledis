@@ -115,7 +115,8 @@ $(function(){
         const exitClass  = dir > 0 ? 'exit-left'  : 'exit-right';
         const enterClass = dir > 0 ? 'enter-left' : 'enter-right';
 
-        // 커버 퇴장
+        // 커버 퇴장 + CD 페이드
+        $('.album_left').addClass('changing');
         $cover.removeClass('exit-left exit-right enter-left enter-right').addClass(exitClass);
 
         // 썸네일 교체
@@ -138,6 +139,7 @@ $(function(){
             setTimeout(function(){
                 $cover.removeClass(enterClass);
                 $thumbs.removeClass('thumb-enter');
+                $('.album_left').removeClass('changing');
                 albumBusy = false;
             }, 500);
         }, 320);
