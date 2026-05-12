@@ -6,49 +6,70 @@
 a{text-decoration: none; color: inherit;}
 li{list-style: none;}
 
-/* ── 커스텀 커서 ── */
-body, a, button{ cursor: none; }
-.cursor_dot{
-    position: fixed; z-index: 9999; pointer-events: none;
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #e8704a;
-    transform: translate(-50%, -50%);
-    will-change: left, top;
-}
-.cursor_ring{
-    position: fixed; z-index: 9998; pointer-events: none;
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1.5px solid rgba(232,112,74,0.6);
-    transform: translate(-50%, -50%);
-    transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
-    will-change: left, top;
-}
-.cursor_ring.hovered{
-    width: 56px; height: 56px;
-    border-color: rgba(232,112,74,0.9);
-    background: rgba(232,112,74,0.08);
-}
-@media (max-width: 768px){
-    body, a, button{ cursor: auto; }
-    .cursor_dot, .cursor_ring{ display: none; }
-}
-
-/* ── 페이지 로딩 인트로 ── */
+/* ── 페이지 로딩 인트로 (고급) ── */
 .page_intro{
     position: fixed; inset: 0; z-index: 10000;
-    background: #fff;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+    background: #0c0c0c;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 28px;
+    overflow: hidden;
 }
-.page_intro.hide{ transform: translateY(-100%); pointer-events: none; }
+/* 좌우로 갈라지며 퇴장 */
+.page_intro::before,
+.page_intro::after{
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50%;
+    background: #0c0c0c;
+    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+    z-index: 1;
+}
+.page_intro::before{ left: 0; }
+.page_intro::after { right: 0; }
+.page_intro.hide::before{ transform: translateX(-100%); }
+.page_intro.hide::after { transform: translateX(100%); }
+
+.intro_content{
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 22px;
+}
 .intro_logo{
-    width: 180px;
+    width: 160px;
+    filter: brightness(0) invert(1);
     opacity: 0;
-    transform: translateY(14px);
-    animation: intro_logo_in 0.6s ease forwards 0.25s;
+    transform: translateY(16px);
+    animation: intro_logo_in 0.7s cubic-bezier(0.22,1,0.36,1) forwards 0.3s;
+}
+.intro_label{
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.4);
+    opacity: 0;
+    animation: intro_logo_in 0.7s ease forwards 0.55s;
+}
+/* 가는 로딩 선 */
+.intro_bar{
+    width: 120px; height: 1px;
+    background: rgba(255,255,255,0.12);
+    position: relative; overflow: hidden;
+    opacity: 0;
+    animation: intro_logo_in 0.5s ease forwards 0.4s;
+}
+.intro_bar::after{
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: #e8704a;
+    animation: intro_bar_fill 0.9s cubic-bezier(0.4,0,0.2,1) forwards 0.5s;
 }
 @keyframes intro_logo_in{
     to{ opacity: 1; transform: translateY(0); }
+}
+@keyframes intro_bar_fill{
+    to{ left: 0; }
 }
 
 /* ── MV 타이머 바 ── */
@@ -378,7 +399,7 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     z-index: 0;
     overflow: hidden;
 }
-.mv_slider, .mv_info{ position: relative; z-index: 2; }
+.mv_stage, .mv_slider{ position: relative; z-index: 2; }
 .mv_orbit{
     position: absolute;
     top: 50%; left: 50%;
@@ -492,12 +513,16 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     position: relative;
 }
 
+.mv_stage{
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
 .mv_slider{
     position: relative;
     width: 100%;
-    max-width: 980px;
     aspect-ratio: 1200 / 420;
-    margin: 0 auto;
     padding-top: 190px;
 }
 
@@ -598,27 +623,23 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     50%    { transform: translate(-50%,-50%) scale(1.06); box-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 0 0 10px rgba(232,112,74,0); }
 }
 
-/* 아래 정보 */
-.mv_info{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0 90px;
+.mv_stage > .prev,
+.mv_stage > .next{
+    position: absolute;
+    top: calc(100% + 30px);
+    z-index: 10;
+}
+.mv_stage > .prev{ left: calc(50% - 350px); }
+.mv_stage > .next{ right: calc(50% - 350px); }
+
+.mv_text{
+    text-align: center;
     max-width: 700px;
     margin: 0 auto;
-    box-sizing: border-box;
+    padding: 30px 0 90px;
+    position: relative;
+    z-index: 2;
 }
-
-.mv_info .arrow{
-    position: absolute;
-    top: 30px;
-}
-
-.mv_info .prev{ left: 0; }
-.mv_info .next{ right: 0; }
-
-.mv_text{ text-align: center;}
 
 .mv_text h3{
     font-size: 30px;
@@ -644,6 +665,9 @@ header.scrolled .lang li.active a{ color: #FF4600; }
 }
 
 /* 앨범 */
+.album_left > .album_prev,
+.album_left > .album_next{ display: none; }
+
 .album{
     background: #fefefe;
     overflow: hidden;
@@ -1055,7 +1079,7 @@ header.scrolled .hamburger span{ background: #222; }
     .artist .artistbox{ max-width: 1540px; gap: 26px; }
     .artist .artistbox li{ width: 360px; height: 360px; }
     .album_box{ max-width: 1300px; }
-    .mv_slider{ max-width: 1100px; }
+    .mv_stage{ max-width: 1100px; }
     .audition_text{ padding-left: clamp(80px, 10vw, 200px); }
     .footer_inner{ max-width: 1600px; gap: 120px; }
 }
@@ -1135,8 +1159,24 @@ header.scrolled .hamburger span{ background: #222; }
     .mv_orbit.o3, .mv_orbit.o4{ display: none; }
     .album_vinyl, .album_soundwave, .album_headphone, .album_mic{ display: none; }
 
-    /* MV: 활성 카드만 표시 */
+    /* MV: 카드 양옆에 화살표 */
+    .mv_stage{
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        padding: 0 2px;
+        gap: 2px;
+    }
+    .mv_stage > .prev,
+    .mv_stage > .next{
+        position: static;
+        top: auto; left: auto; right: auto;
+        flex-shrink: 0;
+        font-size: 38px;
+        padding: 0 4px;
+    }
     .mv_slider{
+        flex: 1;
         aspect-ratio: auto;
         padding-top: 0;
         height: auto;
@@ -1146,7 +1186,7 @@ header.scrolled .hamburger span{ background: #222; }
     .mv_item{
         position: relative;
         left: auto; top: auto;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
         transform: none !important;
         display: none;
@@ -1155,15 +1195,34 @@ header.scrolled .hamburger span{ background: #222; }
     .mv_item img{ position: static; width: 100%; height: auto; }
     .mv_item.active{ display: block; }
     .mv_item.active::after{ display: none; }
-    .mv_info{
+    .mv_text{
+        padding: 14px 24px 36px;
         max-width: 100%;
-        padding: 16px 24px 40px;
-        position: relative;
     }
-    .mv_info .arrow{ position: static; top: auto; }
     .mv_text h3{ font-size: 17px; }
     .mv_text p{ font-size: 13px; }
-    .arrow{ font-size: 36px; }
+
+    /* 앨범 커버 양옆 화살표 */
+    .album_left{
+        position: relative;
+        width: 88%;
+    }
+    .album_left > .album_prev,
+    .album_left > .album_next{
+        display: flex;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        font-size: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+    .album_left > .album_prev{ left: -38px; }
+    .album_left > .album_next{ right: -38px; }
+    .album_control > .album_prev,
+    .album_control > .album_next{ display: none; }
+    .album_control{ justify-content: center; }
 
     /* 앨범 */
     .album_box{ flex-direction: column; gap: 24px; padding-bottom: 50px; }
@@ -1206,5 +1265,6 @@ header.scrolled .hamburger span{ background: #222; }
     .artist .artistbox li{ width: calc(50% - 6px); }
     .audition h2{ font-size: 26px; }
     .audition_img{ height: 220px; }
-    .mv_item{ width: 95%; }
+    .mv_stage > .prev,
+    .mv_stage > .next{ font-size: 30px; padding: 0 2px; }
 }

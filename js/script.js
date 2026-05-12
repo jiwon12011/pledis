@@ -5,28 +5,6 @@ setTimeout(function(){
     setTimeout(function(){ $('#pageIntro').remove(); }, 800);
 }, 1400);
 
-// 커스텀 커서
-(function(){
-    var $dot  = $('.cursor_dot');
-    var $ring = $('.cursor_ring');
-    var mouseX = 0, mouseY = 0;
-    var ringX  = 0, ringY  = 0;
-
-    $(document).on('mousemove', function(e){
-        mouseX = e.clientX; mouseY = e.clientY;
-        $dot.css({ left: mouseX, top: mouseY });
-    });
-
-    (function loop(){
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
-        $ring.css({ left: ringX, top: ringY });
-        requestAnimationFrame(loop);
-    })();
-
-    $(document).on('mouseenter', 'a, button', function(){ $ring.addClass('hovered'); })
-               .on('mouseleave', 'a, button', function(){ $ring.removeClass('hovered'); });
-})();
 
 $(function(){
 
@@ -158,7 +136,7 @@ $(function(){
 
     updateSlider();
 
-    $('.mv_info .next').click(function(){
+    $('.mv_stage .next').click(function(){
 
         current++;
 
@@ -201,7 +179,7 @@ $(function(){
         if(e.key === 'Escape') closeModal();
     });
 
-    $('.mv_info .prev').click(function(){
+    $('.mv_stage .prev').click(function(){
         current--;
         if(current < 0){ current = $items.length - 1; }
         updateSlider();
@@ -230,7 +208,7 @@ $(function(){
         }, AUTO_INTERVAL);
     }
 
-    $('.mv_info .next, .mv_info .prev').on('click', function(){ startMvTimer(); });
+    $('.mv_stage .next, .mv_stage .prev').on('click', function(){ startMvTimer(); });
     $('.music_video').on('mouseenter', function(){ mvPaused = true; })
                      .on('mouseleave', function(){ mvPaused = false; });
     startMvTimer();
