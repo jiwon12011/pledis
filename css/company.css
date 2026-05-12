@@ -6,7 +6,7 @@
 .sub_hero {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 32 / 9;
     overflow: hidden;
 }
 
