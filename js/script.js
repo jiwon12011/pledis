@@ -136,7 +136,7 @@ $(function(){
 
     updateSlider();
 
-    $('.mv_stage .next').click(function(){
+    $('.mv_controls .next').click(function(){
 
         current++;
 
@@ -179,7 +179,7 @@ $(function(){
         if(e.key === 'Escape') closeModal();
     });
 
-    $('.mv_stage .prev').click(function(){
+    $('.mv_controls .prev').click(function(){
         current--;
         if(current < 0){ current = $items.length - 1; }
         updateSlider();
@@ -208,7 +208,7 @@ $(function(){
         }, AUTO_INTERVAL);
     }
 
-    $('.mv_stage .next, .mv_stage .prev').on('click', function(){ startMvTimer(); });
+    $('.mv_controls .next, .mv_controls .prev').on('click', function(){ startMvTimer(); });
     $('.music_video').on('mouseenter', function(){ mvPaused = true; })
                      .on('mouseleave', function(){ mvPaused = false; });
     startMvTimer();
@@ -219,37 +219,23 @@ $(function(){
     let albumBusy = false;
 
     function updateAlbum(dir){
-        const prevIdx = (albumCurrent - 1 + albums.length) % albums.length;
-        const nextIdx = (albumCurrent + 1) % albums.length;
-
         const $cover = $('.album_left .cover');
         const exitClass  = dir > 0 ? 'exit-left'  : 'exit-right';
         const enterClass = dir > 0 ? 'enter-left' : 'enter-right';
 
-        // 커버 퇴장 + CD 페이드
         $('.album_left').addClass('changing');
         $cover.removeClass('exit-left exit-right enter-left enter-right').addClass(exitClass);
 
-        // 썸네일 교체
-        const $thumbs = $('.album_list li img');
-        $thumbs.each(function(){ $(this).removeClass('thumb-enter'); });
-
         setTimeout(function(){
-            // 커버 교체 + 등장
             $cover.attr('src', albums[albumCurrent])
                   .removeClass(exitClass)
                   .addClass(enterClass);
 
-            // 썸네일 교체 + 등장
-            $thumbs.eq(0).attr('src', albums[prevIdx]).addClass('thumb-enter');
-            $thumbs.eq(1).attr('src', albums[nextIdx]).addClass('thumb-enter');
-
-            // 페이저
             $('.pager span').removeClass('on').eq(albumCurrent).addClass('on');
+            $('.album_list li').removeClass('active').eq(albumCurrent).addClass('active');
 
             setTimeout(function(){
                 $cover.removeClass(enterClass);
-                $thumbs.removeClass('thumb-enter');
                 $('.album_left').removeClass('changing');
                 albumBusy = false;
             }, 500);
@@ -258,12 +244,9 @@ $(function(){
 
     // 초기 세팅
     (function(){
-        const prevIdx = (albumCurrent - 1 + albums.length) % albums.length;
-        const nextIdx = (albumCurrent + 1) % albums.length;
         $('.album_left .cover').attr('src', albums[albumCurrent]);
-        $('.album_list li img').eq(0).attr('src', albums[prevIdx]);
-        $('.album_list li img').eq(1).attr('src', albums[nextIdx]);
         $('.pager span').removeClass('on').eq(albumCurrent).addClass('on');
+        $('.album_list li').removeClass('active').eq(albumCurrent).addClass('active');
     })();
 
     $('.album_next').click(function(){
