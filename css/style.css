@@ -217,12 +217,21 @@ header .lang li:hover{color: #FF4600;}
 
 /* 아래 정보 */
 .mv_info{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
     padding-bottom: 90px;
 }
+
+.mv_info .arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mv_info .prev{ left: 0; }
+.mv_info .next{ right: 0; }
 
 .mv_text{ text-align: center;}
 
@@ -292,8 +301,45 @@ header .lang li:hover{color: #FF4600;}
     to   { transform: translateY(-50%) rotate(360deg); }
 }
 
-.album_left .cover{
-    transition: opacity 0.4s;
+/* 앨범 커버 전환 애니메이션 */
+@keyframes coverExitLeft {
+    0%   { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
+    100% { opacity: 0; transform: translateX(-80px) scale(0.82) rotateY(-25deg); }
+}
+@keyframes coverExitRight {
+    0%   { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
+    100% { opacity: 0; transform: translateX(80px) scale(0.82) rotateY(25deg); }
+}
+@keyframes coverEnterLeft {
+    0%   { opacity: 0; transform: translateX(80px) scale(0.82) rotateY(25deg); }
+    100% { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
+}
+@keyframes coverEnterRight {
+    0%   { opacity: 0; transform: translateX(-80px) scale(0.82) rotateY(-25deg); }
+    100% { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
+}
+
+.album_left .cover.exit-left  { animation: coverExitLeft  0.35s ease-in forwards; }
+.album_left .cover.exit-right { animation: coverExitRight 0.35s ease-in forwards; }
+.album_left .cover.enter-left { animation: coverEnterLeft  0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.album_left .cover.enter-right{ animation: coverEnterRight 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+/* 썸네일 전환 */
+@keyframes thumbFadeIn {
+    0%   { opacity: 0; transform: scale(0.88) translateY(12px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.album_list li img.thumb-enter {
+    animation: thumbFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 페이저 전환 */
+.pager span {
+    transition: background 0.4s, width 0.4s;
+}
+.pager span.on {
+    background: #FF4600;
+    width: 100px;
 }
 
 .album_right{width: 40%;}
