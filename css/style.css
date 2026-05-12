@@ -277,7 +277,8 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     padding: 36px;
     gap: 10px;
     height: 100%;
@@ -804,27 +805,35 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     position: relative;
     z-index: 2;
-    min-height: 420px;
+    min-height: 460px;
 }
 
 .audition_text{
-    flex: 0 0 55%;
+    flex: 0 0 52%;
     padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
 }
 
 .audition_img{
-    flex: 0 0 45%;
-    align-self: flex-end;
-    line-height: 0;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28%);
+    mask-image: linear-gradient(to right, transparent 0%, black 28%);
 }
 
 .audition_img img{
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: left center;
 }
 
 .audition h2{
@@ -898,4 +907,236 @@ footer{
 .copy{
     font-size: 18px;
     white-space: nowrap;
+}
+
+/* ════════════════════════════════════════
+   햄버거 / 모바일 내비 (기본: 숨김)
+════════════════════════════════════════ */
+body.nav-open{ overflow: hidden; }
+
+.hamburger{
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+    flex-shrink: 0;
+}
+.hamburger span{
+    display: block;
+    width: 28px; height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+}
+header.scrolled .hamburger span{ background: #222; }
+.hamburger.open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity: 0; }
+.hamburger.open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+
+.mobile_nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(14px);
+    z-index: 150;
+    padding: 88px 36px 44px;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+    display: none;
+}
+.mobile_nav.open{ transform: translateY(0); }
+
+.mobile_nav_list li a{
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color 0.2s;
+    letter-spacing: 0.04em;
+}
+.mobile_nav_list li a:hover{ color: #FF4600; }
+
+.mobile_lang_list{
+    display: flex;
+    gap: 24px;
+    margin-top: 28px;
+}
+.mobile_lang_list li a{
+    font-size: 16px;
+    color: #888;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.mobile_lang_list li.active a{ color: #FF4600; font-weight: 700; }
+
+/* ════════════════════════════════════════
+   1920px 이상 (대형 모니터)
+════════════════════════════════════════ */
+@media (min-width: 1920px){
+    .textbox h2{ font-size: 50px; }
+    .textbox span{ font-size: 28px; }
+    .artist .artistbox{ max-width: 1720px; gap: 28px; }
+    .artist .artistbox li{ width: 400px; height: 400px; }
+    .album_box{ max-width: 1500px; }
+    .mv_slider{ max-width: 1500px; }
+    .audition_inner{ max-width: 1600px; }
+    .footer_inner{ max-width: 1720px; }
+    .footer_info{ font-size: 24px; }
+    .copy{ font-size: 20px; }
+}
+
+/* ════════════════════════════════════════
+   1440px 이하 (일반 데스크탑)
+════════════════════════════════════════ */
+@media (max-width: 1440px){
+    .artist .artistbox{ padding-left: 20px; padding-right: 20px; }
+    .footer_inner{ padding: 0 40px; gap: 80px; }
+}
+
+/* ════════════════════════════════════════
+   태블릿 (769px ~ 1024px)
+════════════════════════════════════════ */
+@media (max-width: 1024px){
+    header{ padding: 28px 40px; justify-content: space-between; }
+    header.scrolled{ padding: 16px 40px; }
+    header .nav{ gap: 32px; }
+    header .nav li{ font-size: 16px; }
+    header .lang li{ font-size: 14px; gap: 14px; }
+
+    .textbox{ padding-top: 70px; }
+    .textbox h2{ font-size: 32px; }
+    .textbox span{ font-size: 18px; padding-bottom: 40px; }
+
+    /* 아티스트 3열 */
+    .artist .artistbox{ max-width: 100%; padding: 0 30px 80px; gap: 16px; }
+    .artist .artistbox li{ width: calc(33.33% - 11px); height: auto; aspect-ratio: 1/1; flex-shrink: 1; }
+
+    /* MV */
+    .mv_slider{ padding-top: 180px; }
+    .mv_text h3{ font-size: 22px; }
+    .mv_text p{ font-size: 16px; }
+
+    /* 앨범 */
+    .album_box{ flex-direction: column; gap: 30px; padding-bottom: 80px; }
+    .album_left{ width: 70%; margin: 0 auto; }
+    .album_right{ width: 80%; margin: 0 auto; }
+
+    /* 오디션 */
+    .audition_text{ padding: 60px 40px 60px 50px; }
+    .audition h2{ font-size: 38px; }
+
+    /* 푸터 */
+    .footer_inner{ padding: 0 40px; gap: 40px; }
+    .footer_info{ font-size: 18px; }
+    .copy{ font-size: 16px; }
+}
+
+/* ════════════════════════════════════════
+   모바일 (≤768px) — 햄버거 메뉴
+════════════════════════════════════════ */
+@media (max-width: 768px){
+    /* 헤더 */
+    header{ padding: 20px 24px; justify-content: space-between; }
+    header.scrolled{ padding: 14px 24px; }
+    header .nav{ display: none; }
+    header .lang{ display: none; }
+    .hamburger{ display: flex; }
+    .mobile_nav{ display: block; }
+
+    /* 텍스트 */
+    .textbox{ padding-top: 50px; }
+    .textbox h2{ font-size: 24px; gap: 8px; }
+    .textbox h2::before, .textbox h2::after{ max-width: 22px; }
+    .textbox span{ font-size: 13px; padding-bottom: 30px; }
+
+    /* 아티스트 2열 */
+    .artist .artistbox{ padding: 0 16px 60px; gap: 12px; }
+    .artist .artistbox li{ width: calc(50% - 6px); height: auto; aspect-ratio: 1/1; flex-shrink: 1; }
+    .artist .artistbox li .overlay h4{ font-size: 18px; }
+    .artist .artistbox .none h4{ font-size: 18px; }
+    .artist .artistbox .none span{ font-size: 12px; }
+
+    /* 배경 반짝이 일부 숨김 */
+    .artist_bg .spark:nth-child(n+12){ display: none; }
+    .mv_orbit.o3, .mv_orbit.o4{ display: none; }
+    .album_vinyl, .album_soundwave, .album_headphone, .album_mic{ display: none; }
+
+    /* MV: 활성 카드만 표시 */
+    .mv_slider{
+        aspect-ratio: auto;
+        padding-top: 0;
+        height: auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+    .mv_item{
+        position: relative;
+        left: auto; top: auto;
+        width: 90%;
+        margin: 0 auto;
+        transform: none !important;
+        display: none;
+        border-radius: 12px;
+    }
+    .mv_item img{ position: static; width: 100%; height: auto; }
+    .mv_item.active{ display: block; }
+    .mv_item.active::after{ display: none; }
+    .mv_info{
+        max-width: 100%;
+        padding: 16px 24px 40px;
+        position: relative;
+    }
+    .mv_info .arrow{ position: static; top: auto; }
+    .mv_text h3{ font-size: 17px; }
+    .mv_text p{ font-size: 13px; }
+    .arrow{ font-size: 36px; }
+
+    /* 앨범 */
+    .album_box{ flex-direction: column; gap: 24px; padding-bottom: 50px; }
+    .album_left{ width: 86%; margin: 0 auto; }
+    .album_right{ width: 86%; margin: 0 auto; }
+    .album_list{ gap: 12px; }
+    .album_list li{ width: calc(50% - 6px); }
+    .pager span{ width: 44px; height: 8px; }
+    .pager span.on{ width: 60px; }
+    .album_control{ gap: 24px; margin-top: 24px; }
+
+    /* 오디션 */
+    .audition_inner{ flex-direction: column; min-height: auto; }
+    .audition_text{ flex: none; width: 100%; padding: 50px 28px 30px; box-sizing: border-box; }
+    .audition_img{
+        flex: none; width: 100%; position: relative;
+        height: 260px;
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    }
+    .audition h2{ font-size: 30px; }
+    .audition strong{ font-size: 14px; }
+    .audition p{ font-size: 12px; line-height: 1.8; }
+    .apply_btn{ font-size: 13px; padding: 10px 26px; }
+
+    /* 푸터 */
+    footer{ height: auto; padding: 44px 0; }
+    .footer_inner{ flex-direction: column; gap: 20px; align-items: center; text-align: center; padding: 0 24px; }
+    .footer_info{ font-size: 15px; line-height: 1.8; }
+    .copy{ font-size: 13px; white-space: normal; }
+}
+
+/* ════════════════════════════════════════
+   소형 모바일 (≤480px)
+════════════════════════════════════════ */
+@media (max-width: 480px){
+    .textbox h2{ font-size: 20px; }
+    .artist .artistbox li{ width: calc(50% - 6px); }
+    .audition h2{ font-size: 26px; }
+    .audition_img{ height: 220px; }
+    .mv_item{ width: 95%; }
 }
