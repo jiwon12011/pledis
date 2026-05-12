@@ -15,12 +15,63 @@ $(function(){
         observer.observe(el);
     });
 
-    // 헤더 스크롤 감지
+    // 반짝이 초기화: 각 spark에 랜덤 딜레이 + 랜덤 애니메이션 종류 배정
+    const sparkAnims = ['spark_twinkle', 'spark_pulse', 'spark_drift', 'spark_shake'];
+    document.querySelectorAll('.spark').forEach(function(el){
+        const anim = sparkAnims[Math.floor(Math.random() * sparkAnims.length)];
+        const dur  = (2.8 + Math.random() * 3).toFixed(2) + 's';
+        const delay = (Math.random() * 5).toFixed(2) + 's';
+        el.style.animationName     = anim;
+        el.style.animationDuration = dur;
+        el.style.animationDelay    = delay;
+    });
+    document.querySelectorAll('.spark-line').forEach(function(el){
+        const dur   = (4 + Math.random() * 4).toFixed(2) + 's';
+        const delay = (Math.random() * 6).toFixed(2) + 's';
+        el.style.animationDuration = dur;
+        el.style.animationDelay    = delay;
+    });
+
+    // 스크롤 시 랜덤 버스트
+    const $allSparks = $('.spark, .spark-line');
+    let scrollBurstTimer = null;
+    let lastScrollY = 0;
+
     $(window).on('scroll', function(){
-        if($(this).scrollTop() > 50){
+        const scrollY = $(this).scrollTop();
+
+        // 헤더 스크롤 감지
+        if(scrollY > 50){
             $('header').addClass('scrolled');
         } else {
             $('header').removeClass('scrolled');
+        }
+
+        // 스크롤 방향·속도 무관하게 일정 거리 이동할 때마다 버스트
+        if(Math.abs(scrollY - lastScrollY) > 30){
+            lastScrollY = scrollY;
+            if(scrollBurstTimer) clearTimeout(scrollBurstTimer);
+
+            // 화면 viewport 안에 있는 spark 중 랜덤 3~5개 버스트
+            const viewTop = scrollY;
+            const viewBot = scrollY + window.innerHeight;
+            const $visible = $allSparks.filter(function(){
+                const rect = this.getBoundingClientRect();
+                return rect.top >= 0 && rect.bottom <= window.innerHeight;
+            });
+
+            const pool = $visible.length ? $visible : $allSparks;
+            const count = Math.min(pool.length, 3 + Math.floor(Math.random() * 3));
+            const picked = [];
+            while(picked.length < count){
+                const idx = Math.floor(Math.random() * pool.length);
+                if(!picked.includes(idx)) picked.push(idx);
+            }
+            picked.forEach(function(idx){
+                const $el = pool.eq(idx);
+                $el.addClass('spark-burst');
+                setTimeout(function(){ $el.removeClass('spark-burst'); }, 650);
+            });
         }
     });
 
