@@ -89,32 +89,17 @@ header .lang li:hover{color: #FF4600;}
 /* 아티스트 */
 
 .artist{
-    background: linear-gradient(
-        to bottom,
-        #2b1020 0%,
-        #7a2535 22%,
-        #c85525 36%,
-        #f0c5a5 58%,
-        #fef5f0 100%
-    );
+    background: #fefefe;
     margin: 0 auto;
-    max-width: 100%;
+    max-width: 1440px;
     position: relative;
     overflow: hidden;
-}
-
-.artist .artistbox{
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 40px 120px;
 }
 
 .artist .textbox{
     position: relative;
     z-index: 2;
 }
-.artist .textbox h2{ color: #fff; }
-.artist .textbox span{ color: rgba(255,255,255,0.75); }
 
 /* 반짝이 배경 레이어 */
 .artist_bg{
@@ -130,6 +115,7 @@ header .lang li:hover{color: #FF4600;}
     position: absolute;
     display: block;
     background: #e8704a;
+    opacity: 0.75;
     clip-path: polygon(50% 0%, 53% 47%, 100% 50%, 53% 53%, 50% 100%, 47% 53%, 0% 50%, 47% 47%);
 }
 
@@ -137,7 +123,7 @@ header .lang li:hover{color: #FF4600;}
 .spark-line{
     position: absolute;
     width: 32px; height: 32px;
-    opacity: 0.55;
+    opacity: 0.4;
 }
 .spark-line::before,
 .spark-line::after{
