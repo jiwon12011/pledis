@@ -436,10 +436,10 @@ header.scrolled .lang li.active a{ color: #FF4600; }
 .mv_slider{
     position: relative;
     width: 100%;
-    max-width: 1200px;
+    max-width: 980px;
     aspect-ratio: 1200 / 420;
     margin: 0 auto;
-    padding-top: 240px;
+    padding-top: 190px;
 }
 
 .mv_item{
@@ -822,8 +822,15 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     flex: 1;
     position: relative;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28%);
-    mask-image: linear-gradient(to right, transparent 0%, black 28%);
+}
+.audition_img::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 40%; height: 100%;
+    background: linear-gradient(to right, #fde8dc 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .audition_img img{
@@ -833,7 +840,7 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: left center;
+    object-position: center center;
 }
 
 .audition h2{
@@ -981,23 +988,20 @@ header.scrolled .hamburger span{ background: #222; }
    1920px 이상 (대형 모니터)
 ════════════════════════════════════════ */
 @media (min-width: 1920px){
-    .textbox h2{ font-size: 50px; }
-    .textbox span{ font-size: 28px; }
-    .artist .artistbox{ max-width: 1720px; gap: 28px; }
-    .artist .artistbox li{ width: 400px; height: 400px; }
-    .album_box{ max-width: 1500px; }
-    .mv_slider{ max-width: 1500px; }
-    .audition_inner{ max-width: 1600px; }
-    .footer_inner{ max-width: 1720px; }
-    .footer_info{ font-size: 24px; }
-    .copy{ font-size: 20px; }
+    .textbox h2{ font-size: 46px; }
+    .textbox span{ font-size: 26px; }
+    .artist .artistbox{ max-width: 1540px; gap: 26px; }
+    .artist .artistbox li{ width: 360px; height: 360px; }
+    .album_box{ max-width: 1300px; }
+    .mv_slider{ max-width: 1100px; }
+    .audition_inner{ max-width: 1440px; }
+    .footer_inner{ max-width: 1600px; gap: 120px; }
 }
 
 /* ════════════════════════════════════════
    1440px 이하 (일반 데스크탑)
 ════════════════════════════════════════ */
 @media (max-width: 1440px){
-    .artist .artistbox{ padding-left: 20px; padding-right: 20px; }
     .footer_inner{ padding: 0 40px; gap: 80px; }
 }
 
