@@ -233,6 +233,11 @@ header .lang li:hover{color: #FF4600;}
     justify-content: center;
     align-items: center;
     padding-bottom: 90px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 80px;
+    padding-right: 80px;
+    box-sizing: border-box;
 }
 
 .mv_info .arrow{
@@ -290,11 +295,16 @@ header .lang li:hover{color: #FF4600;}
     width: 55%;
 }
 
-.album_left .cover{
+.cover_wrap{
     width: 70%;
     position: relative;
     z-index: 2;
     border-radius: 20px;
+    overflow: hidden;
+}
+
+.album_left .cover{
+    width: 100%;
     display: block;
     will-change: transform, opacity;
 }
