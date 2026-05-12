@@ -15,6 +15,12 @@ $(function(){
         observer.observe(el);
     });
 
+    // 언어 선택
+    $('.lang li').click(function(){
+        $('.lang li').removeClass('active');
+        $(this).addClass('active');
+    });
+
     // 반짝이 초기화: 각 spark에 랜덤 딜레이 + 랜덤 애니메이션 종류 배정
     const sparkAnims = ['spark_twinkle', 'spark_pulse', 'spark_drift', 'spark_shake'];
     document.querySelectorAll('.spark').forEach(function(el){
