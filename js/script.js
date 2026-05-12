@@ -15,10 +15,34 @@ $(function(){
         observer.observe(el);
     });
 
-    // 언어 선택
+    // 언어 선택 (데스크탑 — 모바일 싱크)
     $('.lang li').click(function(){
+        const idx = $(this).index();
         $('.lang li').removeClass('active');
         $(this).addClass('active');
+        $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
+    });
+
+    // 모바일 언어 선택 (데스크탑 싱크)
+    $('.mobile_lang_list li').click(function(){
+        const idx = $(this).index();
+        $('.mobile_lang_list li').removeClass('active');
+        $(this).addClass('active');
+        $('.lang li').removeClass('active').eq(idx).addClass('active');
+    });
+
+    // 햄버거 메뉴
+    $('.hamburger').click(function(){
+        $(this).toggleClass('open');
+        $('#mobileNav').toggleClass('open');
+        $('body').toggleClass('nav-open');
+    });
+
+    // 모바일 내비 링크 클릭 시 닫기
+    $('#mobileNav .mobile_nav_list a').click(function(){
+        $('.hamburger').removeClass('open');
+        $('#mobileNav').removeClass('open');
+        $('body').removeClass('nav-open');
     });
 
     // 반짝이 초기화: 각 spark에 랜덤 딜레이 + 랜덤 애니메이션 종류 배정
