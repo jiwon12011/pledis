@@ -270,10 +270,10 @@ header .lang li:hover{color: #FF4600;}
     border-radius: 50%;
     border: 1.5px solid rgba(232,112,74,0.55);
 }
-.mv_orbit.o1{ width: 280px;  height: 110px; transform: translate(-50%,-50%) rotate(-25deg); }
-.mv_orbit.o2{ width: 520px;  height: 190px; transform: translate(-50%,-50%) rotate(18deg);  border-color: rgba(232,112,74,0.42); }
-.mv_orbit.o3{ width: 780px;  height: 280px; transform: translate(-50%,-50%) rotate(-38deg); border-color: rgba(232,112,74,0.26); }
-.mv_orbit.o4{ width: 1060px; height: 380px; transform: translate(-50%,-50%) rotate(12deg);  border-color: rgba(232,112,74,0.14); }
+.mv_orbit.o1{ width: 600px;  height: 220px; transform: translate(-50%,-50%) rotate(-25deg); }
+.mv_orbit.o2{ width: 900px;  height: 320px; transform: translate(-50%,-50%) rotate(18deg);  border-color: rgba(232,112,74,0.42); }
+.mv_orbit.o3{ width: 1200px; height: 430px; transform: translate(-50%,-50%) rotate(-38deg); border-color: rgba(232,112,74,0.26); }
+.mv_orbit.o4{ width: 1600px; height: 560px; transform: translate(-50%,-50%) rotate(12deg);  border-color: rgba(232,112,74,0.14); }
 
 /* Album 배경 장식 */
 .album_deco{
@@ -284,37 +284,87 @@ header .lang li:hover{color: #FF4600;}
     overflow: hidden;
 }
 .album .textbox, .album_box, .audition{ position: relative; z-index: 2; }
+
+/* 바이닐 레코드 */
+.album_vinyl{
+    position: absolute;
+}
+.vinyl_left{
+    width: 220px; height: 220px;
+    left: -60px; top: calc(50% - 110px);
+    animation: vinyl_spin 18s linear infinite;
+}
+.vinyl_right{
+    width: 140px; height: 140px;
+    right: -30px; top: 20%;
+    animation: vinyl_spin 24s linear infinite reverse;
+}
+@keyframes vinyl_spin{
+    from{ transform: rotate(0deg); }
+    to  { transform: rotate(360deg); }
+}
+
+/* 사운드웨이브 */
 .album_soundwave{
     position: absolute;
-    bottom: 160px;
-    height: 120px;
-    width: 220px;
+    height: 100px;
+    width: 240px;
 }
 .album_soundwave.sw_left{
-    left: 0;
-    transform-origin: left center;
+    left: 0; bottom: 200px;
 }
 .album_soundwave.sw_right{
-    right: 0;
+    right: 0; bottom: 200px;
     transform: scaleX(-1);
-    transform-origin: right center;
 }
+
+/* 악보 오선지 */
+.album_staff{
+    position: absolute;
+    width: 50%; height: 40px;
+}
+.album_staff.staff_top{
+    top: 40px; left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 헤드폰 */
+.album_headphone{
+    position: absolute;
+    width: 90px; height: 80px;
+    right: 8%; top: 35%;
+    opacity: 1;
+    animation: note_float 7s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+/* 마이크 */
+.album_mic{
+    position: absolute;
+    width: 55px; height: 88px;
+    left: 6%; top: 28%;
+    animation: note_float 8s ease-in-out infinite;
+    animation-delay: 2.5s;
+}
+
 /* 음표 장식 */
 .music_note{
     position: absolute;
     color: #e8704a;
-    opacity: 0.18;
+    opacity: 0.20;
     font-size: 28px;
     animation: note_float 6s ease-in-out infinite;
 }
-.music_note.n1{ top: 40px;  left: 5%;  font-size: 22px; animation-delay: 0s; }
-.music_note.n2{ top: 80px;  left: 18%; font-size: 32px; animation-delay: 1.2s; }
-.music_note.n3{ top: 30px;  right:14%; font-size: 20px; animation-delay: 2.4s; }
-.music_note.n4{ bottom:80px; right:8%; font-size: 30px; animation-delay: 0.8s; }
-.music_note.n5{ bottom:60px; left:12%; font-size: 24px; animation-delay: 1.8s; }
+.music_note.n1{ top: 55px;   left: 12%;  font-size: 24px; animation-delay: 0s; }
+.music_note.n2{ top: 100px;  left: 22%;  font-size: 34px; animation-delay: 1.2s; }
+.music_note.n3{ top: 45px;   right:16%;  font-size: 22px; animation-delay: 2.4s; }
+.music_note.n4{ bottom:110px; right:12%; font-size: 32px; animation-delay: 0.8s; }
+.music_note.n5{ bottom:80px;  left:18%;  font-size: 26px; animation-delay: 1.8s; }
+.music_note.n6{ top: 80px;   right:28%;  font-size: 20px; animation-delay: 3s; }
+.music_note.n7{ bottom:140px; left:30%;  font-size: 30px; animation-delay: 0.4s; }
 @keyframes note_float{
-    0%,100%{ transform: translateY(0) rotate(-8deg); opacity: 0.18; }
-    50%    { transform: translateY(-12px) rotate(6deg); opacity: 0.32; }
+    0%,100%{ transform: translateY(0) rotate(-8deg); opacity: 0.20; }
+    50%    { transform: translateY(-14px) rotate(6deg); opacity: 0.35; }
 }
 
 /* 뮤비 슬라이더 */
