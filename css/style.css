@@ -444,6 +444,45 @@ header .lang li:hover{color: #FF4600;}
     opacity: 0;
 }
 
+/* 재생 버튼 오버레이 */
+.mv_item.active::before{
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 72px; height: 72px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    z-index: 5;
+    /* 삼각형(재생 아이콘) */
+    clip-path: none;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    transition: transform 0.25s, background 0.25s;
+    animation: play_pulse 2.4s ease-in-out infinite;
+}
+/* 재생 아이콘 삼각형 — 별도 레이어 필요 없이 box를 활용 */
+.mv_item.active:hover::before{
+    transform: translate(-50%, -50%) scale(1.12);
+    background: rgba(255,255,255,1);
+    animation: none;
+}
+/* 삼각형은 outline 방식으론 어려우므로 SVG background 사용 */
+.mv_item.active::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Ccircle cx='36' cy='36' r='36' fill='rgba(255,255,255,0.92)'/%3E%3Cpolygon points='29,20 56,36 29,52' fill='%23e8704a'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-color: transparent;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+}
+.mv_item.active:hover::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Ccircle cx='36' cy='36' r='36' fill='white'/%3E%3Cpolygon points='29,20 56,36 29,52' fill='%23e8704a'/%3E%3C/svg%3E");
+    transform: translate(-50%, -50%) scale(1.12);
+    animation: none;
+}
+@keyframes play_pulse{
+    0%,100%{ transform: translate(-50%,-50%) scale(1);    box-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 0 0 0 rgba(232,112,74,0.35); }
+    50%    { transform: translate(-50%,-50%) scale(1.06); box-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 0 0 10px rgba(232,112,74,0); }
+}
+
 /* 아래 정보 */
 .mv_info{
     position: relative;
