@@ -217,12 +217,21 @@ header .lang li:hover{color: #FF4600;}
 
 /* 아래 정보 */
 .mv_info{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
     padding-bottom: 90px;
 }
+
+.mv_info .arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mv_info .prev{ left: 0; }
+.mv_info .next{ right: 0; }
 
 .mv_text{ text-align: center;}
 
