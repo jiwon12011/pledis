@@ -147,16 +147,17 @@ header .lang li:hover{color: #FF4600;}
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 40px 120px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 25px;
     box-sizing: border-box;
 }
 
 /* 모든 카드 공통 */
 .artist .artistbox li{
-    width: 100%;
-    aspect-ratio: 1;
+    width: 330px;
+    height: 330px;
+    flex-shrink: 0;
     position: relative;
     overflow: hidden;
 }
