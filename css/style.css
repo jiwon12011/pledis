@@ -793,56 +793,80 @@ header .lang li:hover{color: #FF4600;}
 /* 오디션 */
 .audition{
     width: 100%;
-    padding-top: 120px;
-    background: #fbf4f4;
+    background: linear-gradient(120deg, #fde8dc 0%, #fad3c0 40%, #f5c4ac 70%, #f0b898 100%);
     position: relative;
     overflow: hidden;
 }
 
 .audition_inner{
+    max-width: 1300px;
     margin: 0 auto;
-    text-align: center;
+    display: flex;
+    align-items: center;
     position: relative;
     z-index: 2;
-    padding-bottom: 120px;
+    min-height: 420px;
+}
+
+.audition_text{
+    flex: 0 0 55%;
+    padding: 80px 60px 80px 80px;
+}
+
+.audition_img{
+    flex: 0 0 45%;
+    align-self: flex-end;
+    line-height: 0;
+}
+
+.audition_img img{
+    width: 100%;
+    display: block;
+    object-fit: contain;
 }
 
 .audition h2{
     font-family: 'SfHambakneun';
-    font-size: 50px;
-    color: #FF4600;
-    margin-bottom: 35px;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #c94a1a;
+    margin-bottom: 20px;
+    font-weight: 900;
 }
 
 .audition strong{
     display: block;
-    font-size: 30px;
-    margin-bottom: 100px;
-    color: #010101;
-    font-weight: 400;
+    font-size: 17px;
+    margin-bottom: 20px;
+    color: #3a1a08;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .audition p{
-    max-width: 860px;
-    margin: 0 auto;
-    font-size: 30px;
-    line-height: 1.5;
-    color: #888888;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #7a4830;
+    margin-bottom: 0;
 }
 
 .apply_btn{
     display: inline-block;
-    margin-top: 90px;
-    font-size: 30px;
-    color: #010101;
-    border-bottom: 2px solid #010101;
-    padding-bottom: 6px;
+    margin-top: 36px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: rgba(201,74,26,0.75);
+    border: 1.5px solid rgba(201,74,26,0.5);
+    border-radius: 30px;
+    padding: 12px 32px;
     transition: 0.3s;
+    backdrop-filter: blur(4px);
 }
 
 .apply_btn:hover{
-    color: #FF4600;
-    border-color: #FF4600;
+    background: rgba(201,74,26,0.95);
+    border-color: #c94a1a;
 }
 
 
