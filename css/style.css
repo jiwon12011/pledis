@@ -10,8 +10,23 @@ li{list-style: none;}
 body{font-family: 'Pretendard', '맑은고딕';}
 
 .textbox{margin: 0 auto; text-align: center; padding-top: 100px;}
+
+/* 4번: 타이틀 양옆 포인트 라인 */
 .textbox h2{
     font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.textbox h2::before,
+.textbox h2::after{
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 2px;
+    background: #FF4600;
+    border-radius: 2px;
 }
 .textbox span{
     font-family:'Nanum Myeongjo', serif;;
@@ -20,6 +35,23 @@ body{font-family: 'Pretendard', '맑은고딕';}
     display: block;
     padding: 10px 0 60px
 }
+
+/* 3번: 스크롤 페이드인 초기 상태 */
+.fade-up{
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible{
+    opacity: 1;
+    transform: translateY(0);
+}
+.fade-up.delay-1{ transition-delay: 0.1s; }
+.fade-up.delay-2{ transition-delay: 0.2s; }
+.fade-up.delay-3{ transition-delay: 0.3s; }
+.fade-up.delay-4{ transition-delay: 0.4s; }
+.fade-up.delay-5{ transition-delay: 0.5s; }
+.fade-up.delay-6{ transition-delay: 0.6s; }
 
 
 
