@@ -210,27 +210,45 @@ header .lang li:hover{color: #FF4600;}
 
 /* WHO's PLEDIS 카드 */
 .artist .artistbox .none{
-    background: #171717;
+    background: #fde8e0;
+    border-radius: 20px;
 }
 
 .artist .artistbox .none a{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
+    align-items: flex-start;
+    padding: 36px;
+    gap: 10px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .artist .artistbox .none h4{
-    color: #FF4600;
-    font-size: 30px;
+    color: #e85a35;
+    font-size: 24px;
+    font-weight: 700;
     white-space: nowrap;
 }
 
 .artist .artistbox .none span{
-    color: #CACACA;
-    font-size: 16px;
+    color: #555;
+    font-size: 15px;
     white-space: nowrap;
+}
+
+/* 카드 오른쪽 아래 별 장식 */
+.none_spark{
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    width: 36px;
+    height: 36px;
+    display: block;
+    background: #e8704a;
+    clip-path: polygon(50% 0%, 53% 47%, 100% 50%, 53% 53%, 50% 100%, 47% 53%, 0% 50%, 47% 47%);
+    opacity: 0.85;
 }
 
 /* 뮤비 슬라이더 */
