@@ -704,6 +704,7 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     will-change: transform, opacity;
 }
 
@@ -726,37 +727,12 @@ header.scrolled .lang li.active a{ color: #FF4600; }
     to   { transform: translateY(-50%) rotate(360deg); }
 }
 
-/* 앨범 커버 전환 애니메이션 */
-@keyframes coverExitLeft {
-    0%   { opacity: 1; transform: translateX(0); }
-    100% { opacity: 0; transform: translateX(-100%); }
-}
-@keyframes coverExitRight {
-    0%   { opacity: 1; transform: translateX(0); }
-    100% { opacity: 0; transform: translateX(100%); }
-}
-@keyframes coverEnterLeft {
-    0%   { opacity: 0; transform: translateX(100%); }
-    100% { opacity: 1; transform: translateX(0); }
-}
-@keyframes coverEnterRight {
-    0%   { opacity: 0; transform: translateX(-100%); }
-    100% { opacity: 1; transform: translateX(0); }
+/* 앨범 커버 전환 — crossfade */
+.album_left .cover.fading{
+    opacity: 0;
+    transform: scale(0.97);
 }
 
-.album_left .cover.exit-left  { animation: coverExitLeft  0.3s ease-in  forwards; }
-.album_left .cover.exit-right { animation: coverExitRight 0.3s ease-in  forwards; }
-.album_left .cover.enter-left { animation: coverEnterLeft  0.4s ease-out forwards; }
-.album_left .cover.enter-right{ animation: coverEnterRight 0.4s ease-out forwards; }
-
-/* 썸네일 전환 */
-@keyframes thumbFadeIn {
-    0%   { opacity: 0; transform: scale(0.88) translateY(12px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-.album_list li img.thumb-enter {
-    animation: thumbFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 
 /* 페이저 전환 */
 .pager span {

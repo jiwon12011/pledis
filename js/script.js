@@ -218,28 +218,23 @@ $(function(){
     let albumCurrent = 0;
     let albumBusy = false;
 
-    function updateAlbum(dir){
+    function updateAlbum(){
         const $cover = $('.album_left .cover');
-        const exitClass  = dir > 0 ? 'exit-left'  : 'exit-right';
-        const enterClass = dir > 0 ? 'enter-left' : 'enter-right';
 
         $('.album_left').addClass('changing');
-        $cover.removeClass('exit-left exit-right enter-left enter-right').addClass(exitClass);
+        $cover.addClass('fading');
 
         setTimeout(function(){
-            $cover.attr('src', albums[albumCurrent])
-                  .removeClass(exitClass)
-                  .addClass(enterClass);
-
+            $cover.attr('src', albums[albumCurrent]);
             $('.pager span').removeClass('on').eq(albumCurrent).addClass('on');
             $('.album_list li').removeClass('active').eq(albumCurrent).addClass('active');
+            $cover.removeClass('fading');
 
             setTimeout(function(){
-                $cover.removeClass(enterClass);
                 $('.album_left').removeClass('changing');
                 albumBusy = false;
-            }, 500);
-        }, 320);
+            }, 320);
+        }, 280);
     }
 
     // 초기 세팅
@@ -253,14 +248,22 @@ $(function(){
         if(albumBusy) return;
         albumBusy = true;
         albumCurrent = (albumCurrent + 1) % albums.length;
-        updateAlbum(1);
+        updateAlbum();
     });
 
     $('.album_prev').click(function(){
         if(albumBusy) return;
         albumBusy = true;
         albumCurrent = (albumCurrent - 1 + albums.length) % albums.length;
-        updateAlbum(-1);
+        updateAlbum();
+    });
+
+    $('.album_list li').click(function(){
+        const idx = $(this).index();
+        if(idx === albumCurrent || albumBusy) return;
+        albumBusy = true;
+        albumCurrent = idx;
+        updateAlbum();
     });
 
 });
