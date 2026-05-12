@@ -301,10 +301,15 @@ header .lang li:hover{color: #FF4600;}
     z-index: 2;
     border-radius: 20px;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
 }
 
 .album_left .cover{
+    position: absolute;
+    top: 0; left: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
     will-change: transform, opacity;
 }
@@ -327,18 +332,18 @@ header .lang li:hover{color: #FF4600;}
 /* 앨범 커버 전환 애니메이션 */
 @keyframes coverExitLeft {
     0%   { opacity: 1; transform: translateX(0); }
-    100% { opacity: 0; transform: translateX(-50px); }
+    100% { opacity: 0; transform: translateX(-100%); }
 }
 @keyframes coverExitRight {
     0%   { opacity: 1; transform: translateX(0); }
-    100% { opacity: 0; transform: translateX(50px); }
+    100% { opacity: 0; transform: translateX(100%); }
 }
 @keyframes coverEnterLeft {
-    0%   { opacity: 0; transform: translateX(50px); }
+    0%   { opacity: 0; transform: translateX(100%); }
     100% { opacity: 1; transform: translateX(0); }
 }
 @keyframes coverEnterRight {
-    0%   { opacity: 0; transform: translateX(-50px); }
+    0%   { opacity: 0; transform: translateX(-100%); }
     100% { opacity: 1; transform: translateX(0); }
 }
 
