@@ -1,4 +1,33 @@
 
+// 페이지 로딩 인트로
+setTimeout(function(){
+    $('#pageIntro').addClass('hide');
+    setTimeout(function(){ $('#pageIntro').remove(); }, 800);
+}, 1400);
+
+// 커스텀 커서
+(function(){
+    var $dot  = $('.cursor_dot');
+    var $ring = $('.cursor_ring');
+    var mouseX = 0, mouseY = 0;
+    var ringX  = 0, ringY  = 0;
+
+    $(document).on('mousemove', function(e){
+        mouseX = e.clientX; mouseY = e.clientY;
+        $dot.css({ left: mouseX, top: mouseY });
+    });
+
+    (function loop(){
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        $ring.css({ left: ringX, top: ringY });
+        requestAnimationFrame(loop);
+    })();
+
+    $(document).on('mouseenter', 'a, button', function(){ $ring.addClass('hovered'); })
+               .on('mouseleave', 'a, button', function(){ $ring.removeClass('hovered'); });
+})();
+
 $(function(){
 
     // 3번: 스크롤 페이드인 (Intersection Observer)
@@ -173,15 +202,38 @@ $(function(){
     });
 
     $('.mv_info .prev').click(function(){
-
         current--;
-
-        if(current < 0){
-            current = $items.length - 1;
-        }
-
+        if(current < 0){ current = $items.length - 1; }
         updateSlider();
     });
+
+    // MV 자동 슬라이드
+    var AUTO_INTERVAL = 5000;
+    var mvTimer = null;
+    var mvPaused = false;
+
+    function startMvTimer(){
+        clearInterval(mvTimer);
+        $('.mv_timer_fill').css({ transition: 'none', width: '0%' });
+        setTimeout(function(){
+            $('.mv_timer_fill').css({
+                transition: 'width ' + AUTO_INTERVAL + 'ms linear',
+                width: '100%'
+            });
+        }, 30);
+        mvTimer = setInterval(function(){
+            if(!mvPaused){
+                current = (current + 1) % $items.length;
+                updateSlider();
+                startMvTimer();
+            }
+        }, AUTO_INTERVAL);
+    }
+
+    $('.mv_info .next, .mv_info .prev').on('click', function(){ startMvTimer(); });
+    $('.music_video').on('mouseenter', function(){ mvPaused = true; })
+                     .on('mouseleave', function(){ mvPaused = false; });
+    startMvTimer();
 
     // 앨범 슬라이더
     const albums = ['img/Album_1.png', 'img/Album_2.png', 'img/Album_3.png'];
