@@ -1,6 +1,15 @@
 
 $(function(){
 
+    // 헤더 스크롤 감지
+    $(window).on('scroll', function(){
+        if($(this).scrollTop() > 50){
+            $('header').addClass('scrolled');
+        } else {
+            $('header').removeClass('scrolled');
+        }
+    });
+
     const $items = $('.mv_item');
     let current = 0;
 

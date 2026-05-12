@@ -23,18 +23,29 @@ body{font-family: 'Pretendard', '맑은고딕';}
 
 
 
-header{margin: 0 auto; display: flex;
-    width: 100%; z-index: 100; padding-top: 40px;
+header{
+    margin: 0 auto; display: flex;
+    width: 100%; z-index: 100; padding: 40px 0;
     position: fixed; top: 0; left: 0;
-    align-items: center; justify-content: space-around;}
+    align-items: center; justify-content: space-around;
+    transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+}
+header.scrolled{
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    padding: 18px 0;
+}
 header .logo{}
 header .logo a{}
 header .logo a img{}
 header .nav{display: flex; gap: 60px;}
-header .nav li{font-size: 20px; color: #fff;}
+header .nav li{font-size: 20px; color: #fff; transition: color 0.3s;}
+header.scrolled .nav li{ color: #222; }
 header .nav li:hover {color: #FF4600;}
 header .lang{display: flex; gap: 20px;}
-header .lang li{font-size: 18px; color: #fff;}
+header .lang li{font-size: 18px; color: #fff; transition: color 0.3s;}
+header.scrolled .lang li{ color: #222; }
 header .lang li:hover{color: #FF4600;}
 
 .hero{margin: 0 auto;}
@@ -284,6 +295,8 @@ header .lang li:hover{color: #FF4600;}
     position: relative;
     z-index: 2;
     border-radius: 20px;
+    display: block;
+    will-change: transform, opacity;
 }
 
 .album_left .cd{
@@ -303,26 +316,26 @@ header .lang li:hover{color: #FF4600;}
 
 /* 앨범 커버 전환 애니메이션 */
 @keyframes coverExitLeft {
-    0%   { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
-    100% { opacity: 0; transform: translateX(-80px) scale(0.82) rotateY(-25deg); }
+    0%   { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(-50px); }
 }
 @keyframes coverExitRight {
-    0%   { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
-    100% { opacity: 0; transform: translateX(80px) scale(0.82) rotateY(25deg); }
+    0%   { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(50px); }
 }
 @keyframes coverEnterLeft {
-    0%   { opacity: 0; transform: translateX(80px) scale(0.82) rotateY(25deg); }
-    100% { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
+    0%   { opacity: 0; transform: translateX(50px); }
+    100% { opacity: 1; transform: translateX(0); }
 }
 @keyframes coverEnterRight {
-    0%   { opacity: 0; transform: translateX(-80px) scale(0.82) rotateY(-25deg); }
-    100% { opacity: 1; transform: translateX(0) scale(1) rotateY(0deg); }
+    0%   { opacity: 0; transform: translateX(-50px); }
+    100% { opacity: 1; transform: translateX(0); }
 }
 
-.album_left .cover.exit-left  { animation: coverExitLeft  0.35s ease-in forwards; }
-.album_left .cover.exit-right { animation: coverExitRight 0.35s ease-in forwards; }
-.album_left .cover.enter-left { animation: coverEnterLeft  0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.album_left .cover.enter-right{ animation: coverEnterRight 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.album_left .cover.exit-left  { animation: coverExitLeft  0.3s ease-in  forwards; }
+.album_left .cover.exit-right { animation: coverExitRight 0.3s ease-in  forwards; }
+.album_left .cover.enter-left { animation: coverEnterLeft  0.4s ease-out forwards; }
+.album_left .cover.enter-right{ animation: coverEnterRight 0.4s ease-out forwards; }
 
 /* 썸네일 전환 */
 @keyframes thumbFadeIn {
