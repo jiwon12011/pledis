@@ -23,18 +23,29 @@ body{font-family: 'Pretendard', '맑은고딕';}
 
 
 
-header{margin: 0 auto; display: flex;
-    width: 100%; z-index: 100; padding-top: 40px;
+header{
+    margin: 0 auto; display: flex;
+    width: 100%; z-index: 100; padding: 40px 0;
     position: fixed; top: 0; left: 0;
-    align-items: center; justify-content: space-around;}
+    align-items: center; justify-content: space-around;
+    transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+}
+header.scrolled{
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    padding: 18px 0;
+}
 header .logo{}
 header .logo a{}
 header .logo a img{}
 header .nav{display: flex; gap: 60px;}
-header .nav li{font-size: 20px; color: #fff;}
+header .nav li{font-size: 20px; color: #fff; transition: color 0.3s;}
+header.scrolled .nav li{ color: #222; }
 header .nav li:hover {color: #FF4600;}
 header .lang{display: flex; gap: 20px;}
-header .lang li{font-size: 18px; color: #fff;}
+header .lang li{font-size: 18px; color: #fff; transition: color 0.3s;}
+header.scrolled .lang li{ color: #222; }
 header .lang li:hover{color: #FF4600;}
 
 .hero{margin: 0 auto;}
