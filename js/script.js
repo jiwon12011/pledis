@@ -136,7 +136,7 @@ $(function(){
 
     updateSlider();
 
-    $('.mv_info .next').click(function(){
+    $('.mv_stage .next').click(function(){
 
         current++;
 
@@ -179,7 +179,7 @@ $(function(){
         if(e.key === 'Escape') closeModal();
     });
 
-    $('.mv_info .prev').click(function(){
+    $('.mv_stage .prev').click(function(){
         current--;
         if(current < 0){ current = $items.length - 1; }
         updateSlider();
@@ -208,7 +208,7 @@ $(function(){
         }, AUTO_INTERVAL);
     }
 
-    $('.mv_info .next, .mv_info .prev').on('click', function(){ startMvTimer(); });
+    $('.mv_stage .next, .mv_stage .prev').on('click', function(){ startMvTimer(); });
     $('.music_video').on('mouseenter', function(){ mvPaused = true; })
                      .on('mouseleave', function(){ mvPaused = false; });
     startMvTimer();
