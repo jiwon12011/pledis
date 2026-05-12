@@ -17,6 +17,10 @@ $(function(){
         $items.eq(prev).addClass('prev');
         $items.eq(current).addClass('active');
         $items.eq(next).addClass('next');
+
+        let $active = $items.eq(current);
+        $('.mv_text h3').text($active.data('artist'));
+        $('.mv_text p').text($active.data('title'));
     }
 
     updateSlider();
