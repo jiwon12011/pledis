@@ -47,4 +47,32 @@ $(function(){
         updateSlider();
     });
 
+    // 앨범 슬라이더
+    const albums = ['img/Album_1.png', 'img/Album_2.png', 'img/Album_3.png'];
+    let albumCurrent = 0;
+
+    function updateAlbum(){
+        const prev = (albumCurrent - 1 + albums.length) % albums.length;
+        const next = (albumCurrent + 1) % albums.length;
+
+        $('.album_left .cover').attr('src', albums[albumCurrent]);
+
+        $('.album_list li').eq(0).find('img').attr('src', albums[prev]);
+        $('.album_list li').eq(1).find('img').attr('src', albums[next]);
+
+        $('.pager span').removeClass('on').eq(albumCurrent).addClass('on');
+    }
+
+    updateAlbum();
+
+    $('.album_next').click(function(){
+        albumCurrent = (albumCurrent + 1) % albums.length;
+        updateAlbum();
+    });
+
+    $('.album_prev').click(function(){
+        albumCurrent = (albumCurrent - 1 + albums.length) % albums.length;
+        updateAlbum();
+    });
+
 });

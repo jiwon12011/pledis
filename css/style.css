@@ -284,6 +284,16 @@ header .lang li:hover{color: #FF4600;}
     left: 40%;
     transform: translateY(-50%);
     z-index: 1;
+    animation: cdRotate 8s linear infinite;
+}
+
+@keyframes cdRotate {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to   { transform: translateY(-50%) rotate(360deg); }
+}
+
+.album_left .cover{
+    transition: opacity 0.4s;
 }
 
 .album_right{width: 40%;}
