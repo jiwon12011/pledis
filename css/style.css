@@ -6,49 +6,70 @@
 a{text-decoration: none; color: inherit;}
 li{list-style: none;}
 
-/* ── 커스텀 커서 ── */
-body, a, button{ cursor: none; }
-.cursor_dot{
-    position: fixed; z-index: 9999; pointer-events: none;
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #e8704a;
-    transform: translate(-50%, -50%);
-    will-change: left, top;
-}
-.cursor_ring{
-    position: fixed; z-index: 9998; pointer-events: none;
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1.5px solid rgba(232,112,74,0.6);
-    transform: translate(-50%, -50%);
-    transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
-    will-change: left, top;
-}
-.cursor_ring.hovered{
-    width: 56px; height: 56px;
-    border-color: rgba(232,112,74,0.9);
-    background: rgba(232,112,74,0.08);
-}
-@media (max-width: 768px){
-    body, a, button{ cursor: auto; }
-    .cursor_dot, .cursor_ring{ display: none; }
-}
-
-/* ── 페이지 로딩 인트로 ── */
+/* ── 페이지 로딩 인트로 (고급) ── */
 .page_intro{
     position: fixed; inset: 0; z-index: 10000;
-    background: #fff;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+    background: #0c0c0c;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 28px;
+    overflow: hidden;
 }
-.page_intro.hide{ transform: translateY(-100%); pointer-events: none; }
+/* 좌우로 갈라지며 퇴장 */
+.page_intro::before,
+.page_intro::after{
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50%;
+    background: #0c0c0c;
+    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+    z-index: 1;
+}
+.page_intro::before{ left: 0; }
+.page_intro::after { right: 0; }
+.page_intro.hide::before{ transform: translateX(-100%); }
+.page_intro.hide::after { transform: translateX(100%); }
+
+.intro_content{
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 22px;
+}
 .intro_logo{
-    width: 180px;
+    width: 160px;
+    filter: brightness(0) invert(1);
     opacity: 0;
-    transform: translateY(14px);
-    animation: intro_logo_in 0.6s ease forwards 0.25s;
+    transform: translateY(16px);
+    animation: intro_logo_in 0.7s cubic-bezier(0.22,1,0.36,1) forwards 0.3s;
+}
+.intro_label{
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.4);
+    opacity: 0;
+    animation: intro_logo_in 0.7s ease forwards 0.55s;
+}
+/* 가는 로딩 선 */
+.intro_bar{
+    width: 120px; height: 1px;
+    background: rgba(255,255,255,0.12);
+    position: relative; overflow: hidden;
+    opacity: 0;
+    animation: intro_logo_in 0.5s ease forwards 0.4s;
+}
+.intro_bar::after{
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: #e8704a;
+    animation: intro_bar_fill 0.9s cubic-bezier(0.4,0,0.2,1) forwards 0.5s;
 }
 @keyframes intro_logo_in{
     to{ opacity: 1; transform: translateY(0); }
+}
+@keyframes intro_bar_fill{
+    to{ left: 0; }
 }
 
 /* ── MV 타이머 바 ── */

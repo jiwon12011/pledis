@@ -5,28 +5,6 @@ setTimeout(function(){
     setTimeout(function(){ $('#pageIntro').remove(); }, 800);
 }, 1400);
 
-// 커스텀 커서
-(function(){
-    var $dot  = $('.cursor_dot');
-    var $ring = $('.cursor_ring');
-    var mouseX = 0, mouseY = 0;
-    var ringX  = 0, ringY  = 0;
-
-    $(document).on('mousemove', function(e){
-        mouseX = e.clientX; mouseY = e.clientY;
-        $dot.css({ left: mouseX, top: mouseY });
-    });
-
-    (function loop(){
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
-        $ring.css({ left: ringX, top: ringY });
-        requestAnimationFrame(loop);
-    })();
-
-    $(document).on('mouseenter', 'a, button', function(){ $ring.addClass('hovered'); })
-               .on('mouseleave', 'a, button', function(){ $ring.removeClass('hovered'); });
-})();
 
 $(function(){
 
