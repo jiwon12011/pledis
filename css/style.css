@@ -11,21 +11,22 @@ body{font-family: 'Pretendard', '맑은고딕';}
 
 .textbox{margin: 0 auto; text-align: center; padding-top: 100px;}
 
-/* 4번: 타이틀 양옆 포인트 라인 */
+/* 4번: 타이틀 양옆 포인트 라인 - 은은하게 */
 .textbox h2{
     font-size: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
 }
 .textbox h2::before,
 .textbox h2::after{
     content: '';
     flex: 1;
-    max-width: 80px;
-    height: 2px;
+    max-width: 36px;
+    height: 1px;
     background: #FF4600;
+    opacity: 0.35;
     border-radius: 2px;
 }
 .textbox span{
@@ -34,6 +35,84 @@ body{font-family: 'Pretendard', '맑은고딕';}
     font-size: 25px;
     display: block;
     padding: 10px 0 60px
+}
+
+/* 장식 블롭 - 흐르는 느낌 */
+@keyframes floatA {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(18px, -24px) scale(1.06); }
+    66%       { transform: translate(-12px, 14px) scale(0.96); }
+}
+@keyframes floatB {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    40%       { transform: translate(-20px, 20px) scale(1.08); }
+    80%       { transform: translate(14px, -10px) scale(0.94); }
+}
+
+/* artist 섹션 블롭 */
+.artist::before{
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,120,60,0.12) 0%, transparent 65%);
+    top: -60px; right: -100px;
+    animation: floatA 10s ease-in-out infinite;
+    pointer-events: none;
+}
+.artist::after{
+    content: '';
+    position: absolute;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,180,120,0.10) 0%, transparent 65%);
+    bottom: 80px; left: -80px;
+    animation: floatB 13s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* music_video 섹션 블롭 */
+.music_video::before{
+    content: '';
+    position: absolute;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,90,40,0.09) 0%, transparent 65%);
+    top: 40px; left: -120px;
+    animation: floatB 11s ease-in-out infinite;
+    pointer-events: none;
+}
+.music_video::after{
+    content: '';
+    position: absolute;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,150,80,0.08) 0%, transparent 65%);
+    bottom: 60px; right: -60px;
+    animation: floatA 9s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+/* album 섹션 블롭 */
+.album::before{
+    content: '';
+    position: absolute;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,100,50,0.08) 0%, transparent 65%);
+    top: 50px; right: -80px;
+    animation: floatA 12s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+.album::after{
+    content: '';
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,160,100,0.10) 0%, transparent 65%);
+    bottom: 100px; left: -60px;
+    animation: floatB 8s ease-in-out infinite;
+    pointer-events: none;
 }
 
 /* 3번: 스크롤 페이드인 초기 상태 */
@@ -90,6 +169,8 @@ header .lang li:hover{color: #FF4600;}
     background: #fefefe;
     margin: 0 auto;
     max-width: 1440px;
+    position: relative;
+    overflow: hidden;
 }
 
 .artist .artistbox{
@@ -310,6 +391,7 @@ header .lang li:hover{color: #FF4600;}
 .album{
     background: #fefefe;
     overflow: hidden;
+    position: relative;
 }
 
 .album_box{
