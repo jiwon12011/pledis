@@ -1,73 +1,10 @@
 @charset "UTF-8";
+@import url(font.css);
 @import url('//fonts.googleapis.com/earlyaccess/nanummyeongjo.css');
 
 *{margin:0; padding: 0;}
 a{text-decoration: none; color: inherit;}
 li{list-style: none;}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
-    font-weight: 100;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
-    font-weight: 200;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
-    font-weight: 800;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
-    font-weight: 900;
-    font-display: swap;
-}
-
 
 
 body{font-family: 'Pretendard', '맑은고딕';}
@@ -81,7 +18,7 @@ body{font-family: 'Pretendard', '맑은고딕';}
     color: #777;
     font-size: 25px;
     display: block;
-    padding-top: 10px;
+    padding: 10px 0 60px
 }
 
 
@@ -95,14 +32,387 @@ header .logo a{}
 header .logo a img{}
 header .nav{display: flex; gap: 60px;}
 header .nav li{font-size: 20px; color: #fff;}
-header .nav li:hover {color: #FF7440;}
+header .nav li:hover {color: #FF4600;}
 header .lang{display: flex; gap: 20px;}
 header .lang li{font-size: 18px; color: #fff;}
-header .lang li:hover{color: #FF7440;}
+header .lang li:hover{color: #FF4600;}
 
 .hero{margin: 0 auto;}
 .hero video{width: 100%;}
 
-.artist{margin: 0 auto; max-width: 1440px;}
+
+/* 아티스트 */
+
+.artist{
+    background: #fefefe;
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
 .artist .artistbox{
-    display: flex; flex-wrap: wrap; gap: 25px;}
+    padding-bottom: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* 모든 카드 공통 */
+.artist .artistbox li{
+    width: 330px;
+    height: 330px;
+    position: relative;
+    overflow: hidden;
+}
+
+.artist .artistbox li a{
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+
+.artist .artistbox li img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: 0.5s;
+}
+
+/* hover overlay */
+.artist .artistbox li .overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    z-index: 5;
+    transition: 0.4s;
+}
+
+.artist .artistbox li:hover .overlay{
+    opacity: 1;
+}
+
+.artist .artistbox li:hover img{
+    transform: scale(1.05);
+}
+
+.artist .artistbox li .overlay h4{
+    color: #FF4600;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.artist .artistbox li .overlay span{
+    color: #fff;
+    font-size: 16px;
+}
+
+/* WHO's PLEDIS 카드 */
+.artist .artistbox .none{
+    background: #171717;
+}
+
+.artist .artistbox .none a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.artist .artistbox .none h4{
+    color: #FF4600;
+    font-size: 30px;
+    white-space: nowrap;
+}
+
+.artist .artistbox .none span{
+    color: #CACACA;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+/* 뮤비 슬라이더 */
+
+.music_video{
+    width: 100%;
+    padding: 30px 0;
+    background: #f8eeee;
+    overflow: hidden;
+}
+
+.mv_slider{
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 1200 / 420;
+    margin: 0 auto;
+    padding-top: 240px;
+}
+
+.mv_item{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 67%;
+    aspect-ratio: 806 / 501;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.mv_item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mv_item.active{
+    transform: translate(-50%,-50%) scale(1);
+    z-index: 3;
+}
+/* 왼쪽 */
+.mv_item.prev{
+    transform:
+        translate(-115%,-80%)
+        scale(0.7);
+
+    z-index: 1;
+}
+
+/* 오른쪽 */
+.mv_item.next{
+    transform:
+        translate(15%,-80%)
+        scale(0.7);
+
+    z-index: 1;
+}
+
+.mv_item::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.1)
+);
+    transition: 0.5s;
+}
+.mv_item.active::after{
+    opacity: 0;
+}
+
+/* 아래 정보 */
+.mv_info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    padding-bottom: 90px;
+}
+
+.mv_text{ text-align: center;}
+
+.mv_text h3{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.mv_text p{
+    font-size: 20px;
+}
+
+.arrow{
+    border: 0;
+    background: none;
+    font-size: 60px;
+    cursor: pointer;
+    color: #000;
+    transition: 0.3s;
+}
+
+.arrow:hover{
+    color: #FF4600;
+    opacity: 0.8;
+}
+
+/* 앨범 */
+.album{
+    background: #fefefe;
+    overflow: hidden;
+}
+
+.album_box{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+     padding-bottom: 150px;
+}
+
+.album_left{
+    position: relative;
+    width: 55%;
+}
+
+.album_left .cover{
+    width: 70%;
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+}
+
+.album_left .cd{
+    width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.album_right{width: 40%;}
+
+.album_list{
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.album_list li{
+    width: 230px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.album_list li img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.album_control{
+    margin-top: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 50px;
+}
+
+.pager{
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+}
+
+.pager span{
+    width: 80px;
+    height: 12px;
+    border-radius: 999px;
+    background: #ddd;
+}
+
+.pager span.on{
+    background: #FF4600;
+}
+
+
+/* 오디션 */
+.audition{
+    width: 100%;
+    padding-top: 120px;
+    background: #fbf4f4;
+    position: relative;
+    overflow: hidden;
+}
+
+.audition_inner{
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 120px;
+}
+
+.audition h2{
+    font-family: 'SfHambakneun';
+    font-size: 50px;
+    color: #FF4600;
+    margin-bottom: 35px;
+}
+
+.audition strong{
+    display: block;
+    font-size: 30px;
+    margin-bottom: 100px;
+    color: #010101;
+    font-weight: 400;
+}
+
+.audition p{
+    max-width: 860px;
+    margin: 0 auto;
+    font-size: 30px;
+    line-height: 1.5;
+    color: #888888;
+}
+
+.apply_btn{
+    display: inline-block;
+    margin-top: 90px;
+    font-size: 30px;
+    color: #010101;
+    border-bottom: 2px solid #010101;
+    padding-bottom: 6px;
+    transition: 0.3s;
+}
+
+.apply_btn:hover{
+    color: #FF4600;
+    border-color: #FF4600;
+}
+
+
+/* 푸터 */
+footer{
+    background: #FF682F;
+    display: flex;
+    align-items: center;
+    height: 360px;
+}
+
+.footer_inner{
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 200px;
+    color: #fff;
+}
+
+.footer_info{
+    font-size: 22px;
+    line-height: 2;
+}
+
+.copy{
+    font-size: 18px;
+    white-space: nowrap;
+}
