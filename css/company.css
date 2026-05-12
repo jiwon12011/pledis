@@ -136,15 +136,24 @@
 }
 
 .who_brand_img {
-    border: 1px solid #eee;
+    border: 1px solid #e8e8e8;
+    border-right: 3px solid #e8704a;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 24px;
-    background: #f8f8f8;
+    background-color: #fff;
+    background-image:
+        repeating-linear-gradient(rgba(0,0,0,0.06) 0 1px, transparent 1px 100%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 100%);
+    background-size: 22px 22px;
+    padding: 32px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .who_brand_img img {
-    width: 100%;
+    width: 70%;
     display: block;
 }
 
