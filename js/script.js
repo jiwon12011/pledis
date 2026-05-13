@@ -258,7 +258,8 @@ $(function(){
         updateAlbum();
     });
 
-    $('.album_list li').click(function(){
+    $('.album_list li').click(function(e){
+        e.preventDefault();
         const idx = $(this).index();
         if(idx === albumCurrent || albumBusy) return;
         albumBusy = true;

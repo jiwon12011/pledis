@@ -154,6 +154,7 @@
     max-width: 320px;
     display: block;
     margin: 0 auto;
+    mix-blend-mode: multiply;
 }
 
 .who_brand_meta {
