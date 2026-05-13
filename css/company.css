@@ -225,7 +225,7 @@
     top: 0;
     bottom: 0;
     width: 1px;
-    background: linear-gradient(to bottom, transparent, #d8d8d8 6%, #d8d8d8 94%, transparent);
+    background: linear-gradient(to bottom, transparent, rgba(232,112,74,0.55) 6%, rgba(232,112,74,0.55) 94%, transparent);
 }
 
 /* 각 시대 */
