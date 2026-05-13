@@ -152,7 +152,7 @@ header.scrolled{
 }
 header .logo{}
 header .logo a{}
-header .logo a img{}
+header .logo a img{ height: 36px; width: auto; display: block; }
 header .nav{display: flex; gap: 60px;}
 header .nav li{font-size: 20px; color: #fff; transition: color 0.3s;}
 header.scrolled .nav li{ color: #222; }
