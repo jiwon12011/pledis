@@ -290,19 +290,26 @@ const subI18n = {
 };
 
 const subLangKeys = ['KOR','ENG','JPN','CHN'];
-let currentSubLang = 'KOR';
+let currentSubLang = localStorage.getItem('pledisLang') || 'KOR';
 
 function setSubLang(lang) {
     currentSubLang = lang;
+    localStorage.setItem('pledisLang', lang);
     const dict = subI18n[lang];
     if (!dict) return;
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         const key = el.getAttribute('data-i18n');
         if (dict[key] !== undefined) el.innerHTML = dict[key];
     });
+    const idx = subLangKeys.indexOf(lang);
+    $('.lang li').removeClass('active').eq(idx).addClass('active');
+    $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
 }
 
 $(function(){
+
+    // 저장된 언어 복원
+    if(currentSubLang !== 'KOR') setSubLang(currentSubLang);
 
     /* ── Fade-up observer ── */
     const observer = new IntersectionObserver(function(entries){

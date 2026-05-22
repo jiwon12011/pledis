@@ -6,6 +6,13 @@ const i18n = {
         footer_company: '플레디스 엔터테인먼트',
         footer_addr: '서울특별시 용산구 한강대로 42',
         footer_biz: '사업자 등록 번호 ㅣ 211-88-46472',
+        artist_sub: '플레디스 유니버스를 빛내는 별들',
+        visit_site: 'VISIT OFFICIAL SITE ↗',
+        join_pledis: 'JOIN PLEDIS ENTERTAINMENT',
+        mv_sub: '플레디스의 역동적인 순간과 끝없는 리듬',
+        album_sub: '우리의 음악 여정을 담은 기록',
+        aud_strong: '플레디스 은하계의 다음 주인공은 바로 당신입니다.',
+        aud_desc: '글로벌 탤런트 서치 2026. 서울 & 전 세계.<br>세계의 맥박이 될 차세대 퍼포머를 찾습니다.<br>보컬, 댄스, 랩, 연기. 당신의 무대가 여기서 시작됩니다.',
         hist_2024: '5세대 보이그룹 TWS(투어스) 데뷔',
         hist_2023: "세븐틴(SEVENTEEN), MAMA '올해의 앨범상' 대상 수상",
         hist_2021: '프로미스나인(fromis_9) 플레디스 합류',
@@ -24,6 +31,13 @@ const i18n = {
         footer_company: 'Pledis Entertainment',
         footer_addr: '42 Hangang-daero, Yongsan-gu, Seoul',
         footer_biz: 'Business Reg. No. 211-88-46472',
+        artist_sub: 'The shining stars of the Pledis universe',
+        visit_site: 'VISIT OFFICIAL SITE ↗',
+        join_pledis: 'JOIN PLEDIS ENTERTAINMENT',
+        mv_sub: 'Unveiling the dynamic moments and endless rhythm',
+        album_sub: 'The physical records of our musical journey',
+        aud_strong: 'You are the next star of the Pledis universe.',
+        aud_desc: 'Global Talent Search 2026. Seoul & Worldwide.<br>Seeking the next generation of performers who will become the pulse of the world.<br>Vocals, Dance, Rap, Acting. Your stage begins here.',
         hist_2024: '5th-gen boy group TWS debut',
         hist_2023: 'SEVENTEEN wins Album of the Year at MAMA',
         hist_2021: 'fromis_9 joins Pledis Entertainment',
@@ -42,6 +56,13 @@ const i18n = {
         footer_company: 'プレディスエンターテインメント',
         footer_addr: 'ソウル特別市龍山区漢江大路42',
         footer_biz: '法人番号 211-88-46472',
+        artist_sub: 'プレディスユニバースを輝かせるスターたち',
+        visit_site: '公式サイトへ ↗',
+        join_pledis: 'プレディスに参加する',
+        mv_sub: 'プレディスのダイナミックな瞬間と果てしないリズム',
+        album_sub: '私たちの音楽の旅を記録したアルバム',
+        aud_strong: 'プレディスギャラクシーの次の主役はあなたです。',
+        aud_desc: 'グローバルタレントサーチ2026。ソウル＆ワールドワイド。<br>世界の鼓動となる次世代パフォーマーを求めています。<br>ボーカル、ダンス、ラップ、演技。あなたのステージはここから始まります。',
         hist_2024: '第5世代ボーイグループTWSデビュー',
         hist_2023: 'SEVENTEENがMAMAにて年間アルバム大賞を受賞',
         hist_2021: 'fromis_9がプレディスに合流',
@@ -60,6 +81,13 @@ const i18n = {
         footer_company: '普丽迪丝娱乐',
         footer_addr: '首尔特别市龙山区汉江大路42',
         footer_biz: '营业执照号 211-88-46472',
+        artist_sub: '照亮Pledis宇宙的闪耀之星',
+        visit_site: '访问官方网站 ↗',
+        join_pledis: '加入Pledis娱乐',
+        mv_sub: '揭开Pledis动感时刻与无尽节奏的面纱',
+        album_sub: '记录我们音乐旅程的实体专辑',
+        aud_strong: '你就是下一位Pledis星系的主角。',
+        aud_desc: '全球才艺搜索2026。首尔及全球。<br>寻找将成为世界脉搏的下一代表演者。<br>声乐、舞蹈、说唱、演技。你的舞台从这里开始。',
         hist_2024: '第五代男团TWS出道',
         hist_2023: 'SEVENTEEN荣获MAMA年度专辑大奖',
         hist_2021: 'fromis_9加入Pledis娱乐',
@@ -76,16 +104,20 @@ const i18n = {
 };
 
 const langKeys = ['KOR','ENG','JPN','CHN'];
-let currentLang = 'KOR';
+let currentLang = localStorage.getItem('pledisLang') || 'KOR';
 
 function setLang(lang){
     currentLang = lang;
+    localStorage.setItem('pledisLang', lang);
     const dict = i18n[lang];
     if(!dict) return;
     document.querySelectorAll('[data-i18n]').forEach(function(el){
         const key = el.getAttribute('data-i18n');
         if(dict[key] !== undefined) el.innerHTML = dict[key];
     });
+    const idx = langKeys.indexOf(lang);
+    $('.lang li').removeClass('active').eq(idx).addClass('active');
+    $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
 }
 
 // 페이지 로딩 인트로
@@ -96,6 +128,9 @@ setTimeout(function(){
 
 
 $(function(){
+
+    // 저장된 언어 복원
+    if(currentLang !== 'KOR') setLang(currentLang);
 
     // 3번: 스크롤 페이드인 (Intersection Observer)
     const observer = new IntersectionObserver(function(entries){
