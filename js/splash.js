@@ -48,12 +48,12 @@
         done:     1550    // cleanup
     };
 
-    /* ── Positions (viewport ratio) ─────────────── */
+    /* ── Positions — fixed 120px span, centered ─── */
     const pos = {
-        s1:  () => ({ x: 0.20 * W, y: 0.63 * H }),
-        s2:  () => ({ x: 0.76 * W, y: 0.35 * H }),
-        cp1: () => ({ x: 0.22 * W, y: 0.26 * H }),
-        cp2: () => ({ x: 0.63 * W, y: 0.30 * H })
+        s1:  () => ({ x: W/2 - 60, y: H/2 + 26 }),
+        s2:  () => ({ x: W/2 + 60, y: H/2 - 26 }),
+        cp1: () => ({ x: W/2 - 48, y: H/2 - 22 }),
+        cp2: () => ({ x: W/2 + 20, y: H/2 - 36 })
     };
 
     /* ── Easing ──────────────────────────────────── */
@@ -158,8 +158,8 @@
         ctx.clearRect(0, 0, W, H);
 
         /* dark background with subtle centre glow */
-        const bg = ctx.createRadialGradient(W * 0.46, H * 0.47, 0, W * 0.5, H * 0.5, W * 0.75);
-        bg.addColorStop(0, '#1c1c1c');
+        const bg = ctx.createRadialGradient(W * 0.5, H * 0.5, 0, W * 0.5, H * 0.5, 200);
+        bg.addColorStop(0, '#1e1e1e');
         bg.addColorStop(1, '#0a0a0a');
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, W, H);
