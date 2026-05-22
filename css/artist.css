@@ -98,10 +98,23 @@ header .nav li.active a { color: #e8704a; }
     padding-bottom: 120px;
 }
 
-/* textbox 간격 좁히기 */
+/* textbox 간격 */
 .artist_section .textbox {
-    padding-top: 32px;
-    padding-bottom: 40px;
+    padding-top: 100px;
+    padding-bottom: 16px;
+}
+
+/* OUR ARTISTS 타이틀 아래 소개 문구 */
+.artist_intro_sub {
+    font-family: 'Pretendard', '맑은 고딕', sans-serif;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.9;
+    max-width: 620px;
+    margin: 0 auto 48px;
+    padding: 0 clamp(24px, 5vw, 60px);
+    text-align: center;
+    word-break: keep-all;
 }
 
 .artist_deco {
