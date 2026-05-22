@@ -48,23 +48,15 @@
     };
 
     /* ── Layout helpers ──────────────────────────── */
-    /*
-        Composition (top → bottom):
-          arc   : ~62px  (cp2 at CY-36 … s1 at CY+26)
-          gap   : 24px
-          logo  : ~41px  (96px wide, 556×240 ratio)
-        Total   ≈ 127px  → shift CY so group centers at H/2
-        CY = H/2 - 22  (arc top = H/2-58, arc bottom = H/2+4)
-        logo top = arc bottom + gap = H/2 + 28
-    */
     function CY() { return H / 2; }
     function CX() { return W / 2; }
+    function R()  { return Math.min(Math.max(W * 0.08, 60), 200); }
 
     const pos = {
-        s1:  () => ({ x: CX() - 60, y: CY() + 26 }),
-        s2:  () => ({ x: CX() + 60, y: CY() - 26 }),
-        cp1: () => ({ x: CX() - 48, y: CY() - 22 }),
-        cp2: () => ({ x: CX() + 20, y: CY() - 36 })
+        s1:  () => ({ x: CX() - R(),          y: CY() + R() * 0.43 }),
+        s2:  () => ({ x: CX() + R(),          y: CY() - R() * 0.43 }),
+        cp1: () => ({ x: CX() - R() * 0.80,   y: CY() - R() * 0.37 }),
+        cp2: () => ({ x: CX() + R() * 0.33,   y: CY() - R() * 0.60 })
     };
 
     /* ── Easing ──────────────────────────────────── */
@@ -97,24 +89,25 @@
             }
         }
 
+        const s = R() / 60;
         ctx.save();
         ctx.globalAlpha = alpha;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
 
-        ctx.filter      = 'blur(6px)';
+        ctx.filter      = `blur(${(6 * s).toFixed(1)}px)`;
         ctx.strokeStyle = 'rgba(255,70,0,0.55)';
-        ctx.lineWidth   = 6;
+        ctx.lineWidth   = 6 * s;
         path(); ctx.stroke();
 
-        ctx.filter      = 'blur(2px)';
+        ctx.filter      = `blur(${(2 * s).toFixed(1)}px)`;
         ctx.strokeStyle = 'rgba(255,130,50,0.6)';
-        ctx.lineWidth   = 2;
+        ctx.lineWidth   = 2 * s;
         path(); ctx.stroke();
 
         ctx.filter      = 'none';
         ctx.strokeStyle = 'rgba(255,255,255,0.96)';
-        ctx.lineWidth   = 1.0;
+        ctx.lineWidth   = Math.max(1, s);
         path(); ctx.stroke();
 
         ctx.restore();
@@ -163,7 +156,7 @@
         ctx.clearRect(0, 0, W, H);
 
         /* background */
-        const bg = ctx.createRadialGradient(CX(), CY(), 0, CX(), CY(), 220);
+        const bg = ctx.createRadialGradient(CX(), CY(), 0, CX(), CY(), R() * 3.7);
         bg.addColorStop(0, '#1e1e1e');
         bg.addColorStop(1, '#0a0a0a');
         ctx.fillStyle = bg;
@@ -176,16 +169,17 @@
         const arcP = easeInOut(prog(e, T.arcStart, T.arcEnd));
 
         /* right star burst */
+        const sr = R() / 60;
         let a2 = 0, sz2 = 0;
         if (e > T.arcEnd) {
             const t = prog(e, T.arcEnd, T.s2In);
             a2  = easeOut(Math.min(1, t * 1.9));
-            sz2 = 5 + easeOut(Math.min(1, t)) * 7;
+            sz2 = (5 + easeOut(Math.min(1, t)) * 7) * sr;
         }
 
         drawArc(arcP, a1);
-        drawStar(pos.s1().x, pos.s1().y, 4,   a1, 22);
-        if (a2 > 0) drawStar(pos.s2().x, pos.s2().y, sz2, a2, 44);
+        drawStar(pos.s1().x, pos.s1().y, 4 * sr,  a1, 22 * sr);
+        if (a2 > 0) drawStar(pos.s2().x, pos.s2().y, sz2, a2, 44 * sr);
 
         if (e >= T.fadeStart && !fading) {
             fading = true;
