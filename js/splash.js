@@ -54,16 +54,14 @@
     /* ── Layout helpers ──────────────────────────── */
     /*
         Composition (top → bottom):
-          logo  : 28px tall, centered
-          gap   : 22px
-          arc   : ~62px tall (s1/s2 ±26 + control points up to -36)
-        Total   : ~112px
-        Center of group = logo_top + 112/2 = H/2
-        → logo_top = H/2 - 56  → logo center Y = H/2 - 42
-        → arc base  Y (CY)     = H/2 - 56 + 28 + 22 + 36 = H/2 + 30
-          (CY is mid-height of arc bounding box, where cp2 reaches CY-36)
+          arc   : ~62px tall (cp2 at CY-36 … s1 at CY+26)
+          gap   : 18px
+          logo  : ~20px tall
+        Total   : ~100px  → center at H/2
+        → arc top  = H/2 - 50  → CY = H/2 - 14
+        → logo center Y = H/2 + 40
     */
-    function CY() { return H / 2 + 30; }
+    function CY() { return H / 2 - 14; }
     function CX() { return W / 2; }
 
     const pos = {
@@ -73,8 +71,8 @@
         cp2: () => ({ x: CX() + 20, y: CY() - 36 })
     };
 
-    /* Logo center Y: just above arc */
-    function LOGO_Y() { return H / 2 - 42; }
+    /* Logo center Y: just below arc */
+    function LOGO_Y() { return H / 2 + 40; }
 
     /* ── Easing ──────────────────────────────────── */
     function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
@@ -93,7 +91,7 @@
     /* ── Draw logo (white) ───────────────────────── */
     function drawLogo(alpha) {
         if (!logoImg.complete || logoImg.naturalWidth === 0 || alpha <= 0) return;
-        const lw = 120;
+        const lw = 96;
         const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
         const lx = CX() - lw / 2;
         const ly = LOGO_Y() - lh / 2;
