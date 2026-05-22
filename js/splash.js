@@ -4,6 +4,9 @@
 (function () {
     'use strict';
 
+    if (sessionStorage.getItem('splashShown')) return;
+    sessionStorage.setItem('splashShown', '1');
+
     /* ── Overlay ─────────────────────────────────── */
     const ov = document.createElement('div');
     ov.id = 'pledis-splash';
