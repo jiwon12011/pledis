@@ -1,0 +1,887 @@
+/* ================================================
+   AUDITION PAGE
+================================================ */
+
+/* ── Sub Hero ── */
+.sub_hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 32 / 9;
+    overflow: hidden;
+}
+.sub_hero_bg {
+    position: absolute;
+    inset: 0;
+}
+.sub_hero_bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+}
+.sub_hero_bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.65) 0%,
+        rgba(0,0,0,0.35) 55%,
+        rgba(0,0,0,0.1) 100%
+    );
+}
+.sub_hero_content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 clamp(40px, 8vw, 160px);
+}
+.sub_hero_category {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 14px;
+    display: block;
+}
+.sub_hero_content h1 {
+    font-size: clamp(28px, 4vw, 56px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+.sub_hero_content p {
+    margin-top: 16px;
+    font-size: clamp(13px, 1.5vw, 17px);
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+    font-family: 'Nanum Myeongjo', serif;
+}
+
+/* ── Fade-up ── */
+.fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.fade-up.delay-1 { transition-delay: 0.1s; }
+.fade-up.delay-2 { transition-delay: 0.2s; }
+.fade-up.delay-3 { transition-delay: 0.3s; }
+.fade-up.delay-4 { transition-delay: 0.4s; }
+.fade-up.delay-5 { transition-delay: 0.5s; }
+
+/* ── Header active ── */
+header .nav li.active a { color: #e8704a; }
+
+/* ================================================
+   PLEDIS INTRO
+================================================ */
+.pledis_intro {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+}
+
+.pledis_intro_img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+.pledis_intro_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+}
+.pledis_intro_img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(253,232,220,0.95) 0%,
+        rgba(253,232,220,0.78) 38%,
+        rgba(253,232,220,0.22) 62%,
+        transparent 80%
+    );
+    z-index: 1;
+}
+
+.pledis_intro_inner {
+    position: relative;
+    z-index: 2;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+}
+
+.pledis_intro_text {
+    width: 52%;
+    padding: 80px 60px 80px clamp(40px, 8vw, 160px);
+    box-sizing: border-box;
+}
+
+.pledis_intro_eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #e8704a;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.pledis_intro_text h2 {
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 900;
+    color: #c94a1a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+}
+
+.pledis_intro_text p {
+    font-size: 14px;
+    line-height: 1.95;
+    color: #6b3520;
+    margin-bottom: 18px;
+}
+
+.pledis_stat_row {
+    display: flex;
+    gap: 40px;
+    margin-top: 32px;
+}
+
+.pledis_stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pledis_stat_num {
+    font-size: 30px;
+    font-weight: 800;
+    color: #c94a1a;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.pledis_stat_label {
+    font-size: 11px;
+    color: #a0614a;
+    letter-spacing: 0.08em;
+}
+
+/* ================================================
+   TALENT CATEGORIES
+================================================ */
+.talent_section {
+    background: #fff;
+    padding: 100px 0 80px;
+}
+
+.talent_grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 80px);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.talent_card {
+    background: #fefefe;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    padding: 36px 28px 32px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    cursor: default;
+}
+
+.talent_card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 40px rgba(232,112,74,0.12);
+    border-color: rgba(232,112,74,0.3);
+}
+
+.talent_icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #fde8e0, #ffd3c0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.talent_icon svg {
+    width: 28px;
+    height: 28px;
+    fill: #e8704a;
+}
+
+.talent_card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #e8704a;
+    margin-bottom: 10px;
+}
+
+.talent_card_ko {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+    display: block;
+    letter-spacing: -0.01em;
+}
+
+.talent_card p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.8;
+}
+
+/* ================================================
+   APPLICATION PROCESS
+================================================ */
+.process_section {
+    background: #faf8f6;
+    padding: 90px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.process_deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.process_inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 80px);
+    position: relative;
+    z-index: 2;
+}
+
+.process_steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 60px;
+    position: relative;
+}
+
+/* 연결선 */
+.process_steps::before {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: calc(16.66% + 20px);
+    right: calc(16.66% + 20px);
+    height: 1px;
+    background: linear-gradient(to right, #e8704a, rgba(232,112,74,0.3));
+    z-index: 0;
+}
+
+.process_step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.process_num {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #e8704a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: #e8704a;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 16px rgba(232,112,74,0.12);
+}
+
+.process_step:first-child .process_num {
+    background: #e8704a;
+    color: #fff;
+}
+
+.process_step h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+.process_step p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.7;
+    max-width: 160px;
+}
+
+/* ================================================
+   APPLICATION GUIDE
+================================================ */
+.guide_section {
+    background: #fff;
+    padding: 90px 0 80px;
+}
+
+.guide_inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 80px);
+}
+
+.guide_list {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 2px solid #111;
+}
+
+.guide_item {
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+}
+
+.guide_q {
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    text-align: left;
+    padding: 22px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: color 0.2s;
+}
+
+.guide_q:hover {
+    color: #e8704a;
+}
+
+.guide_q_icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #999;
+    flex-shrink: 0;
+    transition: background 0.25s, color 0.25s, transform 0.3s;
+}
+
+.guide_item.open .guide_q_icon {
+    background: #e8704a;
+    color: #fff;
+    transform: rotate(45deg);
+}
+
+.guide_body {
+    display: none;
+    padding: 0 0 24px;
+}
+
+.guide_body p,
+.guide_body li {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.9;
+}
+
+.guide_body ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.guide_body li::before {
+    content: '—';
+    color: #e8704a;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+/* ================================================
+   APPLICATION FORM
+================================================ */
+.form_section {
+    background: #faf8f6;
+    padding: 90px 0 100px;
+}
+
+.form_inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 80px);
+}
+
+.form_desc {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 16px;
+    color: #888;
+    line-height: 1.9;
+    text-align: center;
+    margin: 20px 0 52px;
+}
+
+#auditionForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form_group label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #555;
+}
+
+.form_group input,
+.form_group select,
+.form_group textarea {
+    font-family: inherit;
+    font-size: 14px;
+    color: #222;
+    background: #fff;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form_group input:focus,
+.form_group select:focus,
+.form_group textarea:focus {
+    border-color: #e8704a;
+    box-shadow: 0 0 0 3px rgba(232,112,74,0.1);
+}
+
+.form_group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form_group textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.7;
+}
+
+/* 라디오·체크박스 그룹 */
+.radio_group,
+.check_group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.radio_group label,
+.check_group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #444;
+    cursor: pointer;
+    letter-spacing: 0;
+}
+
+.radio_group input[type="radio"],
+.check_group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.check_group input[type="checkbox"] {
+    border-radius: 4px;
+}
+
+.radio_group input[type="radio"]:checked,
+.check_group input[type="checkbox"]:checked {
+    border-color: #e8704a;
+    background: #e8704a;
+}
+
+.radio_group input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.check_group input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-54%) rotate(45deg);
+    width: 4px; height: 8px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+/* 파일 업로드 */
+.file_upload_label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1.5px dashed #ddd;
+    border-radius: 10px;
+    padding: 13px 16px;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.file_upload_label:hover {
+    border-color: #e8704a;
+    color: #e8704a;
+}
+
+.file_upload_label input[type="file"] {
+    display: none;
+}
+
+.file_icon {
+    font-size: 18px;
+}
+
+/* 개인정보 동의 */
+.form_agree {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+}
+
+.form_agree input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.form_agree input[type="checkbox"]:checked {
+    border-color: #e8704a;
+    background: #e8704a;
+}
+
+.form_agree input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-54%) rotate(45deg);
+    width: 4px; height: 8px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.form_agree a {
+    color: #e8704a;
+    text-decoration: underline;
+}
+
+/* 제출 버튼 */
+.form_submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.submit_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FF4600;
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    border: none;
+    border-radius: 40px;
+    padding: 18px 52px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+    box-shadow: 0 6px 24px rgba(255,70,0,0.25);
+}
+
+.submit_btn:hover {
+    background: #e84000;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(255,70,0,0.35);
+}
+
+/* 제출 완료 메시지 */
+#formThankYou {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#formThankYou h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 14px;
+}
+
+#formThankYou p {
+    font-size: 15px;
+    color: #888;
+    line-height: 1.8;
+}
+
+.ty_icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fde8e0, #ffd3c0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 24px;
+}
+
+/* ================================================
+   FAQ
+================================================ */
+.faq_section {
+    background: #fff;
+    padding: 90px 0 110px;
+}
+
+.faq_inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 80px);
+}
+
+.faq_list {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 2px solid #111;
+}
+
+.faq_item {
+    border-bottom: 1px solid #eee;
+}
+
+.faq_q {
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    text-align: left;
+    padding: 22px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: color 0.2s;
+}
+
+.faq_q:hover {
+    color: #e8704a;
+}
+
+.faq_q_mark {
+    font-size: 18px;
+    font-weight: 900;
+    color: #e8704a;
+    flex-shrink: 0;
+    min-width: 24px;
+}
+
+.faq_q_text {
+    flex: 1;
+}
+
+.faq_q_toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #999;
+    flex-shrink: 0;
+    transition: background 0.25s, color 0.25s, transform 0.3s;
+}
+
+.faq_item.open .faq_q_toggle {
+    background: #e8704a;
+    color: #fff;
+    transform: rotate(45deg);
+}
+
+.faq_a {
+    display: none;
+    padding: 0 0 24px 34px;
+}
+
+.faq_a p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.9;
+}
+
+/* ================================================
+   반응형
+================================================ */
+@media (max-width: 1024px) {
+    .talent_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .process_steps {
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+    }
+    .process_steps::before { display: none; }
+    .process_step {
+        flex-direction: row;
+        text-align: left;
+        gap: 20px;
+        max-width: 480px;
+        width: 100%;
+        align-items: flex-start;
+    }
+    .process_num { margin-bottom: 0; flex-shrink: 0; }
+    .process_step p { max-width: none; }
+}
+
+@media (max-width: 768px) {
+    .sub_hero { aspect-ratio: auto; min-height: 280px; }
+    .sub_hero_content h1 { font-size: 26px; }
+
+    .pledis_intro_inner { flex-direction: column; min-height: 0; }
+    .pledis_intro_text { width: 100%; padding: 60px 28px; }
+    .pledis_intro_img::before {
+        background: linear-gradient(to top, rgba(253,232,220,0.97) 0%, rgba(253,232,220,0.7) 50%, transparent 100%);
+    }
+    .pledis_stat_row { gap: 28px; }
+    .pledis_stat_num { font-size: 24px; }
+
+    .talent_section { padding: 70px 0 60px; }
+    .talent_grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        padding: 0 16px;
+    }
+    .talent_card { padding: 24px 18px 22px; }
+
+    .process_section { padding: 70px 0; }
+
+    .guide_section { padding: 70px 0 60px; }
+
+    .form_section { padding: 70px 0 80px; }
+    .form_row { grid-template-columns: 1fr; }
+
+    .faq_section { padding: 70px 0 80px; }
+    .faq_a { padding-left: 0; }
+}
+
+@media (max-width: 480px) {
+    .talent_grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+    .submit_btn { padding: 16px 36px; font-size: 14px; }
+    .pledis_stat_row { flex-wrap: wrap; gap: 20px; }
+}
