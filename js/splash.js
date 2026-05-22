@@ -12,7 +12,7 @@
         inset:      '0',
         zIndex:     '99999',
         background: '#0f0f0f',
-        transition: 'opacity 0.75s ease',
+        transition: 'opacity 0.8s ease',
         pointerEvents: 'all'
     });
 
@@ -26,7 +26,6 @@
     ov.appendChild(cvs);
 
     document.body.style.overflow = 'hidden';
-    /* insert before everything so it's on top */
     document.body.insertBefore(ov, document.body.firstChild);
 
     const ctx = cvs.getContext('2d');
@@ -38,30 +37,51 @@
     resize();
     window.addEventListener('resize', resize);
 
+    /* ── Logo preload ────────────────────────────── */
+    const logoImg = new Image();
+    logoImg.src = 'img/logo_up.png';
+
     /* ── Timing (ms) ────────────────────────────── */
     const T = {
-        s1In:      180,   // left star fully in
-        arcStart:  100,   // arc starts drawing
-        arcEnd:    720,   // arc fully drawn
-        s2In:      920,   // right star at sparkle peak
-        fadeStart: 980,   // CSS fade begins
-        done:     1550    // cleanup
+        s1In:      320,
+        arcStart:  180,
+        arcEnd:   1200,
+        s2In:     1450,
+        fadeStart:1560,
+        done:     2400
     };
 
-    /* ── Positions — fixed 120px span, centered ─── */
+    /* ── Layout helpers ──────────────────────────── */
+    /*
+        Composition (top → bottom):
+          logo  : 28px tall, centered
+          gap   : 22px
+          arc   : ~62px tall (s1/s2 ±26 + control points up to -36)
+        Total   : ~112px
+        Center of group = logo_top + 112/2 = H/2
+        → logo_top = H/2 - 56  → logo center Y = H/2 - 42
+        → arc base  Y (CY)     = H/2 - 56 + 28 + 22 + 36 = H/2 + 30
+          (CY is mid-height of arc bounding box, where cp2 reaches CY-36)
+    */
+    function CY() { return H / 2 + 30; }
+    function CX() { return W / 2; }
+
     const pos = {
-        s1:  () => ({ x: W/2 - 60, y: H/2 + 26 }),
-        s2:  () => ({ x: W/2 + 60, y: H/2 - 26 }),
-        cp1: () => ({ x: W/2 - 48, y: H/2 - 22 }),
-        cp2: () => ({ x: W/2 + 20, y: H/2 - 36 })
+        s1:  () => ({ x: CX() - 60, y: CY() + 26 }),
+        s2:  () => ({ x: CX() + 60, y: CY() - 26 }),
+        cp1: () => ({ x: CX() - 48, y: CY() - 22 }),
+        cp2: () => ({ x: CX() + 20, y: CY() - 36 })
     };
+
+    /* Logo center Y: just above arc */
+    function LOGO_Y() { return H / 2 - 42; }
 
     /* ── Easing ──────────────────────────────────── */
     function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
     function easeInOut(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
     function prog(e, a, b){ return Math.min(1, Math.max(0, (e - a) / (b - a))); }
 
-    /* ── Cubic bezier point ──────────────────────── */
+    /* ── Cubic bezier ────────────────────────────── */
     function bez(t, p0, p1, p2, p3) {
         const u = 1 - t;
         return {
@@ -70,12 +90,25 @@
         };
     }
 
-    /* ── Draw arc up to progress p (0 → 1) ──────── */
+    /* ── Draw logo (white) ───────────────────────── */
+    function drawLogo(alpha) {
+        if (!logoImg.complete || logoImg.naturalWidth === 0 || alpha <= 0) return;
+        const lw = 120;
+        const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
+        const lx = CX() - lw / 2;
+        const ly = LOGO_Y() - lh / 2;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.filter = 'brightness(0) invert(1)';
+        ctx.drawImage(logoImg, lx, ly, lw, lh);
+        ctx.restore();
+    }
+
+    /* ── Draw arc ────────────────────────────────── */
     function drawArc(p, alpha) {
         if (p <= 0 || alpha <= 0) return;
         const P0 = pos.s1(), P1 = pos.cp1(), P2 = pos.cp2(), P3 = pos.s2();
-        const N  = 120;
-        const n  = Math.max(1, Math.round(p * N));
+        const N = 120, n = Math.max(1, Math.round(p * N));
 
         function path() {
             ctx.beginPath();
@@ -89,22 +122,19 @@
 
         ctx.save();
         ctx.globalAlpha = alpha;
-        ctx.lineCap    = 'round';
-        ctx.lineJoin   = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
 
-        /* wide orange-red glow */
         ctx.filter      = 'blur(6px)';
         ctx.strokeStyle = 'rgba(255,70,0,0.55)';
         ctx.lineWidth   = 6;
         path(); ctx.stroke();
 
-        /* inner warm glow */
         ctx.filter      = 'blur(2px)';
         ctx.strokeStyle = 'rgba(255,130,50,0.6)';
         ctx.lineWidth   = 2;
         path(); ctx.stroke();
 
-        /* crisp white core */
         ctx.filter      = 'none';
         ctx.strokeStyle = 'rgba(255,255,255,0.96)';
         ctx.lineWidth   = 1.0;
@@ -119,7 +149,6 @@
         ctx.save();
         ctx.globalAlpha = alpha;
 
-        /* orange→transparent glow halo */
         const g = ctx.createRadialGradient(x, y, 0, x, y, glowR);
         g.addColorStop(0,    'rgba(255,255,255,0.95)');
         g.addColorStop(0.12, 'rgba(255,180,80,0.7)');
@@ -130,7 +159,6 @@
         ctx.arc(x, y, glowR, 0, Math.PI * 2);
         ctx.fill();
 
-        /* 4-pointed star polygon */
         ctx.shadowColor = 'rgba(255,100,20,0.95)';
         ctx.shadowBlur  = size * 1.8;
         ctx.fillStyle   = '#ffffff';
@@ -157,32 +185,32 @@
 
         ctx.clearRect(0, 0, W, H);
 
-        /* dark background with subtle centre glow */
-        const bg = ctx.createRadialGradient(W * 0.5, H * 0.5, 0, W * 0.5, H * 0.5, 200);
+        /* background */
+        const bg = ctx.createRadialGradient(CX(), CY(), 0, CX(), CY(), 220);
         bg.addColorStop(0, '#1e1e1e');
         bg.addColorStop(1, '#0a0a0a');
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, W, H);
 
-        /* left star — fades in first */
-        const a1   = easeOut(prog(e, 0, T.s1In));
+        /* logo + left star fade in together */
+        const a1 = easeOut(prog(e, 0, T.s1In));
 
-        /* arc — draws after a short delay */
+        /* arc draws */
         const arcP = easeInOut(prog(e, T.arcStart, T.arcEnd));
 
-        /* right star — bursts in at arc end */
+        /* right star burst */
         let a2 = 0, sz2 = 0;
         if (e > T.arcEnd) {
             const t = prog(e, T.arcEnd, T.s2In);
-            a2  = easeOut(Math.min(1, t * 1.9)); // fast alpha
-            sz2 = 5 + easeOut(Math.min(1, t)) * 7;   // 5 → 12
+            a2  = easeOut(Math.min(1, t * 1.9));
+            sz2 = 5 + easeOut(Math.min(1, t)) * 7;
         }
 
         drawArc(arcP, a1);
-        drawStar(pos.s1().x, pos.s1().y,  4, a1, 22);
+        drawStar(pos.s1().x, pos.s1().y, 4,   a1, 22);
         if (a2 > 0) drawStar(pos.s2().x, pos.s2().y, sz2, a2, 44);
+        drawLogo(a1);
 
-        /* trigger CSS fade-out */
         if (e >= T.fadeStart && !fading) {
             fading = true;
             ov.style.opacity = '0';
