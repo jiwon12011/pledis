@@ -40,12 +40,12 @@
 
     /* ── Timing (ms) ────────────────────────────── */
     const T = {
-        s1In:      460,   // left star fully in
-        arcStart:  280,   // arc starts drawing
-        arcEnd:   1680,   // arc fully drawn
-        s2In:     2050,   // right star at sparkle peak
-        fadeStart: 2180,  // CSS fade begins
-        done:      2980   // cleanup
+        s1In:      180,   // left star fully in
+        arcStart:  100,   // arc starts drawing
+        arcEnd:    720,   // arc fully drawn
+        s2In:      920,   // right star at sparkle peak
+        fadeStart: 980,   // CSS fade begins
+        done:     1550    // cleanup
     };
 
     /* ── Positions (viewport ratio) ─────────────── */
@@ -93,21 +93,21 @@
         ctx.lineJoin   = 'round';
 
         /* wide orange-red glow */
-        ctx.filter      = 'blur(14px)';
-        ctx.strokeStyle = 'rgba(255,70,0,0.6)';
-        ctx.lineWidth   = 14;
+        ctx.filter      = 'blur(6px)';
+        ctx.strokeStyle = 'rgba(255,70,0,0.55)';
+        ctx.lineWidth   = 6;
         path(); ctx.stroke();
 
         /* inner warm glow */
-        ctx.filter      = 'blur(4px)';
-        ctx.strokeStyle = 'rgba(255,130,50,0.65)';
-        ctx.lineWidth   = 4;
+        ctx.filter      = 'blur(2px)';
+        ctx.strokeStyle = 'rgba(255,130,50,0.6)';
+        ctx.lineWidth   = 2;
         path(); ctx.stroke();
 
         /* crisp white core */
         ctx.filter      = 'none';
         ctx.strokeStyle = 'rgba(255,255,255,0.96)';
-        ctx.lineWidth   = 1.4;
+        ctx.lineWidth   = 1.0;
         path(); ctx.stroke();
 
         ctx.restore();
@@ -132,7 +132,7 @@
 
         /* 4-pointed star polygon */
         ctx.shadowColor = 'rgba(255,100,20,0.95)';
-        ctx.shadowBlur  = size * 2.5;
+        ctx.shadowBlur  = size * 1.8;
         ctx.fillStyle   = '#ffffff';
         ctx.beginPath();
         for (let i = 0; i < 8; i++) {
@@ -175,12 +175,12 @@
         if (e > T.arcEnd) {
             const t = prog(e, T.arcEnd, T.s2In);
             a2  = easeOut(Math.min(1, t * 1.9)); // fast alpha
-            sz2 = 11 + easeOut(Math.min(1, t)) * 13; // 11 → 24
+            sz2 = 5 + easeOut(Math.min(1, t)) * 7;   // 5 → 12
         }
 
         drawArc(arcP, a1);
-        drawStar(pos.s1().x, pos.s1().y,  7, a1, 44);
-        if (a2 > 0) drawStar(pos.s2().x, pos.s2().y, sz2, a2, 90);
+        drawStar(pos.s1().x, pos.s1().y,  4, a1, 22);
+        if (a2 > 0) drawStar(pos.s2().x, pos.s2().y, sz2, a2, 44);
 
         /* trigger CSS fade-out */
         if (e >= T.fadeStart && !fading) {
