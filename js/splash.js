@@ -54,14 +54,14 @@
     /* ── Layout helpers ──────────────────────────── */
     /*
         Composition (top → bottom):
-          arc   : ~62px tall (cp2 at CY-36 … s1 at CY+26)
-          gap   : 18px
-          logo  : ~20px tall
-        Total   : ~100px  → center at H/2
-        → arc top  = H/2 - 50  → CY = H/2 - 14
-        → logo center Y = H/2 + 40
+          arc   : ~62px  (cp2 at CY-36 … s1 at CY+26)
+          gap   : 24px
+          logo  : ~41px  (96px wide, 556×240 ratio)
+        Total   ≈ 127px  → shift CY so group centers at H/2
+        CY = H/2 - 22  (arc top = H/2-58, arc bottom = H/2+4)
+        logo top = arc bottom + gap = H/2 + 28
     */
-    function CY() { return H / 2 - 14; }
+    function CY() { return H / 2 - 22; }
     function CX() { return W / 2; }
 
     const pos = {
@@ -70,9 +70,6 @@
         cp1: () => ({ x: CX() - 48, y: CY() - 22 }),
         cp2: () => ({ x: CX() + 20, y: CY() - 36 })
     };
-
-    /* Logo center Y: just below arc */
-    function LOGO_Y() { return H / 2 + 40; }
 
     /* ── Easing ──────────────────────────────────── */
     function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
@@ -94,7 +91,7 @@
         const lw = 96;
         const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
         const lx = CX() - lw / 2;
-        const ly = LOGO_Y() - lh / 2;
+        const ly = pos.s1().y + 24;
         ctx.save();
         ctx.globalAlpha = alpha;
         ctx.filter = 'brightness(0) invert(1)';
