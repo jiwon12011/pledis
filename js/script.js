@@ -300,8 +300,8 @@ $(function(){
     }
 
     $('.mv_controls .next, .mv_controls .prev').on('click', function(){ startMvTimer(); });
-    $('.music_video').on('mouseenter', function(){ mvPaused = true; })
-                     .on('mouseleave', function(){ mvPaused = false; });
+    $('.mv_item').on('mouseenter', function(){ mvPaused = true; })
+                 .on('mouseleave', function(){ mvPaused = false; });
     startMvTimer();
 
     // 앨범 슬라이더
