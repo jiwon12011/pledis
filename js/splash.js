@@ -37,10 +37,6 @@
     resize();
     window.addEventListener('resize', resize);
 
-    /* ── Logo preload ────────────────────────────── */
-    const logoImg = new Image();
-    logoImg.src = 'img/logo_up.png';
-
     /* ── Timing (ms) ────────────────────────────── */
     const T = {
         s1In:      320,
@@ -61,7 +57,7 @@
         CY = H/2 - 22  (arc top = H/2-58, arc bottom = H/2+4)
         logo top = arc bottom + gap = H/2 + 28
     */
-    function CY() { return H / 2 - 22; }
+    function CY() { return H / 2; }
     function CX() { return W / 2; }
 
     const pos = {
@@ -83,20 +79,6 @@
             x: u*u*u*p0.x + 3*u*u*t*p1.x + 3*u*t*t*p2.x + t*t*t*p3.x,
             y: u*u*u*p0.y + 3*u*u*t*p1.y + 3*u*t*t*p2.y + t*t*t*p3.y
         };
-    }
-
-    /* ── Draw logo (white) ───────────────────────── */
-    function drawLogo(alpha) {
-        if (!logoImg.complete || logoImg.naturalWidth === 0 || alpha <= 0) return;
-        const lw = 96;
-        const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
-        const lx = CX() - lw / 2;
-        const ly = pos.s1().y + 24;
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.filter = 'brightness(0) invert(1)';
-        ctx.drawImage(logoImg, lx, ly, lw, lh);
-        ctx.restore();
     }
 
     /* ── Draw arc ────────────────────────────────── */
@@ -204,7 +186,6 @@
         drawArc(arcP, a1);
         drawStar(pos.s1().x, pos.s1().y, 4,   a1, 22);
         if (a2 > 0) drawStar(pos.s2().x, pos.s2().y, sz2, a2, 44);
-        drawLogo(a1);
 
         if (e >= T.fadeStart && !fading) {
             fading = true;
