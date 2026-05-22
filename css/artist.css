@@ -76,17 +76,18 @@ header .nav li.active a { color: #e8704a; }
 /* ── Artist Intro ── */
 .artist_intro {
     background: #fff;
-    padding: 80px 0 60px;
+    padding: 36px 0 20px;
     text-align: center;
 }
 .artist_intro p {
-    font-family: 'Nanum Myeongjo', serif;
-    font-size: 18px;
+    font-family: 'Pretendard', '맑은 고딕', sans-serif;
+    font-size: 16px;
     color: #666;
     line-height: 1.9;
-    max-width: 680px;
+    max-width: 620px;
     margin: 0 auto;
     padding: 0 24px;
+    word-break: keep-all;
 }
 
 /* ── Artist Grid Section ── */
@@ -95,6 +96,12 @@ header .nav li.active a { color: #e8704a; }
     position: relative;
     overflow: hidden;
     padding-bottom: 120px;
+}
+
+/* textbox 간격 좁히기 */
+.artist_section .textbox {
+    padding-top: 32px;
+    padding-bottom: 40px;
 }
 
 .artist_deco {
@@ -123,12 +130,13 @@ header .nav li.active a { color: #e8704a; }
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    border: 2px solid transparent;
+    transition: box-shadow 0.35s ease, border-color 0.35s ease;
     cursor: pointer;
 }
 .artist_card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(232,112,74,0.15);
+    box-shadow: 0 8px 36px rgba(232,112,74,0.18);
+    border-color: rgba(232,112,74,0.55);
 }
 
 .artist_card_img {
@@ -207,14 +215,16 @@ header .nav li.active a { color: #e8704a; }
     letter-spacing: -0.01em;
     margin-bottom: 10px;
     line-height: 1.2;
+    word-break: keep-all;
 }
 
 .artist_card_desc {
     font-size: 13px;
     color: #777;
-    line-height: 1.8;
+    line-height: 1.85;
     flex: 1;
     margin-bottom: 18px;
+    word-break: keep-all;
 }
 
 .artist_card_link {
@@ -252,8 +262,9 @@ header .nav li.active a { color: #e8704a; }
 @media (max-width: 768px) {
     .sub_hero { aspect-ratio: auto; min-height: 260px; }
     .sub_hero_content h1 { font-size: 26px; }
-    .artist_intro { padding: 60px 0 40px; }
-    .artist_intro p { font-size: 15px; }
+    .artist_intro { padding: 28px 0 16px; }
+    .artist_intro p { font-size: 14px; }
+    .artist_section .textbox { padding-top: 24px; padding-bottom: 28px; }
     .artist_section { padding-bottom: 80px; }
     .artist_grid {
         grid-template-columns: repeat(2, 1fr);
