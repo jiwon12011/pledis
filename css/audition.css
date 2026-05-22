@@ -6,6 +6,7 @@
 .talent_section .textbox span,
 .process_section .textbox span {
     font-family: 'Pretendard', '맑은 고딕', sans-serif;
+    font-size: 20px;
 }
 
 /* ── Sub Hero ── */

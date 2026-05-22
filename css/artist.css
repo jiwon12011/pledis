@@ -107,7 +107,7 @@ header .nav li.active a { color: #e8704a; }
 /* OUR ARTISTS 타이틀 아래 소개 문구 */
 .artist_intro_sub {
     font-family: 'Pretendard', '맑은 고딕', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     color: #666;
     line-height: 1.9;
     max-width: 620px;
