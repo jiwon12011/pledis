@@ -110,7 +110,6 @@ header .nav li.active a { color: #e8704a; }
     font-size: 20px;
     color: #666;
     line-height: 1.9;
-    max-width: 620px;
     margin: 0 auto 48px;
     padding: 0 clamp(24px, 5vw, 60px);
     text-align: center;
