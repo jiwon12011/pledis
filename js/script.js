@@ -1,3 +1,27 @@
+/* ── Lenis 스무스 스크롤 ── */
+var lenis;
+if(typeof Lenis !== 'undefined'){
+    lenis = new Lenis({
+        duration: 1.2,
+        easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smooth: true
+    });
+    (function lenisRaf(time){
+        lenis.raf(time);
+        requestAnimationFrame(lenisRaf);
+    })(0);
+}
+
+
+/* ── 패럴랙스 ── */
+(function(){
+    var heroVideo = document.querySelector('.hero video');
+    function onScroll(){
+        var sy = window.scrollY || window.pageYOffset;
+        if(heroVideo) heroVideo.style.transform = 'translateY(' + (sy * 0.38) + 'px)';
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+})();
 
 /* ── 다국어 번역 ── */
 const i18n = {
@@ -7,6 +31,7 @@ const i18n = {
         footer_addr: '서울특별시 용산구 한강대로 42',
         footer_biz: '사업자 등록 번호 ㅣ 211-88-46472',
         artist_sub: '플레디스 유니버스를 빛내는 별들',
+        artist_drag: '드래그하여 더 보기',
         visit_site: 'VISIT OFFICIAL SITE ↗',
         join_pledis: 'JOIN PLEDIS ENTERTAINMENT',
         mv_sub: '플레디스의 역동적인 순간과 끝없는 리듬',
@@ -32,6 +57,7 @@ const i18n = {
         footer_addr: '42 Hangang-daero, Yongsan-gu, Seoul',
         footer_biz: 'Business Reg. No. 211-88-46472',
         artist_sub: 'The shining stars of the Pledis universe',
+        artist_drag: 'Drag to explore',
         visit_site: 'VISIT OFFICIAL SITE ↗',
         join_pledis: 'JOIN PLEDIS ENTERTAINMENT',
         mv_sub: 'Unveiling the dynamic moments and endless rhythm',
@@ -57,6 +83,7 @@ const i18n = {
         footer_addr: 'ソウル特別市龍山区漢江大路42',
         footer_biz: '法人番号 211-88-46472',
         artist_sub: 'プレディスユニバースを輝かせるスターたち',
+        artist_drag: 'ドラッグしてもっと見る',
         visit_site: '公式サイトへ ↗',
         join_pledis: 'プレディスに参加する',
         mv_sub: 'プレディスのダイナミックな瞬間と果てしないリズム',
@@ -82,6 +109,7 @@ const i18n = {
         footer_addr: '首尔特别市龙山区汉江大路42',
         footer_biz: '营业执照号 211-88-46472',
         artist_sub: '照亮Pledis宇宙的闪耀之星',
+        artist_drag: '拖动查看更多',
         visit_site: '访问官方网站 ↗',
         join_pledis: '加入Pledis娱乐',
         mv_sub: '揭开Pledis动感时刻与无尽节奏的面纱',
