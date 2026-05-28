@@ -13,6 +13,35 @@ if(typeof Lenis !== 'undefined'){
 }
 
 
+/* ── GSAP 진입 모션 ──
+   스크롤 미사용. 헤더/히어로 래퍼만 1회 등장시켜
+   패럴랙스(.hero video), IntersectionObserver(.fade-up),
+   스파크/슬라이더 등 기존 시스템과 충돌하지 않음. */
+if(typeof gsap !== 'undefined'){
+    // 첫 방문 시 splash가 화면을 덮는 동안(~1.5s) 대기했다 등장
+    var splashActive = !!document.getElementById('pledis-splash');
+    var startDelay   = splashActive ? 1.5 : 0.15;
+
+    var heroEl    = document.querySelector('.hero');
+    var logoEl    = document.querySelector('header .logo');
+    var navItems  = document.querySelectorAll('header .nav li');
+    var langItems = document.querySelectorAll('header .lang li');
+    var burgerEl  = document.querySelector('.hamburger');
+    var topItems  = [].slice.call(langItems).concat(burgerEl ? [burgerEl] : []);
+
+    // 초기 상태 (FOUC 방지) — opacity/transform만 건드림(색·배경은 .scrolled가 담당)
+    if(heroEl)         gsap.set(heroEl,   { autoAlpha: 0, scale: 1.06 });
+    if(logoEl)         gsap.set(logoEl,   { autoAlpha: 0, y: -18 });
+    if(navItems.length)  gsap.set(navItems,  { autoAlpha: 0, y: -14 });
+    if(topItems.length)  gsap.set(topItems,  { autoAlpha: 0, y: -14 });
+
+    var introTl = gsap.timeline({ delay: startDelay, defaults: { ease: 'power3.out' } });
+    if(heroEl)        introTl.to(heroEl,  { autoAlpha: 1, scale: 1, duration: 1.4 }, 0);
+    if(logoEl)        introTl.to(logoEl,  { autoAlpha: 1, y: 0, duration: 0.8 }, 0.1);
+    if(navItems.length) introTl.to(navItems, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.25);
+    if(topItems.length) introTl.to(topItems, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.06 }, 0.45);
+}
+
 /* ── 패럴랙스 ── */
 (function(){
     var heroVideo = document.querySelector('.hero video');
