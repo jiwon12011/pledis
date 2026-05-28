@@ -18,10 +18,6 @@ if(typeof Lenis !== 'undefined'){
    패럴랙스(.hero video), IntersectionObserver(.fade-up),
    스파크/슬라이더 등 기존 시스템과 충돌하지 않음. */
 if(typeof gsap !== 'undefined'){
-    // 첫 방문 시 splash가 화면을 덮는 동안(~1.5s) 대기했다 등장
-    var splashActive = !!document.getElementById('pledis-splash');
-    var startDelay   = splashActive ? 1.5 : 0.15;
-
     var heroEl    = document.querySelector('.hero');
     var logoEl    = document.querySelector('header .logo');
     var navItems  = document.querySelectorAll('header .nav li');
@@ -30,16 +26,32 @@ if(typeof gsap !== 'undefined'){
     var topItems  = [].slice.call(langItems).concat(burgerEl ? [burgerEl] : []);
 
     // 초기 상태 (FOUC 방지) — opacity/transform만 건드림(색·배경은 .scrolled가 담당)
-    if(heroEl)         gsap.set(heroEl,   { autoAlpha: 0, scale: 1.06 });
-    if(logoEl)         gsap.set(logoEl,   { autoAlpha: 0, y: -18 });
-    if(navItems.length)  gsap.set(navItems,  { autoAlpha: 0, y: -14 });
-    if(topItems.length)  gsap.set(topItems,  { autoAlpha: 0, y: -14 });
+    if(heroEl)          gsap.set(heroEl,   { autoAlpha: 0, scale: 1.06 });
+    if(logoEl)          gsap.set(logoEl,   { autoAlpha: 0, y: -18 });
+    if(navItems.length) gsap.set(navItems, { autoAlpha: 0, y: -14 });
+    if(topItems.length) gsap.set(topItems, { autoAlpha: 0, y: -14 });
 
-    var introTl = gsap.timeline({ delay: startDelay, defaults: { ease: 'power3.out' } });
-    if(heroEl)        introTl.to(heroEl,  { autoAlpha: 1, scale: 1, duration: 1.4 }, 0);
-    if(logoEl)        introTl.to(logoEl,  { autoAlpha: 1, y: 0, duration: 0.8 }, 0.1);
+    // 멈춰둔 타임라인 — 트리거에서 재생
+    var introTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+    if(heroEl)          introTl.to(heroEl,  { autoAlpha: 1, scale: 1, duration: 1.4 }, 0);
+    if(logoEl)          introTl.to(logoEl,  { autoAlpha: 1, y: 0, duration: 0.8 }, 0.1);
     if(navItems.length) introTl.to(navItems, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.25);
     if(topItems.length) introTl.to(topItems, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.06 }, 0.45);
+
+    // 스플래시가 덮고 있으면 그 페이드 시작에 맞춰 히어로를 드러내 크로스페이드.
+    // 스플래시가 없으면(2번째 방문 등) 짧은 딜레이 후 바로 재생.
+    var splashActive = !!document.getElementById('pledis-splash');
+    if(splashActive){
+        var played = false;
+        var playIntro = function(){
+            if(played) return; played = true;
+            introTl.play(0);
+        };
+        window.addEventListener('pledis:splashfade', playIntro, { once: true });
+        setTimeout(playIntro, 2400);   // 이벤트 미수신 대비 안전 폴백
+    } else {
+        gsap.delayedCall(0.15, function(){ introTl.play(0); });
+    }
 }
 
 /* ── 패럴랙스 ── */
@@ -368,32 +380,55 @@ $(function(){
         updateSlider();
     });
 
-    // MV 자동 슬라이드
+    // MV 자동 슬라이드 (hover 시 막대·카운트다운 동시 일시정지)
     var AUTO_INTERVAL = 5000;
-    var mvTimer = null;
-    var mvPaused = false;
+    var mvTimer   = null;   // 다음 슬라이드 예약 타이머
+    var mvRemain  = AUTO_INTERVAL;
+    var mvCycleAt = 0;      // 현재 카운트다운 구간 시작 시각
+    var $mvFill   = $('.mv_timer_fill');
 
-    function startMvTimer(){
-        clearInterval(mvTimer);
-        $('.mv_timer_fill').css({ transition: 'none', width: '0%' });
-        setTimeout(function(){
-            $('.mv_timer_fill').css({
-                transition: 'width ' + AUTO_INTERVAL + 'ms linear',
-                width: '100%'
-            });
-        }, 30);
-        mvTimer = setInterval(function(){
-            if(!mvPaused){
-                current = (current + 1) % $items.length;
-                updateSlider();
-                startMvTimer();
-            }
-        }, AUTO_INTERVAL);
+    function mvAdvance(){
+        current = (current + 1) % $items.length;
+        updateSlider();
+        startMvTimer();
     }
 
-    $('.mv_controls .next, .mv_controls .prev').on('click', function(){ startMvTimer(); });
-    $('.mv_item').on('mouseenter', function(){ mvPaused = true; })
-                 .on('mouseleave', function(){ mvPaused = false; });
+    // 막대를 ms 동안 현재 위치→100%까지 채우고, 끝나면 다음 슬라이드
+    function mvRun(ms){
+        clearTimeout(mvTimer);
+        mvCycleAt = Date.now();
+        mvRemain  = ms;
+        $mvFill.css({ transition: 'width ' + ms + 'ms linear', width: '100%' });
+        mvTimer = setTimeout(mvAdvance, ms);
+    }
+
+    function startMvTimer(){
+        clearTimeout(mvTimer);
+        $mvFill.css({ transition: 'none', width: '0%' });
+        if($mvFill.length) void $mvFill[0].offsetWidth;   // reflow 강제
+        mvRun(AUTO_INTERVAL);
+    }
+
+    function pauseMvTimer(){
+        if(!mvTimer) return;
+        clearTimeout(mvTimer);
+        mvTimer = null;
+        var w  = $mvFill.width();
+        var pw = $mvFill.parent().width() || 1;
+        $mvFill.css({ transition: 'none', width: (w / pw * 100) + '%' });  // 현재 위치에서 정지
+        if($mvFill.length) void $mvFill[0].offsetWidth;
+        mvRemain = Math.max(0, mvRemain - (Date.now() - mvCycleAt));
+    }
+
+    function resumeMvTimer(){
+        if(mvTimer) return;                 // 이미 진행 중
+        if(mvRemain <= 0){ startMvTimer(); return; }
+        mvRun(mvRemain);                    // 남은 시간만큼 이어서
+    }
+
+    $('.mv_controls .next, .mv_controls .prev').on('click', startMvTimer);
+    $('.mv_item').on('mouseenter', pauseMvTimer)
+                 .on('mouseleave', resumeMvTimer);
     startMvTimer();
 
     // 앨범 슬라이더
