@@ -159,7 +159,7 @@ header .nav li{font-size: 18px; font-weight: 500; color: #fff; transition: color
 header.scrolled .nav li{ color: #222; }
 header .nav li:hover {color: #FF4600;}
 header .lang{display: flex; gap: 20px;}
-header .lang li{font-size: 13px; color: #fff; transition: color 0.3s; cursor: pointer;}
+header .lang li{font-size: 14px; color: #fff; transition: color 0.3s; cursor: pointer;}
 header.scrolled .lang li{ color: #222; }
 header .lang li:hover{ color: #FF4600; }
 header .lang li.active a{ color: #FF4600; font-weight: 700; }
