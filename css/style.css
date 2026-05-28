@@ -155,7 +155,7 @@ header .logo{}
 header .logo a{}
 header .logo a img{ height: 52px; width: auto; display: block; }
 header .nav{display: flex; gap: 60px;}
-header .nav li{font-size: 16px; color: #fff; transition: color 0.3s;}
+header .nav li{font-size: 18px; font-weight: 500; color: #fff; transition: color 0.3s;}
 header.scrolled .nav li{ color: #222; }
 header .nav li:hover {color: #FF4600;}
 header .lang{display: flex; gap: 20px;}
@@ -1253,7 +1253,7 @@ header.scrolled .hamburger span{ background: #222; }
     header{ padding: 28px 40px; justify-content: space-between; }
     header.scrolled{ padding: 16px 40px; }
     header .nav{ gap: 32px; }
-    header .nav li{ font-size: 16px; }
+    header .nav li{ font-size: 17px; }
     header .lang li{ font-size: 14px; gap: 14px; }
 
     .textbox{ padding-top: 70px; }
