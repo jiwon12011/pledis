@@ -189,6 +189,17 @@ function setLang(lang){
     $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
 }
 
+function keepScrollPosition(callback){
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    callback();
+    requestAnimationFrame(function(){
+        window.scrollTo(0, scrollY);
+        if(lenis && typeof lenis.scrollTo === 'function'){
+            lenis.scrollTo(scrollY, { immediate: true });
+        }
+    });
+}
+
 // 페이지 로딩 인트로
 setTimeout(function(){
     $('#pageIntro').addClass('hide');
@@ -222,7 +233,7 @@ $(function(){
         $('.lang li').removeClass('active');
         $(this).addClass('active');
         $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
-        setLang(langKeys[idx]);
+        keepScrollPosition(function(){ setLang(langKeys[idx]); });
     });
 
     // 모바일 언어 선택 (데스크탑 싱크)
@@ -232,7 +243,7 @@ $(function(){
         $('.mobile_lang_list li').removeClass('active');
         $(this).addClass('active');
         $('.lang li').removeClass('active').eq(idx).addClass('active');
-        setLang(langKeys[idx]);
+        keepScrollPosition(function(){ setLang(langKeys[idx]); });
     });
 
     // 햄버거 메뉴

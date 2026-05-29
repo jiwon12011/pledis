@@ -160,10 +160,11 @@ header.scrolled .nav li{ color: #222; }
 header .nav li:hover {color: #FF4600;}
 header .lang{display: flex; gap: 20px;}
 header .lang li{font-size: 14px; color: #fff; transition: color 0.3s; cursor: pointer;}
+header .lang button{border: 0; background: transparent; padding: 0; color: inherit; font: inherit; cursor: pointer;}
 header.scrolled .lang li{ color: #222; }
 header .lang li:hover{ color: #FF4600; }
-header .lang li.active a{ color: #FF4600; font-weight: 700; }
-header.scrolled .lang li.active a{ color: #FF4600; }
+header .lang li.active button{ color: #FF4600; font-weight: 700; }
+header.scrolled .lang li.active button{ color: #FF4600; }
 
 .hero{ margin: 0 auto; position: relative; overflow: hidden; height: 100vh; height: 100svh; }
 .hero video{ width: 100%; height: 100%; object-fit: cover; display: block; will-change: transform; }
@@ -1217,13 +1218,17 @@ header.scrolled .hamburger span{ background: #222; }
     gap: 24px;
     margin-top: 28px;
 }
-.mobile_lang_list li a{
+.mobile_lang_list li button{
+    border: 0;
+    background: transparent;
+    padding: 0;
     font-size: 16px;
     color: #888;
     font-weight: 500;
     transition: color 0.2s;
+    cursor: pointer;
 }
-.mobile_lang_list li.active a{ color: #FF4600; font-weight: 700; }
+.mobile_lang_list li.active button{ color: #FF4600; font-weight: 700; }
 
 /* ════════════════════════════════════════
    1920px 이상 (대형 모니터)

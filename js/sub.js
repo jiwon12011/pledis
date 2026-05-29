@@ -322,6 +322,14 @@ function setSubLang(lang) {
     $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
 }
 
+function keepSubScrollPosition(callback){
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    callback();
+    requestAnimationFrame(function(){
+        window.scrollTo(0, scrollY);
+    });
+}
+
 $(function(){
 
     // 저장된 언어 복원
@@ -364,7 +372,7 @@ $(function(){
         $('.lang li').removeClass('active');
         $(this).addClass('active');
         $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
-        setSubLang(subLangKeys[idx]);
+        keepSubScrollPosition(function(){ setSubLang(subLangKeys[idx]); });
     });
     $('.mobile_lang_list li').on('click', function(e){
         e.preventDefault();
@@ -372,7 +380,7 @@ $(function(){
         $('.mobile_lang_list li').removeClass('active');
         $(this).addClass('active');
         $('.lang li').removeClass('active').eq(idx).addClass('active');
-        setSubLang(subLangKeys[idx]);
+        keepSubScrollPosition(function(){ setSubLang(subLangKeys[idx]); });
     });
 
     /* ── Spark 애니메이션 ── */
