@@ -358,14 +358,16 @@ $(function(){
     });
 
     /* ── 언어 전환 (데스크탑 & 모바일 싱크) ── */
-    $('.lang li').on('click', function(){
+    $('.lang li').on('click', function(e){
+        e.preventDefault();
         const idx = $(this).index();
         $('.lang li').removeClass('active');
         $(this).addClass('active');
         $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
         setSubLang(subLangKeys[idx]);
     });
-    $('.mobile_lang_list li').on('click', function(){
+    $('.mobile_lang_list li').on('click', function(e){
+        e.preventDefault();
         const idx = $(this).index();
         $('.mobile_lang_list li').removeClass('active');
         $(this).addClass('active');

@@ -216,7 +216,8 @@ $(function(){
     });
 
     // 언어 선택 (데스크탑 — 모바일 싱크)
-    $('.lang li').click(function(){
+    $('.lang li').click(function(e){
+        e.preventDefault();
         const idx = $(this).index();
         $('.lang li').removeClass('active');
         $(this).addClass('active');
@@ -225,7 +226,8 @@ $(function(){
     });
 
     // 모바일 언어 선택 (데스크탑 싱크)
-    $('.mobile_lang_list li').click(function(){
+    $('.mobile_lang_list li').click(function(e){
+        e.preventDefault();
         const idx = $(this).index();
         $('.mobile_lang_list li').removeClass('active');
         $(this).addClass('active');
