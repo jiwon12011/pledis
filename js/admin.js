@@ -215,6 +215,7 @@ function initStatsCharts() {
             },
             options: {
                 responsive: true,
+                aspectRatio: 1.4,
                 cutout: '65%',
                 plugins: {
                     legend: { position: 'bottom', labels: { font: { size: 12 }, usePointStyle: true } },
