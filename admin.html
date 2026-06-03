@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <title>플레디스 관리자</title>
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- 사이드바 -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar_logo">
+        <img src="img/f_logo.png" alt="Pledis">
+        <span>ADMIN</span>
+    </div>
+    <nav class="sidebar_nav">
+        <ul>
+            <li class="active" data-tab="dashboard">
+                <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                <span>대시보드</span>
+            </li>
+            <li data-tab="artist">
+                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                <span>아티스트</span>
+            </li>
+            <li data-tab="notice">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                <span>공지사항</span>
+            </li>
+            <li data-tab="audition">
+                <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+                <span>오디션</span>
+            </li>
+            <li data-tab="stats">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                <span>통계</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar_bottom">
+        <a href="index.html" class="back_btn">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            사이트로 돌아가기
+        </a>
+    </div>
+</aside>
+
+<!-- 메인 콘텐츠 -->
+<div class="admin_main">
+
+    <!-- 탑바 -->
+    <header class="topbar">
+        <button class="menu_toggle" id="menuToggle" aria-label="메뉴">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="topbar_title" id="topbarTitle">대시보드</div>
+        <div class="topbar_right">
+            <span class="topbar_date" id="topbarDate"></span>
+            <div class="admin_badge">관리자</div>
+        </div>
+    </header>
+
+    <!-- 대시보드 탭 -->
+    <section class="tab_content active" id="tab_dashboard">
+        <div class="section_header">
+            <h2>대시보드</h2>
+            <p>플레디스 엔터테인먼트 통합 현황</p>
+        </div>
+
+        <!-- 요약 카드 -->
+        <div class="stat_cards">
+            <div class="stat_card">
+                <div class="stat_icon orange">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <div class="stat_info">
+                    <span class="stat_label">총 방문자 수</span>
+                    <strong class="stat_value" data-count="1482930">0</strong>
+                    <span class="stat_change up">▲ 12.4% 전월 대비</span>
+                </div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_icon blue">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+                </div>
+                <div class="stat_info">
+                    <span class="stat_label">오디션 지원자</span>
+                    <strong class="stat_value" data-count="3847">0</strong>
+                    <span class="stat_change up">▲ 8.1% 전월 대비</span>
+                </div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_icon green">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+                </div>
+                <div class="stat_info">
+                    <span class="stat_label">소속 아티스트</span>
+                    <strong class="stat_value" data-count="7">0</strong>
+                    <span class="stat_change neutral">— 변동 없음</span>
+                </div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_icon red">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                </div>
+                <div class="stat_info">
+                    <span class="stat_label">등록 공지사항</span>
+                    <strong class="stat_value" data-count="142">0</strong>
+                    <span class="stat_change up">▲ 3건 이번 달</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 차트 2개 -->
+        <div class="chart_row">
+            <div class="chart_card wide">
+                <div class="chart_header">
+                    <h3>월별 방문자 추이</h3>
+                    <span class="chart_sub">최근 12개월</span>
+                </div>
+                <canvas id="visitChart"></canvas>
+            </div>
+            <div class="chart_card">
+                <div class="chart_header">
+                    <h3>아티스트별 페이지 방문</h3>
+                    <span class="chart_sub">2026년 누적</span>
+                </div>
+                <canvas id="artistChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 최근 오디션 신청 -->
+        <div class="table_card">
+            <div class="table_header">
+                <h3>최근 오디션 신청</h3>
+                <button class="view_more" onclick="switchTab('audition')">전체 보기 →</button>
+            </div>
+            <table class="data_table">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>분야</th>
+                        <th>국적</th>
+                        <th>지원일</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#3847</td>
+                        <td>김지후</td>
+                        <td><span class="tag vocal">보컬</span></td>
+                        <td>대한민국</td>
+                        <td>2026-06-02</td>
+                        <td><span class="status review">검토중</span></td>
+                    </tr>
+                    <tr>
+                        <td>#3846</td>
+                        <td>Liam Park</td>
+                        <td><span class="tag dance">댄스</span></td>
+                        <td>미국</td>
+                        <td>2026-06-02</td>
+                        <td><span class="status pass">합격</span></td>
+                    </tr>
+                    <tr>
+                        <td>#3845</td>
+                        <td>이수연</td>
+                        <td><span class="tag rap">랩</span></td>
+                        <td>대한민국</td>
+                        <td>2026-06-01</td>
+                        <td><span class="status review">검토중</span></td>
+                    </tr>
+                    <tr>
+                        <td>#3844</td>
+                        <td>Yuki Tanaka</td>
+                        <td><span class="tag vocal">보컬</span></td>
+                        <td>일본</td>
+                        <td>2026-06-01</td>
+                        <td><span class="status fail">불합격</span></td>
+                    </tr>
+                    <tr>
+                        <td>#3843</td>
+                        <td>박하은</td>
+                        <td><span class="tag act">연기</span></td>
+                        <td>대한민국</td>
+                        <td>2026-05-31</td>
+                        <td><span class="status pass">합격</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 아티스트 탭 -->
+    <section class="tab_content" id="tab_artist">
+        <div class="section_header">
+            <h2>아티스트 관리</h2>
+            <p>소속 아티스트 정보 및 활동 현황</p>
+        </div>
+        <div class="artist_grid">
+            <div class="artist_card">
+                <img src="img/tws.png" alt="TWS">
+                <div class="artist_info">
+                    <strong>TWS (투어스)</strong>
+                    <span>데뷔: 2024.01</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>2.1M</b></div>
+                        <div><em>앨범</em><b>4</b></div>
+                        <div><em>활동</em><b class="tag vocal" style="font-size:11px;padding:2px 8px">활동중</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist_card">
+                <img src="img/seventeen.png" alt="SEVENTEEN">
+                <div class="artist_info">
+                    <strong>SEVENTEEN (세븐틴)</strong>
+                    <span>데뷔: 2015.05</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>18.4M</b></div>
+                        <div><em>앨범</em><b>23</b></div>
+                        <div><em>활동</em><b class="tag vocal" style="font-size:11px;padding:2px 8px">활동중</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist_card">
+                <img src="img/nuest.png" alt="NU'EST">
+                <div class="artist_info">
+                    <strong>NU'EST (뉴이스트)</strong>
+                    <span>데뷔: 2012.03</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>4.7M</b></div>
+                        <div><em>앨범</em><b>15</b></div>
+                        <div><em>활동</em><b class="tag act" style="font-size:11px;padding:2px 8px">활동 중단</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist_card">
+                <img src="img/minhyun.png" alt="황민현">
+                <div class="artist_info">
+                    <strong>황민현</strong>
+                    <span>데뷔: 2012.03</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>1.2M</b></div>
+                        <div><em>앨범</em><b>3</b></div>
+                        <div><em>활동</em><b class="tag vocal" style="font-size:11px;padding:2px 8px">활동중</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist_card">
+                <img src="img/afterschool.png" alt="AFTER SCHOOL">
+                <div class="artist_info">
+                    <strong>AFTER SCHOOL</strong>
+                    <span>데뷔: 2009.01</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>3.5M</b></div>
+                        <div><em>앨범</em><b>12</b></div>
+                        <div><em>활동</em><b class="tag act" style="font-size:11px;padding:2px 8px">활동 중단</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist_card">
+                <img src="img/orangecaramel.png" alt="ORANGE CARAMEL">
+                <div class="artist_info">
+                    <strong>ORANGE CARAMEL</strong>
+                    <span>데뷔: 2010.06</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>1.8M</b></div>
+                        <div><em>앨범</em><b>8</b></div>
+                        <div><em>활동</em><b class="tag act" style="font-size:11px;padding:2px 8px">활동 중단</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist_card">
+                <img src="img/bumzu.png" alt="BUMZU">
+                <div class="artist_info">
+                    <strong>BUMZU (범주)</strong>
+                    <span>데뷔: 2010.07</span>
+                    <div class="artist_stats">
+                        <div><em>팬 수</em><b>0.6M</b></div>
+                        <div><em>앨범</em><b>5</b></div>
+                        <div><em>활동</em><b class="tag vocal" style="font-size:11px;padding:2px 8px">활동중</b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 공지사항 탭 -->
+    <section class="tab_content" id="tab_notice">
+        <div class="section_header">
+            <h2>공지사항 관리</h2>
+            <p>등록된 공지사항 목록</p>
+        </div>
+        <div class="table_toolbar">
+            <input type="text" class="search_input" placeholder="제목 / 카테고리 검색..." id="noticeSearch">
+            <button class="add_btn">+ 새 공지 등록</button>
+        </div>
+        <div class="table_card">
+            <table class="data_table" id="noticeTable">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>카테고리</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>142</td>
+                        <td><span class="tag vocal">공지</span></td>
+                        <td>SEVENTEEN 2026 WORLD TOUR 개최 안내</td>
+                        <td>2026-06-01</td>
+                        <td>84,320</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>141</td>
+                        <td><span class="tag dance">이벤트</span></td>
+                        <td>TWS 팬미팅 티켓 오픈 안내</td>
+                        <td>2026-05-28</td>
+                        <td>62,109</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>140</td>
+                        <td><span class="tag rap">채용</span></td>
+                        <td>2026 글로벌 오디션 일정 공개</td>
+                        <td>2026-05-20</td>
+                        <td>128,441</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>139</td>
+                        <td><span class="tag vocal">공지</span></td>
+                        <td>황민현 드라마 OST 발매 소식</td>
+                        <td>2026-05-15</td>
+                        <td>41,230</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>138</td>
+                        <td><span class="tag act">보도자료</span></td>
+                        <td>SEVENTEEN 빌보드 200 1위 달성</td>
+                        <td>2026-05-10</td>
+                        <td>215,880</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>137</td>
+                        <td><span class="tag dance">이벤트</span></td>
+                        <td>TWS 신보 쇼케이스 생중계 안내</td>
+                        <td>2026-05-05</td>
+                        <td>57,410</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>136</td>
+                        <td><span class="tag vocal">공지</span></td>
+                        <td>홈페이지 서버 점검 안내 (5/3)</td>
+                        <td>2026-05-01</td>
+                        <td>9,870</td>
+                        <td><button class="btn_edit">수정</button> <button class="btn_del">삭제</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 오디션 탭 -->
+    <section class="tab_content" id="tab_audition">
+        <div class="section_header">
+            <h2>오디션 신청자 관리</h2>
+            <p>2026 글로벌 오디션 지원 현황</p>
+        </div>
+
+        <div class="stat_cards mini">
+            <div class="stat_card">
+                <div class="stat_icon orange"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div class="stat_info"><span class="stat_label">전체 지원</span><strong class="stat_value">3,847</strong></div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_icon green"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                <div class="stat_info"><span class="stat_label">합격</span><strong class="stat_value">214</strong></div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_icon blue"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+                <div class="stat_info"><span class="stat_label">검토중</span><strong class="stat_value">1,203</strong></div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_icon red"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></div>
+                <div class="stat_info"><span class="stat_label">불합격</span><strong class="stat_value">2,430</strong></div>
+            </div>
+        </div>
+
+        <div class="table_toolbar">
+            <input type="text" class="search_input" placeholder="이름 / 국적 / 분야 검색..." id="auditionSearch">
+            <select class="filter_select" id="auditionFilter">
+                <option value="">전체 상태</option>
+                <option value="검토중">검토중</option>
+                <option value="합격">합격</option>
+                <option value="불합격">불합격</option>
+            </select>
+        </div>
+        <div class="table_card">
+            <table class="data_table" id="auditionTable">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>분야</th>
+                        <th>국적</th>
+                        <th>생년월일</th>
+                        <th>지원일</th>
+                        <th>상태</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#3847</td>
+                        <td>김지후</td>
+                        <td><span class="tag vocal">보컬</span></td>
+                        <td>대한민국</td>
+                        <td>2008-03-14</td>
+                        <td>2026-06-02</td>
+                        <td><span class="status review">검토중</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3846</td>
+                        <td>Liam Park</td>
+                        <td><span class="tag dance">댄스</span></td>
+                        <td>미국</td>
+                        <td>2007-11-22</td>
+                        <td>2026-06-02</td>
+                        <td><span class="status pass">합격</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3845</td>
+                        <td>이수연</td>
+                        <td><span class="tag rap">랩</span></td>
+                        <td>대한민국</td>
+                        <td>2009-07-08</td>
+                        <td>2026-06-01</td>
+                        <td><span class="status review">검토중</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3844</td>
+                        <td>Yuki Tanaka</td>
+                        <td><span class="tag vocal">보컬</span></td>
+                        <td>일본</td>
+                        <td>2008-05-17</td>
+                        <td>2026-06-01</td>
+                        <td><span class="status fail">불합격</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3843</td>
+                        <td>박하은</td>
+                        <td><span class="tag act">연기</span></td>
+                        <td>대한민국</td>
+                        <td>2006-12-03</td>
+                        <td>2026-05-31</td>
+                        <td><span class="status pass">합격</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3842</td>
+                        <td>Chen Wei</td>
+                        <td><span class="tag dance">댄스</span></td>
+                        <td>중국</td>
+                        <td>2007-09-25</td>
+                        <td>2026-05-30</td>
+                        <td><span class="status fail">불합격</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3841</td>
+                        <td>최민준</td>
+                        <td><span class="tag vocal">보컬</span></td>
+                        <td>대한민국</td>
+                        <td>2010-02-19</td>
+                        <td>2026-05-29</td>
+                        <td><span class="status review">검토중</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                    <tr>
+                        <td>#3840</td>
+                        <td>Sofia Kim</td>
+                        <td><span class="tag rap">랩</span></td>
+                        <td>캐나다</td>
+                        <td>2008-08-11</td>
+                        <td>2026-05-28</td>
+                        <td><span class="status pass">합격</span></td>
+                        <td><button class="btn_edit">상세</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 통계 탭 -->
+    <section class="tab_content" id="tab_stats">
+        <div class="section_header">
+            <h2>통계</h2>
+            <p>플레디스 사이트 상세 통계 분석</p>
+        </div>
+
+        <div class="chart_row">
+            <div class="chart_card wide">
+                <div class="chart_header">
+                    <h3>오디션 분야별 지원 현황</h3>
+                    <span class="chart_sub">2026년 전체</span>
+                </div>
+                <canvas id="auditionFieldChart"></canvas>
+            </div>
+            <div class="chart_card">
+                <div class="chart_header">
+                    <h3>오디션 국적 분포</h3>
+                    <span class="chart_sub">상위 5개국</span>
+                </div>
+                <canvas id="nationalityChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart_row">
+            <div class="chart_card">
+                <div class="chart_header">
+                    <h3>오디션 합불 비율</h3>
+                    <span class="chart_sub">2026 전체</span>
+                </div>
+                <canvas id="resultChart"></canvas>
+            </div>
+            <div class="chart_card wide">
+                <div class="chart_header">
+                    <h3>월별 공지 조회수</h3>
+                    <span class="chart_sub">최근 6개월</span>
+                </div>
+                <canvas id="noticeViewChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 상세 통계 테이블 -->
+        <div class="table_card">
+            <div class="table_header">
+                <h3>아티스트별 SNS 팔로워 현황</h3>
+                <span class="chart_sub">2026-06-03 기준</span>
+            </div>
+            <table class="data_table">
+                <thead>
+                    <tr>
+                        <th>아티스트</th>
+                        <th>Instagram</th>
+                        <th>YouTube</th>
+                        <th>X (Twitter)</th>
+                        <th>TikTok</th>
+                        <th>전월 대비</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SEVENTEEN</strong></td>
+                        <td>12.4M</td>
+                        <td>8.2M</td>
+                        <td>5.1M</td>
+                        <td>6.8M</td>
+                        <td><span class="stat_change up">▲ 2.3%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TWS</strong></td>
+                        <td>3.1M</td>
+                        <td>1.8M</td>
+                        <td>0.9M</td>
+                        <td>2.4M</td>
+                        <td><span class="stat_change up">▲ 8.7%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>NU'EST</strong></td>
+                        <td>2.8M</td>
+                        <td>1.4M</td>
+                        <td>1.2M</td>
+                        <td>0.6M</td>
+                        <td><span class="stat_change down">▼ 0.4%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>황민현</strong></td>
+                        <td>1.2M</td>
+                        <td>0.4M</td>
+                        <td>0.3M</td>
+                        <td>0.5M</td>
+                        <td><span class="stat_change up">▲ 1.1%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>AFTER SCHOOL</strong></td>
+                        <td>1.5M</td>
+                        <td>0.9M</td>
+                        <td>0.8M</td>
+                        <td>0.3M</td>
+                        <td><span class="stat_change neutral">— 0.0%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>BUMZU</strong></td>
+                        <td>0.4M</td>
+                        <td>0.3M</td>
+                        <td>0.1M</td>
+                        <td>0.2M</td>
+                        <td><span class="stat_change up">▲ 0.6%</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
