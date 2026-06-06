@@ -141,14 +141,15 @@ header .nav li.active a { color: #e8704a; }
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 14px rgba(0,0,0,0.09);
     border: 2px solid transparent;
-    transition: box-shadow 0.35s ease, border-color 0.35s ease;
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
     cursor: pointer;
 }
 .artist_card:hover {
-    box-shadow: 0 8px 36px rgba(232,112,74,0.18);
+    box-shadow: 0 12px 40px rgba(232,112,74,0.2);
     border-color: rgba(232,112,74,0.55);
+    transform: translateY(-4px);
 }
 
 .artist_card_img {
@@ -248,8 +249,8 @@ header .nav li.active a { color: #e8704a; }
     color: #e8704a;
     font-weight: 600;
     text-decoration: none;
-    border-bottom: 1px solid rgba(232,112,74,0.3);
-    padding-bottom: 2px;
+    border-bottom: 1.5px solid rgba(232,112,74,0.35);
+    padding-bottom: 4px;
     align-self: flex-start;
     transition: color 0.2s, border-color 0.2s;
 }

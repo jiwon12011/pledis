@@ -1,6 +1,9 @@
+/* ── 모션 감소 환경 감지 (접근성) ── */
+var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ── Lenis 스무스 스크롤 ── */
 var lenis;
-if(typeof Lenis !== 'undefined'){
+if(typeof Lenis !== 'undefined' && !prefersReduced){
     lenis = new Lenis({
         duration: 1.2,
         easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
@@ -17,7 +20,7 @@ if(typeof Lenis !== 'undefined'){
    스크롤 미사용. 헤더/히어로 래퍼만 1회 등장시켜
    패럴랙스(.hero video), IntersectionObserver(.fade-up),
    스파크/슬라이더 등 기존 시스템과 충돌하지 않음. */
-if(typeof gsap !== 'undefined'){
+if(typeof gsap !== 'undefined' && !prefersReduced){
     var heroEl    = document.querySelector('.hero');
     var logoEl    = document.querySelector('header .logo');
     var navItems  = document.querySelectorAll('header .nav li');
@@ -54,20 +57,35 @@ if(typeof gsap !== 'undefined'){
     }
 }
 
-/* ── 패럴랙스 ── */
+/* ── 패럴랙스 (Lenis 정합 + rAF, 모션 감소 시 비활성) ── */
 (function(){
     var heroVideo = document.querySelector('.hero video');
-    function onScroll(){
-        var sy = window.scrollY || window.pageYOffset;
-        if(heroVideo) heroVideo.style.transform = 'translateY(' + (sy * 0.38) + 'px)';
+    if(!heroVideo || prefersReduced) return;
+
+    var ticking = false;
+    function apply(sy){
+        heroVideo.style.transform = 'translateY(' + (sy * 0.38) + 'px)';
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if(lenis && typeof lenis.on === 'function'){
+        // Lenis 가상 스크롤과 같은 값을 사용해 끊김 없이 동기화
+        lenis.on('scroll', function(e){ apply(e.scroll); });
+    } else {
+        // Lenis 미사용 폴백 — rAF로 묶어 강제 리플로우 최소화
+        window.addEventListener('scroll', function(){
+            if(ticking) return;
+            ticking = true;
+            requestAnimationFrame(function(){
+                apply(window.scrollY || window.pageYOffset);
+                ticking = false;
+            });
+        }, { passive: true });
+    }
 })();
 
 /* ── 다국어 번역 ── */
 const i18n = {
     KOR: {
-        who_desc: '플레디스는 탁월한 감각과 노하우를 겸합하여 아티스트의 고유한 가치를 발견하고 창출합니다.<br>창의적인 음악 콘텐츠를 통해 글로벌 엔터테인먼트 시장을 이끄는 종합 매니지먼트사입니다.',
+        who_desc: '플레디스는 탁월한 감각과 노하우를 결합하여 아티스트의 고유한 가치를 발견하고 창출합니다.<br>창의적인 음악 콘텐츠를 통해 글로벌 엔터테인먼트 시장을 이끄는 종합 매니지먼트사입니다.',
         footer_company: '플레디스 엔터테인먼트',
         footer_addr: '서울특별시 용산구 한강대로 42',
         footer_biz: '사업자 등록 번호 ㅣ 211-88-46472',
@@ -173,6 +191,7 @@ const i18n = {
 };
 
 const langKeys = ['KOR','ENG','JPN','CHN'];
+const htmlLangMap = { KOR: 'ko', ENG: 'en', JPN: 'ja', CHN: 'zh' };
 let currentLang = localStorage.getItem('pledisLang') || 'KOR';
 
 function setLang(lang){
@@ -180,6 +199,8 @@ function setLang(lang){
     localStorage.setItem('pledisLang', lang);
     const dict = i18n[lang];
     if(!dict) return;
+    // 스크린리더·번역엔진이 올바른 언어로 인식하도록 문서 언어 갱신
+    document.documentElement.lang = htmlLangMap[lang] || 'ko';
     document.querySelectorAll('[data-i18n]').forEach(function(el){
         const key = el.getAttribute('data-i18n');
         if(dict[key] !== undefined) el.innerHTML = dict[key];
@@ -187,6 +208,10 @@ function setLang(lang){
     const idx = langKeys.indexOf(lang);
     $('.lang li').removeClass('active').eq(idx).addClass('active');
     $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
+    // 현재 선택 언어를 스크린리더에 전달
+    $('.lang li button, .mobile_lang_list li button').attr('aria-pressed', 'false');
+    $('.lang li').eq(idx).find('button').attr('aria-pressed', 'true');
+    $('.mobile_lang_list li').eq(idx).find('button').attr('aria-pressed', 'true');
 }
 
 function keepScrollPosition(callback){
@@ -200,17 +225,16 @@ function keepScrollPosition(callback){
     });
 }
 
-// 페이지 로딩 인트로
-setTimeout(function(){
-    $('#pageIntro').addClass('hide');
-    setTimeout(function(){ $('#pageIntro').remove(); }, 800);
-}, 1400);
-
-
 $(function(){
 
-    // 저장된 언어 복원
-    if(currentLang !== 'KOR') setLang(currentLang);
+    // 저장된 언어 복원 (KOR 기본값도 aria-pressed 초기화)
+    if(currentLang !== 'KOR'){ setLang(currentLang); }
+    else {
+        document.documentElement.lang = 'ko';
+        $('.lang li button, .mobile_lang_list li button').attr('aria-pressed', 'false');
+        $('.lang li').eq(0).find('button').attr('aria-pressed', 'true');
+        $('.mobile_lang_list li').eq(0).find('button').attr('aria-pressed', 'true');
+    }
 
     // 3번: 스크롤 페이드인 (Intersection Observer)
     const observer = new IntersectionObserver(function(entries){
@@ -248,9 +272,10 @@ $(function(){
 
     // 햄버거 메뉴
     $('.hamburger').click(function(){
-        $(this).toggleClass('open');
-        $('#mobileNav').toggleClass('open');
-        $('body').toggleClass('nav-open');
+        const open = !$(this).hasClass('open');
+        $(this).toggleClass('open', open).attr('aria-expanded', open ? 'true' : 'false');
+        $('#mobileNav').toggleClass('open', open);
+        $('body').toggleClass('nav-open', open);
     });
 
     // 모바일 내비 링크 클릭 시 닫기
@@ -277,34 +302,34 @@ $(function(){
         el.style.animationDelay    = delay;
     });
 
-    // 스크롤 시 랜덤 버스트
+    // 스크롤 시 랜덤 버스트 + 진행바
     const $allSparks = $('.spark, .spark-line');
-    let scrollBurstTimer = null;
+    const $header = $('header');
+    const progressBar = document.getElementById('scrollProgress');
     let lastScrollY = 0;
+    let scrollTicking = false;
 
-    $(window).on('scroll', function(){
-        const scrollY = $(this).scrollTop();
+    function onScrollFrame(scrollY){
+        // 헤더 상태
+        $header.toggleClass('scrolled', scrollY > 50);
 
-        // 헤더 스크롤 감지
-        if(scrollY > 50){
-            $('header').addClass('scrolled');
-        } else {
-            $('header').removeClass('scrolled');
+        // 스크롤 진행바 (브랜드 레드)
+        if(progressBar){
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.transform = 'scaleX(' + (docH > 0 ? scrollY / docH : 0) + ')';
         }
 
-        // 스크롤 방향·속도 무관하게 일정 거리 이동할 때마다 버스트
+        // 모션 감소 환경에서는 버스트 생략
+        if(prefersReduced) return;
+
+        // 일정 거리 이동할 때마다 버스트 — 읽기(rect)를 한 번에 모아 레이아웃 스래싱 방지
         if(Math.abs(scrollY - lastScrollY) > 30){
             lastScrollY = scrollY;
-            if(scrollBurstTimer) clearTimeout(scrollBurstTimer);
-
-            // 화면 viewport 안에 있는 spark 중 랜덤 3~5개 버스트
-            const viewTop = scrollY;
-            const viewBot = scrollY + window.innerHeight;
+            const vh = window.innerHeight;
             const $visible = $allSparks.filter(function(){
                 const rect = this.getBoundingClientRect();
-                return rect.top >= 0 && rect.bottom <= window.innerHeight;
+                return rect.top >= 0 && rect.bottom <= vh;
             });
-
             const pool = $visible.length ? $visible : $allSparks;
             const count = Math.min(pool.length, 3 + Math.floor(Math.random() * 3));
             const picked = [];
@@ -318,6 +343,16 @@ $(function(){
                 setTimeout(function(){ $el.removeClass('spark-burst'); }, 650);
             });
         }
+    }
+
+    $(window).on('scroll', function(){
+        if(scrollTicking) return;
+        scrollTicking = true;
+        const scrollY = $(this).scrollTop();
+        requestAnimationFrame(function(){
+            onScrollFrame(scrollY);
+            scrollTicking = false;
+        });
     });
 
     const $items = $('.mv_item');
@@ -373,6 +408,14 @@ $(function(){
 
     $('.mv_item').click(function(){
         if($(this).hasClass('active')){
+            openModal($(this).data('youtube'));
+        }
+    });
+
+    // 키보드 접근 — 활성 슬라이드에서 Enter/Space로 영상 재생
+    $('.mv_item').on('keydown', function(e){
+        if((e.key === 'Enter' || e.key === ' ') && $(this).hasClass('active')){
+            e.preventDefault();
             openModal($(this).data('youtube'));
         }
     });

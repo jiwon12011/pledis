@@ -4,6 +4,10 @@
 
 const subI18n = {
     KOR: {
+        /* ── FOOTER ── */
+        footer_company: '플레디스 엔터테인먼트',
+        footer_addr: '서울특별시 용산구 한강대로 42',
+        footer_biz: '사업자 등록 번호 ㅣ 211-88-46472',
         /* ── ARTIST ── */
         artist_intro_p: '플레디스 엔터테인먼트의 아티스트들은 저마다의 고유한 빛으로 전 세계 무대를 밝힙니다.<br>그들의 세계로 당신을 초대합니다.',
         tws_desc: '2024년 데뷔한 플레디스의 5세대 보이그룹. 6인조 그룹으로 \'반짝이는 청춘\'을 주제로 풋풋하고 생동감 넘치는 음악 세계를 선보입니다.',
@@ -79,6 +83,10 @@ const subI18n = {
         faq_a6: '네, 경험보다 잠재력을 중요하게 봅니다. 음악에 대한 열정과 성장 가능성이 있다면 누구나 지원 가능합니다. 훈련을 통해 함께 성장할 수 있는 분을 환영합니다.'
     },
     ENG: {
+        /* ── FOOTER ── */
+        footer_company: 'Pledis Entertainment',
+        footer_addr: '42 Hangang-daero, Yongsan-gu, Seoul',
+        footer_biz: 'Business Reg. No. 211-88-46472',
         /* ── ARTIST ── */
         artist_intro_p: 'Pledis Entertainment artists illuminate stages around the world with their unique light.<br>We invite you into their world.',
         tws_desc: '5th-gen boy group from Pledis, debuted in 2024. The 6-member group presents a vibrant and youthful music world themed around \'sparkling youth.\'',
@@ -154,6 +162,10 @@ const subI18n = {
         faq_a6: 'Yes, we value potential over experience. Anyone with a passion for music and the ability to grow is welcome to apply. We welcome those who can grow together through training.'
     },
     JPN: {
+        /* ── FOOTER ── */
+        footer_company: 'プレディスエンターテインメント',
+        footer_addr: 'ソウル特別市龍山区漢江大路42',
+        footer_biz: '法人番号 211-88-46472',
         /* ── ARTIST ── */
         artist_intro_p: 'PLEDISエンタテインメントのアーティストたちは、それぞれ固有の輝きで世界の舞台を照らします。<br>彼らの世界へ、あなたをご招待します。',
         tws_desc: '2024年デビューのPLEDIS第5世代ボーイグループ。6人組で「輝く青春」をテーマに、みずみずしく躍動感あふれる音楽世界を展開しています。',
@@ -229,6 +241,10 @@ const subI18n = {
         faq_a6: 'はい、経験より潜在力を重視します。音楽への情熱と成長の可能性があれば、どなたでも応募できます。トレーニングを通じて一緒に成長できる方を歓迎します。'
     },
     CHN: {
+        /* ── FOOTER ── */
+        footer_company: '普丽迪丝娱乐',
+        footer_addr: '首尔特别市龙山区汉江大路42',
+        footer_biz: '营业执照号 211-88-46472',
         /* ── ARTIST ── */
         artist_intro_p: 'PLEDIS娱乐的艺人们以各自独特的光芒照亮全球舞台。<br>诚邀您走进他们的世界。',
         tws_desc: '2024年出道的PLEDIS第五代男团，共6名成员，以"闪耀青春"为主题，呈现充满活力与朝气的音乐世界。',
@@ -306,6 +322,7 @@ const subI18n = {
 };
 
 const subLangKeys = ['KOR','ENG','JPN','CHN'];
+const subHtmlLangMap = { KOR: 'ko', ENG: 'en', JPN: 'ja', CHN: 'zh' };
 let currentSubLang = localStorage.getItem('pledisLang') || 'KOR';
 
 function setSubLang(lang) {
@@ -313,6 +330,8 @@ function setSubLang(lang) {
     localStorage.setItem('pledisLang', lang);
     const dict = subI18n[lang];
     if (!dict) return;
+    // 스크린리더·번역엔진이 올바른 언어로 인식하도록 문서 언어 갱신
+    document.documentElement.lang = subHtmlLangMap[lang] || 'ko';
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         const key = el.getAttribute('data-i18n');
         if (dict[key] !== undefined) el.innerHTML = dict[key];
@@ -320,6 +339,9 @@ function setSubLang(lang) {
     const idx = subLangKeys.indexOf(lang);
     $('.lang li').removeClass('active').eq(idx).addClass('active');
     $('.mobile_lang_list li').removeClass('active').eq(idx).addClass('active');
+    $('.lang li button, .mobile_lang_list li button').attr('aria-pressed', 'false');
+    $('.lang li').eq(idx).find('button').attr('aria-pressed', 'true');
+    $('.mobile_lang_list li').eq(idx).find('button').attr('aria-pressed', 'true');
 }
 
 function keepSubScrollPosition(callback){
@@ -332,8 +354,14 @@ function keepSubScrollPosition(callback){
 
 $(function(){
 
-    // 저장된 언어 복원
-    if(currentSubLang !== 'KOR') setSubLang(currentSubLang);
+    // 저장된 언어 복원 (KOR 기본값도 aria-pressed 초기화)
+    if(currentSubLang !== 'KOR'){ setSubLang(currentSubLang); }
+    else {
+        document.documentElement.lang = 'ko';
+        $('.lang li button, .mobile_lang_list li button').attr('aria-pressed', 'false');
+        $('.lang li').eq(0).find('button').attr('aria-pressed', 'true');
+        $('.mobile_lang_list li').eq(0).find('button').attr('aria-pressed', 'true');
+    }
 
     /* ── Fade-up observer ── */
     const observer = new IntersectionObserver(function(entries){
@@ -355,9 +383,10 @@ $(function(){
 
     /* ── Hamburger ── */
     $('.hamburger').on('click', function(){
-        $(this).toggleClass('open');
-        $('#mobileNav').toggleClass('open');
-        $('body').toggleClass('nav-open');
+        const open = !$(this).hasClass('open');
+        $(this).toggleClass('open', open).attr('aria-expanded', open ? 'true' : 'false');
+        $('#mobileNav').toggleClass('open', open);
+        $('body').toggleClass('nav-open', open);
     });
     $('#mobileNav .mobile_nav_list a').on('click', function(){
         $('.hamburger').removeClass('open');
@@ -432,12 +461,47 @@ $(function(){
         });
     }
 
-    /* ── 오디션 폼 제출 ── */
+    /* ── 오디션 폼 제출 (검증 포함) ── */
     if($('#auditionForm').length){
+        const form = document.getElementById('auditionForm');
+
         $('#auditionForm').on('submit', function(e){
             e.preventDefault();
-            $(this).hide();
-            $('#formThankYou').fadeIn(400);
+
+            // 1) 브라우저 기본 제약(required/type/pattern) 검증
+            if(!form.checkValidity()){
+                form.reportValidity();
+                return;
+            }
+
+            // 2) 지원 분야 체크박스 최소 1개 선택 검증
+            const fieldChecks = form.querySelectorAll('input[name="field"]');
+            if(fieldChecks.length){
+                const anyChecked = Array.prototype.some.call(fieldChecks, function(c){ return c.checked; });
+                if(!anyChecked){
+                    // 그룹 첫 체크박스에 커스텀 메시지 후 포커스
+                    fieldChecks[0].setCustomValidity('지원 분야를 최소 1개 선택해 주세요.');
+                    fieldChecks[0].reportValidity();
+                    fieldChecks[0].focus();
+                    return;
+                } else {
+                    fieldChecks[0].setCustomValidity('');
+                }
+            }
+
+            // 통과 → 완료 화면
+            $(this).fadeOut(300, function(){
+                $('#formThankYou').fadeIn(400);
+                // 완료 메시지로 포커스 이동 (스크린리더 안내)
+                const ty = document.getElementById('formThankYou');
+                if(ty){ ty.setAttribute('tabindex', '-1'); ty.focus(); }
+            });
+        });
+
+        // 체크박스를 하나라도 켜면 커스텀 에러 해제
+        $('#auditionForm input[name="field"]').on('change', function(){
+            const first = form.querySelector('input[name="field"]');
+            if(first) first.setCustomValidity('');
         });
     }
 

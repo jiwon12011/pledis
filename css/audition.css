@@ -486,14 +486,29 @@ header .nav li.active a { color: #e8704a; }
 .form_group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
-.form_group label {
+/* fieldset로 감싼 그룹(성별·지원분야) 기본 스타일 제거 */
+fieldset.form_group {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.form_group label,
+.form_group legend {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
     color: #555;
+    padding: 0;
+}
+/* 그룹 내부 라디오/체크 라벨은 본문 텍스트 톤 유지 */
+.radio_group label,
+.check_group label {
+    letter-spacing: 0;
 }
 
 .form_group input,
@@ -626,7 +641,9 @@ header .nav li.active a { color: #e8704a; }
 }
 
 .file_icon {
-    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
 }
 
 /* 개인정보 동의 */

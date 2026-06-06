@@ -4,10 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="플레디스 엔터테인먼트 회사 소개와 연혁. 플레이아데스에서 PLEDIS로 — 2007년 설립 이래 글로벌 K-POP 씬을 이끌어온 종합 매니지먼트사의 이야기.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PLEDIS ENTERTAINMENT">
+    <meta property="og:title" content="COMPANY | Pledis Entertainment">
+    <meta property="og:description" content="플레이아데스에서 PLEDIS로 — 플레디스 엔터테인먼트의 비전과 연혁.">
+    <meta property="og:image" content="img/sub_hero.webp">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <title>Company - Pledis Entertainment</title>
+    <title>COMPANY | Pledis Entertainment</title>
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/company.css">
@@ -16,7 +23,7 @@
 <body>
     <header>
         <div class="logo"><a href="index.html">
-                <img src="img/logo_up.png" alt="pledis_logo">
+                <img src="img/logo_up.png" alt="PLEDIS 로고" width="556" height="240">
             </a></div>
         <ul class="nav">
             <li class="active"><a href="company.html">COMPANY</a></li>
@@ -25,12 +32,12 @@
             <li><a href="audition.html">AUDITION</a></li>
         </ul>
         <ul class="lang">
-            <li class="active"><button type="button">KOR</button></li>
-            <li><button type="button">ENG</button></li>
-            <li><button type="button">JPN</button></li>
-            <li><button type="button">CHN</button></li>
+            <li class="active"><button type="button" aria-pressed="true">KOR</button></li>
+            <li><button type="button" aria-pressed="false">ENG</button></li>
+            <li><button type="button" aria-pressed="false">JPN</button></li>
+            <li><button type="button" aria-pressed="false">CHN</button></li>
         </ul>
-        <button class="hamburger" aria-label="메뉴">
+        <button class="hamburger" aria-label="메뉴 열기" aria-controls="mobileNav" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </header>
@@ -52,7 +59,7 @@
     <!-- 서브 히어로 -->
     <section class="sub_hero">
         <div class="sub_hero_bg">
-            <img src="img/sub_hero.png" alt="">
+            <img src="img/sub_hero.webp" alt="" width="1920" height="614" fetchpriority="high" decoding="async">
         </div>
         <div class="sub_hero_content fade-up">
             <span class="sub_hero_category">COMPANY</span>
@@ -67,7 +74,7 @@
         </div>
         <div class="who_inner">
             <div class="who_img fade-up">
-                <img src="img/sub_space.png" alt="Pledis Universe">
+                <img src="img/sub_space.png" alt="Pledis Universe" width="609" height="550" loading="lazy" decoding="async">
             </div>
             <div class="who_content fade-up">
                 <h3 class="who_title">From Pleiades to PLEDIS</h3>
@@ -76,8 +83,8 @@
                     창의적인 음악 콘텐츠를 통해 글로벌 엔터테인먼트 시장을 이끄는 종합 매니지먼트사입니다.
                 </p>
                 <div class="who_brand_img">
-                    <img src="img/sub_mono.png" alt="" class="brand_grid">
-                    <img src="img/logo_up.png" alt="Pledis Entertainment" class="brand_logo_overlay">
+                    <img src="img/sub_mono.png" alt="" class="brand_grid" width="648" height="277" loading="lazy" decoding="async">
+                    <img src="img/logo_up.png" alt="Pledis Entertainment" class="brand_logo_overlay" width="556" height="240" loading="lazy" decoding="async">
                 </div>
                 <div class="who_brand_meta">
                     <div class="brand_color_row">
@@ -187,7 +194,7 @@
         <div class="footer_arc"></div>
         <div class="footer_inner">
             <div class="footer_brand">
-                <img src="img/f_logo.png" alt="Pledis" class="footer_logo_img">
+                <img src="img/f_logo.png" alt="Pledis" class="footer_logo_img" width="139" height="60" loading="lazy" decoding="async">
             </div>
             <div class="footer_info">
                 <p data-i18n="footer_company">플레디스 엔터테인먼트</p>
@@ -207,9 +214,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery-4.0.0.min.js"></script>
     <script src="js/script.js?v=20260529"></script>
-    <script>if(typeof Lenis!=='undefined'){var _l=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);}</script>
 </body>
 
 </html>

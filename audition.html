@@ -4,10 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="플레디스 엔터테인먼트 글로벌 탤런트 서치 2026. 보컬·댄스·랩·멀티 — 세계의 맥박이 될 차세대 퍼포머를 찾습니다. 서울 & 전 세계, 누구나 지원 가능.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PLEDIS ENTERTAINMENT">
+    <meta property="og:title" content="AUDITION | Pledis Entertainment">
+    <meta property="og:description" content="글로벌 탤런트 서치 2026 — 당신의 무대가 여기서 시작됩니다.">
+    <meta property="og:image" content="img/audition.webp">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <title>Audition - Pledis Entertainment</title>
+    <title>AUDITION | Pledis Entertainment</title>
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/audition.css">
@@ -52,7 +59,7 @@
     <!-- 서브 히어로 -->
     <section class="sub_hero">
         <div class="sub_hero_bg">
-            <img src="img/audition.png" alt="">
+            <img src="img/audition.webp" alt="" width="1784" height="882" fetchpriority="high" decoding="async">
         </div>
         <div class="sub_hero_content fade-up">
             <span class="sub_hero_category">AUDITION</span>
@@ -267,26 +274,26 @@
                             <option value="OTHER">기타</option>
                         </select>
                     </div>
-                    <div class="form_group">
-                        <label>성별 (Gender) <span style="color:#e8704a">*</span></label>
+                    <fieldset class="form_group">
+                        <legend>성별 (Gender) <span style="color:#e8704a">*</span></legend>
                         <div class="radio_group">
                             <label><input type="radio" name="gender" value="male" required> 남성</label>
                             <label><input type="radio" name="gender" value="female"> 여성</label>
                             <label><input type="radio" name="gender" value="other"> 기타</label>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
 
                 <!-- 지원 분야 -->
-                <div class="form_group">
-                    <label>지원 분야 (Field) <span style="color:#e8704a">*</span></label>
+                <fieldset class="form_group">
+                    <legend>지원 분야 (Field) <span style="color:#e8704a">*</span></legend>
                     <div class="check_group">
                         <label><input type="checkbox" name="field" value="vocal"> 보컬 (VOCAL)</label>
                         <label><input type="checkbox" name="field" value="dance"> 댄스 (DANCE)</label>
                         <label><input type="checkbox" name="field" value="rap"> 랩 (RAP)</label>
                         <label><input type="checkbox" name="field" value="multi"> 멀티 (MULTI)</label>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- 연락처 / 이메일 -->
                 <div class="form_row">
@@ -309,14 +316,18 @@
                 <!-- 자기소개 -->
                 <div class="form_group">
                     <label for="aud_intro">자기소개 (Self-Introduction) <span style="color:#e8704a">*</span></label>
-                    <textarea id="aud_intro" name="intro" rows="5" placeholder="본인의 특기, 경력, 플레디스에 지원하는 이유를 자유롭게 작성해 주세요. (500자 이내)" required></textarea>
+                    <textarea id="aud_intro" name="intro" rows="5" maxlength="500" placeholder="본인의 특기, 경력, 플레디스에 지원하는 이유를 자유롭게 작성해 주세요. (500자 이내)" required></textarea>
                 </div>
 
                 <!-- 파일 첨부 -->
                 <div class="form_group">
                     <label>사진 첨부 (Photo Attachment)</label>
                     <label class="file_upload_label">
-                        <span class="file_icon">📎</span>
+                        <span class="file_icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+                            </svg>
+                        </span>
                         <span>전신 사진 또는 반신 사진 첨부 (JPG, PNG — 최대 10MB)</span>
                         <input type="file" name="photo" accept="image/*">
                     </label>
@@ -444,9 +455,9 @@
                 <img src="img/f_logo.png" alt="Pledis" class="footer_logo_img">
             </div>
             <div class="footer_info">
-                <p>플레디스 엔터테인먼트</p>
-                <p>서울특별시 용산구 한강대로 42</p>
-                <p>사업자 등록 번호 ㅣ 211-88-46472</p>
+                <p data-i18n="footer_company">플레디스 엔터테인먼트</p>
+                <p data-i18n="footer_addr">서울특별시 용산구 한강대로 42</p>
+                <p data-i18n="footer_biz">사업자 등록 번호 ㅣ 211-88-46472</p>
             </div>
             <div class="footer_right">
                 <ul class="footer_sns">
@@ -463,7 +474,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="js/jquery-4.0.0.min.js"></script>
     <script src="js/sub.js?v=20260529"></script>
-    <script>if(typeof Lenis!=='undefined'){var _l=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);}</script>
+    <script>if(typeof Lenis!=='undefined'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){var _l=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);}</script>
 </body>
 
 </html>

@@ -4,36 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="플레디스 엔터테인먼트 공식 사이트. SEVENTEEN, TWS, NU'EST 등 아티스트, 음악과 무대, 글로벌 오디션까지 — 세계의 맥박이 되는 엔터테인먼트.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PLEDIS ENTERTAINMENT">
+    <meta property="og:title" content="PLEDIS ENTERTAINMENT | 플레디스 엔터테인먼트">
+    <meta property="og:description" content="The pulse of performance — SEVENTEEN, TWS, NU'EST와 함께하는 플레디스.">
+    <meta property="og:image" content="img/sub_hero.webp">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <title>플레디스</title>
+    <title>PLEDIS ENTERTAINMENT | 플레디스 엔터테인먼트</title>
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
+    <!-- 스크롤 진행바 -->
+    <div class="scroll_progress" id="scrollProgress" aria-hidden="true"></div>
     <!-- 스플래시 인트로 -->
     <script src="js/splash.js?v=20260529"></script>
     <header>
         <div class="logo"><a href="index.html">
-                <img src="img/logo_up.png" alt="pledis_logo">
+                <img src="img/logo_up.png" alt="PLEDIS 로고" width="556" height="240" fetchpriority="high">
             </a></div>
         <ul class="nav">
             <li><a href="company.html">COMPANY</a></li>
             <li><a href="artist.html">ARTIST</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="audition.html">AUDITION</a></li>
-            <li><a href="admin.html" style="font-size:13px;opacity:0.6;border:1px solid currentColor;border-radius:4px;padding:3px 10px;">ADMIN</a></li>
+            <li><a href="admin.html" class="nav_admin">ADMIN</a></li>
         </ul>
         <ul class="lang">
-            <li class="active"><button type="button">KOR</button></li>
-            <li><button type="button">ENG</button></li>
-            <li><button type="button">JPN</button></li>
-            <li><button type="button">CHN</button></li>
+            <li class="active"><button type="button" aria-pressed="true">KOR</button></li>
+            <li><button type="button" aria-pressed="false">ENG</button></li>
+            <li><button type="button" aria-pressed="false">JPN</button></li>
+            <li><button type="button" aria-pressed="false">CHN</button></li>
         </ul>
-        <button class="hamburger" aria-label="메뉴">
+        <button class="hamburger" aria-label="메뉴 열기" aria-controls="mobileNav" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </header>
@@ -52,7 +61,14 @@
         </ul>
     </nav>
     <div class="hero">
-        <video src="img/heromv.mp4" autoplay muted playsinline loop></video>
+        <video src="img/heromv.mp4" poster="img/hero_poster.webp" preload="metadata" autoplay muted playsinline loop></video>
+        <div class="hero_overlay">
+            <p class="hero_tagline">Performance becomes the Pulse.</p>
+            <a href="#" class="hero_scroll" aria-label="아래로 스크롤">
+                <span class="hero_scroll_line"></span>
+                <span class="hero_scroll_text">SCROLL</span>
+            </a>
+        </div>
     </div>
 
     <div class="artist">
@@ -95,49 +111,49 @@
 
             <li class="fade-up delay-1">
                 <a href="https://www.pledis.co.kr/ko/artist/detail/TWS/discography/" target="_blank">
-                    <img src="img/tws.png" alt="">
+                    <img src="img/tws.png" alt="TWS" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>TWS</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
 
             <li class="fade-up delay-2">
                 <a href="https://pledis.co.kr/artist/detail/seventeen/" target="_blank">
-                    <img src="img/seventeen.png" alt="">
+                    <img src="img/seventeen.png" alt="SEVENTEEN" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>SEVENTEEN</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
 
             <li class="fade-up delay-3">
                 <a href="https://www.pledis.co.kr/artist/detail/nuest/" target="_blank">
-                    <img src="img/nuest.png" alt="">
+                    <img src="img/nuest.png" alt="NU'EST" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>NU'EST</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
 
             <li class="fade-up delay-4">
                 <a href="https://pledis.co.kr/artist/detail/actor_hwangminhyun/" target="_blank">
-                    <img src="img/minhyun.png" alt="">
+                    <img src="img/minhyun.png" alt="황민현 HWANG MIN HYUN" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>HWANG MIN HYUN</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
 
             <li class="fade-up delay-1">
                 <a href="https://www.pledis.co.kr/artist/detail/afterschool/" target="_blank">
-                    <img src="img/afterschool.png" alt="">
+                    <img src="img/afterschool.png" alt="AFTER SCHOOL" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>AFTER SCHOOL</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
 
             <li class="fade-up delay-2">
                 <a href="https://www.pledis.co.kr/artist/detail/orangecaramel/" target="_blank">
-                    <img src="img/orangecaramel.png" alt="">
+                    <img src="img/orangecaramel.png" alt="ORANGE CARAMEL" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>ORANGE CARAMEL</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
 
             <li class="fade-up delay-3">
                 <a href="https://www.pledis.co.kr/artist/detail/bumzu/" target="_blank">
-                    <img src="img/bumzu.png" alt="">
+                    <img src="img/bumzu.png" alt="BUMZU" width="338" height="338" loading="lazy" decoding="async">
                     <div class="overlay"><h4>BUMZU</h4><span data-i18n="visit_site">VISIT OFFICIAL SITE ↗</span></div>
                 </a>
             </li>
@@ -174,16 +190,16 @@
         </div>
         <div class="mv_stage fade-up">
             <div class="mv_slider">
-                <div class="mv_item" data-artist="SEVENTEEN" data-title="’THUNDER’ Official MV" data-youtube="pS57UX6s-xw">
-                    <img src="img/mv_2.png" alt="">
+                <div class="mv_item" role="button" tabindex="0" aria-label="SEVENTEEN ’THUNDER’ Official MV 재생" data-artist="SEVENTEEN" data-title="’THUNDER’ Official MV" data-youtube="pS57UX6s-xw">
+                    <img src="img/mv_2.png" alt="SEVENTEEN ’THUNDER’ Official MV 썸네일" width="806" height="501" loading="lazy" decoding="async">
                 </div>
 
-                <div class="mv_item" data-artist="TWS" data-title="’첫 만남은 계획대로 되지 않아’ Official MV" data-youtube="hVAc1Vf2ITU">
-                    <img src="img/mv_1.png" alt="">
+                <div class="mv_item" role="button" tabindex="0" aria-label="TWS ’첫 만남은 계획대로 되지 않아’ Official MV 재생" data-artist="TWS" data-title="’첫 만남은 계획대로 되지 않아’ Official MV" data-youtube="hVAc1Vf2ITU">
+                    <img src="img/mv_1.png" alt="TWS ’첫 만남은 계획대로 되지 않아’ Official MV 썸네일" width="814" height="509" loading="lazy" decoding="async">
                 </div>
 
-                <div class="mv_item" data-artist="TWS" data-title="’마음 따라 뛰는 건 멋지지 않아?’ Official MV" data-youtube="Csaj3X6PKxY">
-                    <img src="img/mv_3.png" alt="">
+                <div class="mv_item" role="button" tabindex="0" aria-label="TWS ’마음 따라 뛰는 건 멋지지 않아?’ Official MV 재생" data-artist="TWS" data-title="’마음 따라 뛰는 건 멋지지 않아?’ Official MV" data-youtube="Csaj3X6PKxY">
+                    <img src="img/mv_3.png" alt="TWS ’마음 따라 뛰는 건 멋지지 않아?’ Official MV 썸네일" width="806" height="501" loading="lazy" decoding="async">
                 </div>
             </div>
             <div class="mv_timer_bar"><span class="mv_timer_fill"></span></div>
@@ -375,7 +391,7 @@
                     <a href="audition.html" class="apply_btn">APPLY NOW ↗</a>
                 </div>
                 <div class="audition_img">
-                    <img src="img/audition.png" alt="audition">
+                    <img src="img/audition.webp" alt="플레디스 오디션" width="1784" height="882" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -388,7 +404,7 @@
         <div class="footer_arc"></div>
         <div class="footer_inner">
             <div class="footer_brand">
-                <img src="img/f_logo.png" alt="Pledis" class="footer_logo_img">
+                <img src="img/f_logo.png" alt="Pledis" class="footer_logo_img" width="139" height="60" loading="lazy" decoding="async">
             </div>
             <div class="footer_info">
                 <p data-i18n="footer_company">플레디스 엔터테인먼트</p>
@@ -413,7 +429,7 @@
         <div class="yt_modal_inner">
             <button class="yt_close">✕</button>
             <div class="yt_frame_wrap">
-                <iframe id="ytFrame" src="" frameborder="0"
+                <iframe id="ytFrame" src="" title="YouTube 영상 플레이어" frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen></iframe>
             </div>
