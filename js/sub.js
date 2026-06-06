@@ -39,6 +39,7 @@ const subI18n = {
 
         /* ── AUDITION ── */
         audition_hero_sub: '플레디스 은하계의 다음 별, 당신을 찾습니다.',
+        hero_apply_btn: '지금 바로 지원하기 ↓',
         talent_sub: '재능의 형태는 다양합니다. 당신의 분야에서 지원하세요.',
         vocal_ko: '보컬',
         vocal_desc: '감성적인 음색과 탄탄한 보컬 실력을 갖춘 분. 장르 불문 자신만의 색깔을 가진 가수 지망생을 기다립니다.',
@@ -118,6 +119,7 @@ const subI18n = {
 
         /* ── AUDITION ── */
         audition_hero_sub: 'We are looking for you — the next star in the Pledis universe.',
+        hero_apply_btn: 'Apply Now ↓',
         talent_sub: 'Talent comes in many forms. Apply in your field.',
         vocal_ko: 'Vocal',
         vocal_desc: 'Looking for those with an emotional tone and strong vocal skills. We welcome aspiring singers with their own unique color, regardless of genre.',
@@ -197,6 +199,7 @@ const subI18n = {
 
         /* ── AUDITION ── */
         audition_hero_sub: 'PLEDISの銀河系の次の星、あなたを探しています。',
+        hero_apply_btn: '今すぐ応募する ↓',
         talent_sub: '才能の形は様々です。あなたの分野でご応募ください。',
         vocal_ko: 'ボーカル',
         vocal_desc: '感性豊かな音色と確かなボーカル力をお持ちの方。ジャンル問わず、自分だけの色を持つ歌手志望の方をお待ちしています。',
@@ -276,6 +279,7 @@ const subI18n = {
 
         /* ── AUDITION ── */
         audition_hero_sub: '寻找PLEDIS星河中的下一颗星——就是你。',
+        hero_apply_btn: '立即报名 ↓',
         talent_sub: '才华的形式多种多样，请在您擅长的领域报名。',
         vocal_ko: '人声',
         vocal_desc: '寻找拥有富有感情的音色与扎实歌唱实力的人才。不限曲风，欢迎有独特风格的歌手志愿者。',
@@ -424,18 +428,27 @@ $(function(){
         el.style.animationDelay    = (Math.random() * 6).toFixed(2) + 's';
     });
 
-    /* ── Notice 탭 필터 ── */
+    /* ── Notice 탭 필터 (페이드 전환) ── */
     if($('.notice_tab_btn').length){
         $('.notice_tab_btn').on('click', function(){
             const cat = $(this).data('cat');
             $('.notice_tab_btn').removeClass('active');
             $(this).addClass('active');
-            if(cat === 'all'){
-                $('.notice_item').show();
-            } else {
-                $('.notice_item').hide();
-                $('.notice_item[data-cat="' + cat + '"]').show();
-            }
+            $('.notice_item').each(function(){
+                const $it = $(this);
+                const match = (cat === 'all' || String($it.data('cat')) === String(cat));
+                if(match){
+                    $it.css('display', 'flex');
+                    requestAnimationFrame(function(){
+                        requestAnimationFrame(function(){ $it.removeClass('filtering'); });
+                    });
+                } else {
+                    $it.addClass('filtering');
+                    setTimeout(function(){
+                        if($it.hasClass('filtering')) $it.css('display', 'none');
+                    }, 280);
+                }
+            });
         });
     }
 
@@ -503,6 +516,20 @@ $(function(){
             const first = form.querySelector('input[name="field"]');
             if(first) first.setCustomValidity('');
         });
+
+        // 자기소개 글자수 카운터
+        const intro = document.getElementById('aud_intro');
+        const introCount = document.getElementById('introCount');
+        if(intro && introCount){
+            const max = intro.getAttribute('maxlength') || 500;
+            const updateCount = function(){
+                const len = intro.value.length;
+                introCount.textContent = len + ' / ' + max;
+                introCount.classList.toggle('near_limit', len >= max * 0.9);
+            };
+            intro.addEventListener('input', updateCount);
+            updateCount();
+        }
     }
 
 });

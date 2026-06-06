@@ -142,12 +142,17 @@ header .nav li.active a { color: #FF4600; }
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 22px 0;
+    padding: 20px 0;
     border-bottom: 1px solid #f0f0f0;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, opacity 0.3s ease, transform 0.3s ease;
     text-decoration: none;
     color: inherit;
+}
+/* 탭 필터 전환용 */
+.notice_item.filtering {
+    opacity: 0;
+    transform: translateY(8px);
 }
 
 .notice_item:first-child {
@@ -210,6 +215,12 @@ header .nav li.active a { color: #FF4600; }
     margin-left: 8px;
     vertical-align: middle;
     flex-shrink: 0;
+    animation: notice_pulse 1.8s ease-out infinite;
+}
+@keyframes notice_pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(255,70,0,0.5); }
+    70%  { box-shadow: 0 0 0 7px rgba(255,70,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,70,0,0); }
 }
 
 .notice_arrow {

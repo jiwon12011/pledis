@@ -250,6 +250,20 @@ $(function(){
         observer.observe(el);
     });
 
+    // 연혁(company) 중앙 타임라인 선 draw-in
+    const historyInner = document.querySelector('.history_inner');
+    if(historyInner){
+        const histObserver = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    entry.target.classList.add('drawn');
+                    histObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        histObserver.observe(historyInner);
+    }
+
     // 언어 선택 (데스크탑 — 모바일 싱크)
     $('.lang li').click(function(e){
         e.preventDefault();
