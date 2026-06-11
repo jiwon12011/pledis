@@ -15,8 +15,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <title>PLEDIS ENTERTAINMENT | 플레디스 엔터테인먼트</title>
+    <link rel="preload" as="image" href="img/hero_poster.webp">
     <link rel="stylesheet" href="css/font.css?v=20260606b">
-    <link rel="stylesheet" href="css/style.css?v=20260606b">
+    <link rel="stylesheet" href="css/style.css?v=20260611b">
 
 </head>
 
@@ -24,17 +25,16 @@
     <!-- 스크롤 진행바 -->
     <div class="scroll_progress" id="scrollProgress" aria-hidden="true"></div>
     <!-- 스플래시 인트로 -->
-    <script src="js/splash.js?v=20260611a"></script>
+    <script src="js/splash.js?v=20260611b"></script>
     <header>
         <div class="logo"><a href="index.html">
                 <img src="img/logo_up.png" alt="PLEDIS 로고" width="556" height="240" fetchpriority="high">
             </a></div>
-        <ul class="nav">
+        <ul class="nav" role="navigation" aria-label="주 메뉴">
             <li><a href="company.html">COMPANY</a></li>
             <li><a href="artist.html">ARTIST</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="audition.html">AUDITION</a></li>
-            <li><a href="admin.html" class="nav_admin">ADMIN</a></li>
         </ul>
         <ul class="lang">
             <li class="active"><button type="button" aria-pressed="true">KOR</button></li>
@@ -46,7 +46,7 @@
             <span></span><span></span><span></span>
         </button>
     </header>
-    <nav class="mobile_nav" id="mobileNav">
+    <nav class="mobile_nav" id="mobileNav" aria-label="모바일 메뉴">
         <ul class="mobile_nav_list">
             <li><a href="company.html">COMPANY</a></li>
             <li><a href="artist.html">ARTIST</a></li>
@@ -347,21 +347,21 @@
             <div class="album_left">
                 <button class="arrow album_prev">‹</button>
                 <div class="cover_wrap">
-                    <img class="cover" src="img/Album_1.png" alt="">
+                    <img class="cover" src="img/Album_1.png" alt="" width="545" height="531" loading="lazy" decoding="async">
                 </div>
-                <img class="cd" src="img/cd.png" alt="">
+                <img class="cd" src="img/cd.png" alt="" width="500" height="535" loading="lazy" decoding="async">
                 <button class="arrow album_next">›</button>
             </div>
             <div class="album_right">
                 <ul class="album_list">
                     <li class="active">
-                        <a href="#"><img src="img/Album_1.png" alt=""></a>
+                        <a href="#"><img src="img/Album_1.png" alt="" width="545" height="531" loading="lazy" decoding="async"></a>
                     </li>
                     <li>
-                        <a href="#"><img src="img/Album_2.png" alt=""></a>
+                        <a href="#"><img src="img/Album_2.png" alt="" width="239" height="239" loading="lazy" decoding="async"></a>
                     </li>
                     <li>
-                        <a href="#"><img src="img/Album_3.png" alt=""></a>
+                        <a href="#"><img src="img/Album_3.png" alt="" width="239" height="239" loading="lazy" decoding="async"></a>
                     </li>
                 </ul>
 
@@ -439,7 +439,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="js/jquery-4.0.0.min.js?v=20260606b"></script>
-    <script src="js/script.js?v=20260606b"></script>
+    <script src="js/script.js?v=20260611b"></script>
 </body>
 
 

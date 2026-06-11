@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <title>AUDITION | Pledis Entertainment</title>
     <link rel="stylesheet" href="css/font.css?v=20260606b">
-    <link rel="stylesheet" href="css/style.css?v=20260606b">
+    <link rel="stylesheet" href="css/style.css?v=20260611b">
     <link rel="stylesheet" href="css/audition.css?v=20260606b">
 </head>
 
@@ -25,11 +25,11 @@
         <div class="logo"><a href="index.html">
                 <img src="img/logo_up.png" alt="pledis_logo">
             </a></div>
-        <ul class="nav">
+        <ul class="nav" role="navigation" aria-label="주 메뉴">
             <li><a href="company.html">COMPANY</a></li>
             <li><a href="artist.html">ARTIST</a></li>
             <li><a href="notice.html">NOTICE</a></li>
-            <li class="active"><a href="audition.html">AUDITION</a></li>
+            <li class="active"><a href="audition.html" aria-current="page">AUDITION</a></li>
         </ul>
         <ul class="lang">
             <li class="active"><button type="button">KOR</button></li>
@@ -37,16 +37,16 @@
             <li><button type="button">JPN</button></li>
             <li><button type="button">CHN</button></li>
         </ul>
-        <button class="hamburger" aria-label="메뉴">
+        <button class="hamburger" aria-label="메뉴 열기" aria-controls="mobileNav" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </header>
-    <nav class="mobile_nav" id="mobileNav">
+    <nav class="mobile_nav" id="mobileNav" aria-label="모바일 메뉴">
         <ul class="mobile_nav_list">
             <li><a href="company.html">COMPANY</a></li>
             <li><a href="artist.html">ARTIST</a></li>
             <li><a href="notice.html">NOTICE</a></li>
-            <li><a href="audition.html">AUDITION</a></li>
+            <li class="active"><a href="audition.html" aria-current="page">AUDITION</a></li>
         </ul>
         <ul class="mobile_lang_list">
             <li class="active"><button type="button">KOR</button></li>

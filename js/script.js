@@ -51,7 +51,7 @@ if(typeof gsap !== 'undefined' && !prefersReduced){
             introTl.play(0);
         };
         window.addEventListener('pledis:splashfade', playIntro, { once: true });
-        setTimeout(playIntro, 2400);   // 이벤트 미수신 대비 안전 폴백
+        setTimeout(playIntro, 2900);   // 이벤트 미수신 대비 안전 폴백 (splash fadeStart≈2705보다 뒤)
     } else {
         gsap.delayedCall(0.15, function(){ introTl.play(0); });
     }

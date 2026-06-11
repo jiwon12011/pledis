@@ -5,71 +5,7 @@
 a{text-decoration: none; color: inherit;}
 li{list-style: none;}
 
-/* ── 페이지 로딩 인트로 (고급) ── */
-.page_intro{
-    position: fixed; inset: 0; z-index: 10000;
-    background: #0c0c0c;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 28px;
-    overflow: hidden;
-}
-/* 좌우로 갈라지며 퇴장 */
-.page_intro::before,
-.page_intro::after{
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 50%;
-    background: #0c0c0c;
-    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
-    z-index: 1;
-}
-.page_intro::before{ left: 0; }
-.page_intro::after { right: 0; }
-.page_intro.hide::before{ transform: translateX(-100%); }
-.page_intro.hide::after { transform: translateX(100%); }
-
-.intro_content{
-    position: relative; z-index: 2;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 22px;
-}
-.intro_logo{
-    width: 160px;
-    filter: brightness(0) invert(1);
-    opacity: 0;
-    transform: translateY(16px);
-    animation: intro_logo_in 0.7s cubic-bezier(0.22,1,0.36,1) forwards 0.3s;
-}
-.intro_label{
-    font-size: 11px;
-    letter-spacing: 0.35em;
-    color: rgba(255,255,255,0.4);
-    opacity: 0;
-    animation: intro_logo_in 0.7s ease forwards 0.55s;
-}
-/* 가는 로딩 선 */
-.intro_bar{
-    width: 120px; height: 1px;
-    background: rgba(255,255,255,0.12);
-    position: relative; overflow: hidden;
-    opacity: 0;
-    animation: intro_logo_in 0.5s ease forwards 0.4s;
-}
-.intro_bar::after{
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: #e8704a;
-    animation: intro_bar_fill 0.9s cubic-bezier(0.4,0,0.2,1) forwards 0.5s;
-}
-@keyframes intro_logo_in{
-    to{ opacity: 1; transform: translateY(0); }
-}
-@keyframes intro_bar_fill{
-    to{ left: 0; }
-}
+/* (구 .page_intro 로딩 인트로 CSS 제거 — 현재 인트로는 js/splash.js의 #pledis-splash) */
 
 /* ── MV 타이머 바 ── */
 .mv_timer_bar{
@@ -181,17 +117,6 @@ header.scrolled .lang li{ color: #222; }
 header .lang li:hover{ color: #FF4600; }
 header .lang li.active button{ color: #FF4600; font-weight: 700; }
 header.scrolled .lang li.active button{ color: #FF4600; }
-
-/* ── ADMIN 버튼 (인라인 스타일 → 클래스) ── */
-.nav_admin{
-    font-size: 13px;
-    opacity: 0.65;
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    padding: 3px 10px;
-    transition: opacity 0.3s, color 0.3s;
-}
-.nav_admin:hover{ opacity: 1; }
 
 /* ── 스크롤 진행바 (브랜드 레드) ── */
 .scroll_progress{
@@ -1328,6 +1253,7 @@ header.scrolled .hamburger span{ background: #222; }
     letter-spacing: 0.04em;
 }
 .mobile_nav_list li a:hover{ color: #FF4600; }
+.mobile_nav_list li.active a{ color: #e8704a; }
 
 .mobile_lang_list{
     display: flex;

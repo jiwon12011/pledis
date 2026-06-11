@@ -16,10 +16,13 @@
 
     var WORD = 'ENTERTAINMENT';
     var TYPE_START = 1150, STEP = 55;            // 타이핑 시작 / 글자 간격(ms)
-    var typeEnd = TYPE_START + WORD.length * STEP;
-    var ruleDelay = typeEnd + 250;
+    var typeEnd = TYPE_START + WORD.length * STEP;   // ≈1865: 마지막 글자 진입
+    var RULE_DUR = 520;                          // 밑줄 그려지는 시간
+    var ruleDelay = typeEnd + 120;               // 밑줄 시작 ≈1985
     var FADE = 600;
-    var fadeStart = reduce ? 700 : 2300;         // 폴백(2400ms)보다 살짝 앞
+    // 밑줄이 '끝까지' 그려진 뒤(ruleDelay+RULE_DUR) 잠깐 머물고 페이드 → 락업 완성을 보여줌.
+    // script.js 히어로 인트로 폴백(2900ms)보다 앞서야 이벤트가 크로스페이드를 주도한다.
+    var fadeStart = reduce ? 700 : (ruleDelay + RULE_DUR + 180);   // ≈2705
     var done = fadeStart + FADE + 80;
 
     var style = document.createElement('style');
@@ -38,7 +41,7 @@
         '#pledis-splash .ps-word{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;' +
             'font-size:clamp(13px,2.7vw,24px);font-weight:600;letter-spacing:.42em;text-indent:.42em;' +
             'color:#e8704a;line-height:1.2;min-height:1.4em;}' +
-        '#pledis-splash .ps-ch{display:inline-block;opacity:0;transform:translateY(8px);filter:blur(4px);' +
+        '#pledis-splash .ps-ch{display:inline-block;opacity:0;transform:translateY(8px);filter:blur(2px);' +
             'animation:ps-ch-in .45s cubic-bezier(.22,1,.36,1) forwards;}' +
         '@keyframes ps-ch-in{to{opacity:1;transform:translateY(0);filter:blur(0);}}' +
         '#pledis-splash .ps-caret{display:inline-block;width:2px;height:1em;background:#e8704a;' +
@@ -47,14 +50,15 @@
             'ps-blink .9s steps(1) infinite ' + typeEnd + 'ms;}' +
         '@keyframes ps-caret-on{to{opacity:1;}}' +
         '@keyframes ps-blink{50%{opacity:0;}}' +
-        '#pledis-splash .ps-rule{height:1px;width:0;' +
+        '#pledis-splash .ps-rule{height:1px;width:min(360px,70vw);' +
+            'transform:scaleX(0);transform-origin:center;' +
             'background:linear-gradient(90deg,transparent,#e8704a 50%,transparent);' +
-            'animation:ps-rule-in 1s cubic-bezier(.4,0,.2,1) forwards ' + ruleDelay + 'ms;}' +
-        '@keyframes ps-rule-in{to{width:min(360px,70vw);}}' +
+            'animation:ps-rule-in ' + RULE_DUR + 'ms cubic-bezier(.4,0,.2,1) forwards ' + ruleDelay + 'ms;}' +
+        '@keyframes ps-rule-in{to{transform:scaleX(1);}}' +
         '@media (prefers-reduced-motion: reduce){' +
             '#pledis-splash .ps-logo{transform:scale(.8)!important;opacity:1!important;animation:none!important;}' +
             '#pledis-splash .ps-ch{opacity:1!important;transform:none!important;filter:none!important;animation:none!important;}' +
-            '#pledis-splash .ps-rule{width:min(360px,70vw)!important;animation:none!important;}' +
+            '#pledis-splash .ps-rule{transform:scaleX(1)!important;animation:none!important;}' +
             '#pledis-splash .ps-caret{display:none;}}';
     document.head.appendChild(style);
 
@@ -69,7 +73,7 @@
     ov.innerHTML =
         '<div class="ps-seq">' +
             '<img class="ps-logo" src="img/logo_up.png" alt="PLEDIS">' +
-            '<div class="ps-word" aria-label="PLEDIS ENTERTAINMENT">' + letters +
+            '<div class="ps-word" role="img" aria-label="PLEDIS ENTERTAINMENT">' + letters +
                 '<span class="ps-caret" aria-hidden="true"></span>' +
             '</div>' +
             '<span class="ps-rule" aria-hidden="true"></span>' +
